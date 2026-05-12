@@ -118,6 +118,22 @@ export function getAiAutomationSiloIndexPage() {
   return aiAutomationPages.find((page) => page.pageType === "ai_automation_index" && page.status === "published") ?? null;
 }
 
+export function searchProgrammaticPages(query: string, limit = 24) {
+  const term = query.trim().toLowerCase();
+  if (!term) return [];
+
+  return allPages
+    .filter((page) => page.status === "published")
+    .map((page) => ({
+      page,
+      score: scoreSearchMatch(page, term),
+    }))
+    .filter((item) => item.score > 0)
+    .sort((a, b) => b.score - a.score || a.page.pageTitle.localeCompare(b.page.pageTitle))
+    .slice(0, limit)
+    .map((item) => item.page);
+}
+
 export function getRelatedPages(page: ProgrammaticPage) {
   const candidateSlugs = [
     ...extractPageSlugs(page.seedLinks),
@@ -143,6 +159,27 @@ export function getRelatedPages(page: ProgrammaticPage) {
         .some((tool) => appFilters.includes(tool)),
     )
     .slice(0, 5);
+}
+
+function scoreSearchMatch(page: ProgrammaticPage, term: string) {
+  const slug = page.pageSlug.toLowerCase();
+  const title = page.pageTitle.toLowerCase();
+  const heading = page.h1Heading.toLowerCase();
+  const description = page.metaDescription.toLowerCase();
+  const keyword = page.primaryKeyword.toLowerCase();
+  const semantic = page.semanticTerms.toLowerCase();
+
+  if (slug === term) return 100;
+  if (title === term || heading === term) return 95;
+  if (slug.includes(term)) return 80;
+
+  let score = 0;
+  if (title.includes(term)) score += 45;
+  if (heading.includes(term)) score += 40;
+  if (keyword.includes(term)) score += 30;
+  if (description.includes(term)) score += 18;
+  if (semantic.includes(term)) score += 12;
+  return score;
 }
 
 function extractPageSlugs(value: string | null) {

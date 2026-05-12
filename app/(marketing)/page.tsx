@@ -70,6 +70,46 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="mt-16 rounded-2xl border border-border bg-card p-8 md:p-10">
+        <p className="text-sm uppercase tracking-[0.22em] text-[#7e8a86]">Who are we?</p>
+        <h2 className="mt-2 text-3xl font-bold md:text-4xl">We started by replacing our own software stack.</h2>
+        <div className="mt-6 max-w-4xl space-y-5 text-zinc-300">
+          <p>
+            GetForked was started by a group of developers and business owners who were tired of renting software
+            forever.
+          </p>
+          <p>
+            Like many businesses, we were paying for CRMs, automation tools, spreadsheets, dashboards, connectors, and
+            SaaS subscriptions that only solved part of the problem. The more the business grew, the more the stack
+            became expensive, fragile, and difficult to manage.
+          </p>
+          <p>
+            So we started building our own replacements. We swapped fragile middleware for direct connectors, turned
+            messy spreadsheets into dashboards, and used AI where it saved time while keeping humans in control where
+            judgment mattered.
+          </p>
+          <p>
+            Now GetForked helps other business owners reduce the SaaS tax, automate repetitive work, save time, and own
+            the systems their business depends on.
+          </p>
+          <p className="font-semibold text-zinc-100">Stop renting workflows. Start owning them.</p>
+        </div>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Link
+            href="/how-it-works"
+            className="inline-flex h-12 items-center justify-center rounded-[10px] bg-gradient-to-br from-emerald-400 to-emerald-500 px-[22px] font-bold text-[#02100a]"
+          >
+            See How It Works
+          </Link>
+          <Link
+            href="/brief/new"
+            className="inline-flex h-12 items-center justify-center rounded-[10px] border border-[#314044] bg-white/5 px-[22px] font-semibold text-[#dde5e1] transition hover:border-emerald-400/45 hover:bg-emerald-400/10"
+          >
+            Submit Your Brief
+          </Link>
+        </div>
+      </section>
+
       <section className="mt-22">
         <div className="max-w-2xl">
           <p className="text-sm uppercase tracking-[0.22em] text-[#7e8a86]">How it works</p>

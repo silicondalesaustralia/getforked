@@ -2,11 +2,11 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteSearchBar } from "@/components/layout/site-search-bar";
 
-type MarketingLayoutProps = {
+type MarketplaceLayoutProps = {
   children: React.ReactNode;
 };
 
-export default function MarketingLayout({ children }: MarketingLayoutProps) {
+export default function MarketplaceLayout({ children }: MarketplaceLayoutProps) {
   return (
     <>
       <SiteHeader />

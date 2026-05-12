@@ -30,6 +30,9 @@ export function SiteFooter() {
           </div>
         </div>
         <nav className="flex flex-wrap gap-4 text-zinc-300">
+          <Link href="/about" className="transition hover:text-white">
+            About
+          </Link>
           <Link href="/how-it-works" className="transition hover:text-white">
             How It Works
           </Link>
