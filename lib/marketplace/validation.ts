@@ -8,6 +8,9 @@ export type BriefPayload = {
   budget: string;
   urgency: string;
   contactEmail: string;
+  source: string;
+  silo: string;
+  page: string;
 };
 
 export type BuilderApplicationPayload = {
@@ -67,6 +70,9 @@ export function validateBriefPayload(input: unknown): BriefPayload | null {
     budget: textValue(record.budget, 80),
     urgency: textValue(record.urgency, 80),
     contactEmail: textValue(record.contactEmail, 180).toLowerCase(),
+    source: textValue(record.source, 120),
+    silo: textValue(record.silo, 50),
+    page: textValue(record.page, 100),
   };
   if (!payload.projectType || !payload.problem || !payload.desiredOutcome || !isEmail(payload.contactEmail)) {
     return null;

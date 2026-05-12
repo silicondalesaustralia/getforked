@@ -3,7 +3,19 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
-export function BriefForm() {
+type BriefFormDefaults = {
+  projectType?: string;
+  tools?: string;
+  source?: string;
+  silo?: string;
+  page?: string;
+};
+
+type Props = {
+  defaults?: BriefFormDefaults;
+};
+
+export function BriefForm({ defaults }: Props) {
   const router = useRouter();
   const [message, setMessage] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -37,6 +49,9 @@ export function BriefForm() {
 
   return (
     <form onSubmit={onSubmit} className="grid gap-6 rounded-2xl border border-border bg-card p-6">
+      <input type="hidden" name="source" value={defaults?.source ?? ""} />
+      <input type="hidden" name="silo" value={defaults?.silo ?? ""} />
+      <input type="hidden" name="page" value={defaults?.page ?? ""} />
       <section className="grid gap-3">
         <p className="text-xs font-semibold tracking-[0.2em] text-zinc-400">STEP 1 OF 8</p>
         <label className="grid gap-1 text-sm text-zinc-300">
@@ -44,6 +59,7 @@ export function BriefForm() {
           <input
             name="projectType"
             required
+            defaultValue={defaults?.projectType}
             placeholder="Replace a SaaS tool / automate a process / build a dashboard"
             className="rounded-md border border-zinc-700 bg-zinc-950 px-3 py-2"
           />
@@ -55,6 +71,7 @@ export function BriefForm() {
           <input
             name="tools"
             required
+            defaultValue={defaults?.tools}
             placeholder="HubSpot, Zapier, Airtable, Sheets"
             className="rounded-md border border-zinc-700 bg-zinc-950 px-3 py-2"
           />

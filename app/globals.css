@@ -1,13 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #05070e;
-  --foreground: #f5f7ff;
-  --muted: #9ca3b4;
-  --card: #0d1220;
-  --accent: #7c9cff;
-  --border: #1f2940;
-  --surface: #111a2c;
+  --background: #050708;
+  --foreground: #f4f7f5;
+  --muted: #b8c2be;
+  --card: #0f1517;
+  --accent: #10b981;
+  --border: #243034;
+  --surface: #141c1f;
+  --brand: #18e38a;
+  --brand-hover: #12c978;
+  --brand-soft: rgba(24, 227, 138, 0.12);
 }
 
 @theme inline {
@@ -28,8 +31,8 @@
 
 body {
   background:
-    radial-gradient(1200px 500px at 15% -10%, #1c2a4d 0%, transparent 55%),
-    radial-gradient(1000px 500px at 85% -20%, #1a2542 0%, transparent 55%),
+    radial-gradient(circle at 80% 0%, rgba(24, 227, 138, 0.12), transparent 30%),
+    radial-gradient(circle at 15% 20%, rgba(24, 227, 138, 0.05), transparent 24%),
     var(--background);
   color: var(--foreground);
   font-family: var(--font-manrope), sans-serif;
@@ -40,8 +43,55 @@ a {
   text-decoration: none;
 }
 
+.zapier-prose h2 {
+  margin-top: 2.5rem;
+  color: #f4f7f5;
+  font-size: clamp(1.875rem, 3vw, 2.35rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+
+.zapier-prose h3 {
+  margin-top: 1.75rem;
+  color: #f4f7f5;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.zapier-prose p,
+.zapier-prose li {
+  margin-top: 1rem;
+  line-height: 1.75;
+}
+
+.zapier-prose a {
+  color: #18e38a;
+}
+
+.zapier-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.zapier-table th,
+.zapier-table td {
+  border-bottom: 1px solid #243034;
+  padding: 0.9rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.zapier-table th {
+  color: #f4f7f5;
+}
+
 .container {
-  margin: 0 auto;
-  max-width: 76rem;
-  padding: 0 1.25rem;
+  width: min(100% - 48px, 1180px);
+  margin-inline: auto;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: min(100% - 32px, 100%);
+  }
 }

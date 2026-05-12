@@ -1,6 +1,23 @@
 import { BriefForm } from "@/components/marketplace/brief-form";
+import { projectTypeFromPrefill } from "@/lib/brief-prefill";
 
-export default function NewBriefPage() {
+type Props = {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
+
+export default async function NewBriefPage({ searchParams }: Props) {
+  const params = await searchParams;
+  const defaults = {
+    projectType: projectTypeFromPrefill({
+      category: firstValue(params.category),
+      silo: firstValue(params.silo),
+    }),
+    tools: firstValue(params.tools),
+    source: firstValue(params.source),
+    silo: firstValue(params.silo),
+    page: firstValue(params.page),
+  };
+
   return (
     <div className="container max-w-4xl py-14">
       <p className="text-sm uppercase tracking-[0.25em] text-zinc-400">Buyer brief</p>
@@ -17,7 +34,7 @@ export default function NewBriefPage() {
         ))}
       </div>
       <div className="mt-8">
-        <BriefForm />
+        <BriefForm defaults={defaults} />
       </div>
       <div className="mt-8 rounded-xl border border-border bg-card p-5">
         <p className="text-sm uppercase tracking-[0.2em] text-zinc-400">What happens next</p>
@@ -29,4 +46,8 @@ export default function NewBriefPage() {
       </div>
     </div>
   );
+}
+
+function firstValue(value: string | string[] | undefined) {
+  return Array.isArray(value) ? value[0] ?? "" : value ?? "";
 }

@@ -9,7 +9,7 @@ type LeadFormProps = {
   source?: string;
 };
 
-const fieldClass = "rounded-md border border-zinc-700 bg-zinc-950 px-3 py-2";
+const fieldClass = "input-field rounded-[10px] border border-[#2a3639] bg-[#050708] px-3.5 py-2.5 text-[#f4f7f5] placeholder:text-[#7e8a86] focus:border-accent focus:outline-none focus:ring-3 focus:ring-emerald-400/15";
 
 export function LeadForm({ industrySlug, leadForm, source = "site" }: LeadFormProps) {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
@@ -47,11 +47,39 @@ export function LeadForm({ industrySlug, leadForm, source = "site" }: LeadFormPr
   }
 
   return (
-    <form onSubmit={handleSubmit} className="grid gap-3 rounded-xl border border-zinc-800 bg-card p-4">
-      <input required name="name" placeholder="Name" className={fieldClass} />
-      <input required name="email" type="email" placeholder="Email" className={fieldClass} />
-      <input name="phone" placeholder="Phone" className={fieldClass} />
-      <input name="businessType" placeholder={leadForm?.companyLabel ?? "Business type"} className={fieldClass} />
+    <form
+      onSubmit={handleSubmit}
+      className="form-stack ml-auto grid max-w-[480px] gap-[14px] rounded-[20px] border border-emerald-400/20 bg-gradient-to-b from-[#101719] to-[#0b1012] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.42)]"
+    >
+      {source.includes("homepage") ? (
+        <>
+          <h3 className="text-xl font-semibold text-[#f4f7f5]">Submit your brief</h3>
+          <p className="-mt-1 text-sm text-muted">
+            Tell us what you want to replace, connect or automate. We will match the right builder.
+          </p>
+        </>
+      ) : null}
+      <label className="sr-only" htmlFor="lead-name">
+        Name
+      </label>
+      <input id="lead-name" required name="name" placeholder="Name" className={fieldClass} />
+      <label className="sr-only" htmlFor="lead-email">
+        Email
+      </label>
+      <input id="lead-email" required name="email" type="email" placeholder="Email" className={fieldClass} />
+      <label className="sr-only" htmlFor="lead-phone">
+        Phone
+      </label>
+      <input id="lead-phone" name="phone" placeholder="Phone" className={fieldClass} />
+      <label className="sr-only" htmlFor="lead-business-type">
+        Business type
+      </label>
+      <input
+        id="lead-business-type"
+        name="businessType"
+        placeholder={leadForm?.companyLabel ?? "Business type"}
+        className={fieldClass}
+      />
       {leadForm?.teamSizeField ? (
         <label className="grid gap-1 text-sm text-zinc-300">
           {leadForm.teamSizeField.label}
@@ -104,8 +132,11 @@ export function LeadForm({ industrySlug, leadForm, source = "site" }: LeadFormPr
           ))}
         </select>
       ) : null}
-      <button disabled={status === "submitting"} className="rounded-md bg-accent px-4 py-2 font-medium text-zinc-950 disabled:opacity-50">
-        {status === "submitting" ? "Submitting..." : "Get Forked"}
+      <button
+        disabled={status === "submitting"}
+        className="w-full rounded-[10px] bg-gradient-to-br from-emerald-400 to-emerald-500 px-4 py-2.5 font-semibold text-[#02100a] shadow-[0_14px_36px_rgba(24,227,138,0.22)] disabled:opacity-50"
+      >
+        {status === "submitting" ? "Submitting..." : "Get Matched"}
       </button>
       {message ? <p className="text-sm text-zinc-300">{message}</p> : null}
     </form>

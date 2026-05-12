@@ -21,13 +21,20 @@ export async function POST(request: Request) {
       budget: payload.budget,
       urgency: payload.urgency,
       contactEmail: payload.contactEmail,
+      tags: [payload.source, payload.silo, payload.page].filter(Boolean),
     });
 
     await sendNotification({
       type: "brief_submitted",
       recipient: "admin",
       subject: "New buyer brief submitted",
-      metadata: { contactEmail: payload.contactEmail, projectType: payload.projectType },
+      metadata: {
+        contactEmail: payload.contactEmail,
+        projectType: payload.projectType,
+        source: payload.source,
+        silo: payload.silo,
+        page: payload.page,
+      },
     });
 
     return NextResponse.json({ ok: true });
