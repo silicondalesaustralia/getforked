@@ -1,11 +1,12 @@
+import { MarketingPage } from "@/components/marketplace/marketing-page";
+
 export default function AboutPage() {
   return (
-    <div className="container py-14">
-      <h1 className="text-3xl font-bold">About GetForked</h1>
-      <p className="mt-4 max-w-3xl text-zinc-300">
-        We help businesses in major English-speaking markets escape SaaS lock-in by replacing
-        expensive subscriptions with software they own.
-      </p>
-    </div>
+    <MarketingPage
+      eyebrow="About"
+      title="GetForked bridges SaaS-heavy businesses and AI-native builders."
+      description="Our mission is to reduce SaaS/tool bloat by matching businesses with vetted developers who can replace recurring subscriptions with tools the business actually owns."
+      points={["Why now", "Mission and positioning", "AI-native builder network", "Managed matching process", "Business outcomes over feature bloat", "Long-term platform roadmap"]}
+    />
   );
 }

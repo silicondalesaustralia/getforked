@@ -1,11 +1,12 @@
+import { MarketingPage } from "@/components/marketplace/marketing-page";
+
 export default function PricingPage() {
   return (
-    <div className="container py-14">
-      <h1 className="text-3xl font-bold">Transparent Pricing</h1>
-      <p className="mt-4 max-w-3xl text-zinc-300">
-        We price based on the system we build, not on your monthly dependence. One-time build investment,
-        optional support, and complete ownership transfer.
-      </p>
-    </div>
+    <MarketingPage
+      eyebrow="Pricing"
+      title="Projects are quoted after scope, not fixed-price gigs."
+      description="Simple automations can start lower, while dashboard platforms and CRM replacements require deeper scoping. Buyer protection fee and builder commission are applied transparently."
+      points={["Complexity-based quoting", "Common pricing factors", "Buyer service fee model", "Builder commission model", "Managed build option", "Support and maintenance options"]}
+    />
   );
 }

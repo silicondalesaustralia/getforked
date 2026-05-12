@@ -9,7 +9,7 @@ export default function MarketingLayout({ children }: MarketingLayoutProps) {
   return (
     <>
       <SiteHeader />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 pb-10">{children}</main>
       <SiteFooter />
     </>
   );

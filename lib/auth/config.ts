@@ -1,16 +1,12 @@
 import type { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { env } from "@/lib/env";
-
-const adminEmails = (process.env.ADMIN_EMAILS ?? "")
-  .split(",")
-  .map((item) => item.trim().toLowerCase())
-  .filter(Boolean);
+import { resolveRole } from "@/lib/auth/roles";
 
 export const authOptions: NextAuthOptions = {
   secret: env.nextAuthSecret,
   pages: {
-    signIn: "/contact",
+    signIn: "/login",
   },
   providers: [
     Credentials({
@@ -26,14 +22,22 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        if (!adminEmails.includes(email)) {
-          return null;
-        }
-
-        return { id: email, email };
+        return { id: email, email, role: resolveRole(email) };
       },
     }),
   ],
+  callbacks: {
+    jwt({ token, user }) {
+      if (user) {
+        token.role = user.role;
+      }
+      return token;
+    },
+    session({ session, token }) {
+      session.user.role = token.role ?? resolveRole(session.user.email ?? "");
+      return session;
+    },
+  },
   session: {
     strategy: "jwt",
   },

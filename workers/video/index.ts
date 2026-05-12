@@ -1,31 +1,33 @@
-import { processVideo } from "@/workers/video/processor";
+import { claimNextJob, processClaimedJob } from "@/workers/video/processor";
+
+const pollIntervalMs = Number(process.env.VIDEO_WORKER_POLL_MS ?? 2500);
+
+async function sleep(ms: number) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
 
 async function main() {
-  try {
-    const raw = process.env.VIDEO_JOB ?? "";
-    if (!raw) {
-      return;
+  const workerId = process.env.VIDEO_WORKER_ID ?? `worker-${process.pid}`;
+
+  while (true) {
+    try {
+      const claimed = await claimNextJob(workerId);
+      if (!claimed) {
+        await sleep(pollIntervalMs);
+        continue;
+      }
+
+      const result = await processClaimedJob(claimed);
+      if (!result.ok) {
+        console.error(result.error);
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Worker failed";
+      console.error(message);
+      await sleep(pollIntervalMs);
     }
-
-    const job = JSON.parse(raw) as {
-      videoId?: string;
-      key?: string;
-      targetPlatforms?: string[];
-    };
-
-    const result = await processVideo({
-      videoId: String(job.videoId ?? ""),
-      key: String(job.key ?? ""),
-      targetPlatforms: job.targetPlatforms ?? [],
-    });
-
-    if (!result.ok) {
-      throw new Error(result.error);
-    }
-  } catch (error) {
-    const message = error instanceof Error ? error.message : "Worker failed";
-    console.error(message);
-    process.exit(1);
   }
 }
 
