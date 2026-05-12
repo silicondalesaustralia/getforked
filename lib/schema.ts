@@ -136,7 +136,7 @@ function breadcrumbSchema(page: ProgrammaticPage) {
   const items = [{ name: "Home", item: `${siteUrl}/` }, siloCrumb];
 
   if (!isIndexPage(page)) {
-    items.push({ name: page.h1Heading, item: `${siteUrl}${page.fullUrl}` });
+    items.push({ name: breadcrumbLeafName(page), item: `${siteUrl}${page.fullUrl}` });
   }
 
   return {
@@ -149,6 +149,13 @@ function breadcrumbSchema(page: ProgrammaticPage) {
       item: item.item,
     })),
   };
+}
+
+function breadcrumbLeafName(page: ProgrammaticPage) {
+  if (page.siloSlug === "ai-automation" && page.pageSlug === "ai-workflow-automation") {
+    return "AI Workflow Automation";
+  }
+  return page.h1Heading;
 }
 
 function itemListSchema(page: ProgrammaticPage, relatedPages: ProgrammaticPage[]) {

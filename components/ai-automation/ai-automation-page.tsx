@@ -20,7 +20,8 @@ export function AiAutomationPage({ page, relatedPages, allPages = [] }: Props) {
           <div>
             <nav className="mb-8 text-sm text-[#7E8A86]">
               <Link href="/">Home</Link> <span className="mx-2">/</span>
-              <Link href="/ai-automation/">AI Automation</Link>
+              <Link href="/ai-automation/">AI Automation</Link> <span className="mx-2">/</span>
+              <span>{breadcrumbLabel(page)}</span>
             </nav>
             <p className="mb-4 inline-flex rounded-full border border-[rgba(24,227,138,0.28)] bg-[rgba(24,227,138,0.12)] px-3 py-1.5 text-sm text-[#A7F3D0]">
               AI automation
@@ -118,9 +119,18 @@ function SeoBody({ page }: { page: ProgrammaticPage }) {
 
 function PageGrid({ title, pages }: { title: string; pages: ProgrammaticPage[] }) {
   if (pages.length === 0) return null;
-  return <section className="container py-16"><h2 className="text-3xl font-bold">{title}</h2><div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{pages.map((page) => <Link key={page.id} href={page.fullUrl} className="rounded-2xl border border-[#243034] bg-[#0F1517] p-5"><span className="block font-semibold">{page.h1Heading}</span><span className="mt-3 block text-sm leading-6 text-[#B8C2BE]">{page.metaDescription}</span></Link>)}</div></section>;
+  return <section className="container py-16"><h2 className="text-3xl font-bold">{title}</h2><div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{pages.map((page) => <Link key={page.id} href={page.fullUrl} className="rounded-2xl border border-[#243034] bg-[#0F1517] p-5"><span className="block font-semibold">{outcomeLedTitle(page.h1Heading)}</span><span className="mt-3 block text-sm leading-6 text-[#B8C2BE]">{page.metaDescription}</span></Link>)}</div></section>;
 }
 
 function FinalCta({ page }: { page: ProgrammaticPage }) {
   return <section className="container pb-20 pt-12"><div className="rounded-[26px] border border-[rgba(24,227,138,0.24)] bg-gradient-to-br from-[#101719] to-[#050708] p-8 text-center md:p-12"><h2 className="text-3xl font-bold md:text-5xl">Submit your AI automation brief</h2><p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-[#B8C2BE]">We scope before you commit, then match the brief with an approved builder.</p><Link href={buildBriefUrl(page)} className="mt-8 inline-flex rounded-[10px] bg-[#18E38A] px-6 py-3 font-bold text-[#02100A]">{page.primaryCta}</Link></div></section>;
+}
+
+function breadcrumbLabel(page: ProgrammaticPage) {
+  if (page.pageSlug === "ai-workflow-automation") return "AI Workflow Automation";
+  return outcomeLedTitle(page.h1Heading);
+}
+
+function outcomeLedTitle(title: string) {
+  return title.replace(/\s*Builders\??$/i, "").trim();
 }

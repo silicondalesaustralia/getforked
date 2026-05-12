@@ -120,9 +120,9 @@ export function getAiAutomationSiloIndexPage() {
 
 export function getRelatedPages(page: ProgrammaticPage) {
   const candidateSlugs = [
-    ...extractZapierSlugs(page.seedLinks),
-    ...extractZapierSlugs(page.nodeLinks),
-    ...extractZapierSlugs(page.relatedPageIds),
+    ...extractPageSlugs(page.seedLinks),
+    ...extractPageSlugs(page.nodeLinks),
+    ...extractPageSlugs(page.relatedPageIds),
   ].filter((slug) => slug !== page.pageSlug);
 
   if (candidateSlugs.length > 0) {
@@ -145,7 +145,7 @@ export function getRelatedPages(page: ProgrammaticPage) {
     .slice(0, 5);
 }
 
-function extractZapierSlugs(value: string | null) {
+function extractPageSlugs(value: string | null) {
   if (!value) {
     return [];
   }
@@ -153,8 +153,9 @@ function extractZapierSlugs(value: string | null) {
   return value
     .split(/[,;\s]+/)
     .map((item) => {
-      const match = item.match(/\/zapier\/([^/]+)\//);
-      return match?.[1] ?? "";
+      const match = item.match(/\/(?:zapier|ai-automation)\/([^/]+)\//);
+      if (match?.[1]) return match[1];
+      return item.replace(/^\/+|\/+$/g, "");
     })
     .filter(Boolean);
 }

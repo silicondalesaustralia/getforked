@@ -34,6 +34,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "website",
       siteName: "GetForked",
     },
+    twitter: {
+      title: page.pageTitle,
+      description: page.metaDescription,
+      card: "summary_large_image",
+    },
   };
 }
 
