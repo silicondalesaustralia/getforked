@@ -1,12 +1,10 @@
-type DatabaseEnvKey = "DATABASE_URL";
 type AwsEnvKey = "AWS_REGION" | "AWS_S3_BUCKET" | "AWS_ACCESS_KEY_ID" | "AWS_SECRET_ACCESS_KEY";
 
-const requiredDatabaseKeys: DatabaseEnvKey[] = ["DATABASE_URL"];
 const requiredAwsKeys: AwsEnvKey[] = ["AWS_REGION", "AWS_S3_BUCKET", "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"];
 
 function readEnv() {
   return {
-    databaseUrl: process.env.DATABASE_URL ?? "",
+    databaseUrl: process.env.DATABASE_URL ?? process.env.POSTGRES_URL ?? "",
     nextAuthSecret: process.env.NEXTAUTH_SECRET ?? "",
     nextAuthUrl: process.env.NEXTAUTH_URL ?? "",
     awsRegion: process.env.AWS_REGION ?? "",
@@ -31,7 +29,9 @@ function assertKeysPresent(keys: string[]) {
 }
 
 export function assertDatabaseEnv() {
-  assertKeysPresent(requiredDatabaseKeys);
+  if (!process.env.DATABASE_URL && !process.env.POSTGRES_URL) {
+    throw new Error("Missing environment variable: set DATABASE_URL or POSTGRES_URL.");
+  }
 }
 
 export function assertAwsEnv() {
