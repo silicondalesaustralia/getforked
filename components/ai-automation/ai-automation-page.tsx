@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ProgrammaticPage } from "@/lib/programmatic-pages";
 import { buildBriefUrl } from "@/lib/brief-prefill";
+import { MarketContextSection } from "@/components/programmatic/market-context-section";
 import { HeroSummary } from "@/components/programmatic/hero-summary";
 
 type Props = {
@@ -43,6 +44,9 @@ export function AiAutomationPage({ page, relatedPages, allPages = [] }: Props) {
         </div>
       </section>
       <TrustBar />
+      <section className="container py-12">
+        <MarketContextSection focus="ai" />
+      </section>
       <SplitSection eyebrow="The problem" title="When generic AI tools are not enough" body={page.problemSummary} />
       <SplitSection eyebrow="The custom build" title="What an AI automation builder can create" body={page.replacementSummary} />
       <Workflow page={page} />

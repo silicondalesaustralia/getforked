@@ -1,4 +1,5 @@
 import type { ProgrammaticPage } from "@/lib/programmatic-pages";
+import { MarketContextSection } from "@/components/programmatic/market-context-section";
 import { ZapierBeforeAfterWorkflow } from "@/components/zapier/zapier-before-after-workflow";
 import { ZapierBriefCard } from "@/components/zapier/zapier-brief-card";
 import { ZapierBuilderMatching } from "@/components/zapier/zapier-builder-matching";
@@ -26,6 +27,9 @@ export function ZapierLandingPage({ page, relatedPages }: Props) {
         </div>
       </section>
       <ZapierTrustBar />
+      <section className="container py-12">
+        <MarketContextSection focus="zapier" />
+      </section>
       <ZapierProblemSection page={page} />
       <ZapierReplacementSection page={page} />
       <ZapierBeforeAfterWorkflow page={page} />

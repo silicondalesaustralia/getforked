@@ -1,5 +1,6 @@
 import zapierPagesData from "@/content/generated/zapier-pages.json";
 import aiAutomationPagesData from "@/content/generated/ai-automation-pages.json";
+import { isConsolidatedAlias } from "@/lib/programmatic-consolidation";
 
 export type ProgrammaticPage = {
   id: string;
@@ -76,6 +77,14 @@ export type ProgrammaticPage = {
   workflowAfterLabel: string;
   schemaType: string;
   updatedAt: string;
+  nuancedContent?: {
+    problem_heading?: string;
+    replacement_heading?: string;
+    failure_modes?: string[];
+    replacement_cards?: Array<{ title: string; description: string }>;
+    when_zapier_is_still_right?: string;
+    faq?: Array<{ question: string; answer: string }>;
+  };
 };
 
 export type ProgrammaticPageStatus = ProgrammaticPage["status"];
@@ -85,37 +94,45 @@ const aiAutomationPages = aiAutomationPagesData as ProgrammaticPage[];
 const allPages = [...zapierPages, ...aiAutomationPages];
 
 export function getProgrammaticPageByUrl(fullUrl: string) {
-  return allPages.find((page) => page.fullUrl === fullUrl && page.status === "published") ?? null;
+  return allPages.find((page) => page.fullUrl === fullUrl && page.status === "published" && isCanonicalPage(page)) ?? null;
 }
 
 export function getPublishedZapierPageBySlug(pageSlug: string) {
-  return zapierPages.find((page) => page.pageSlug === pageSlug && page.status === "published") ?? null;
+  return zapierPages.find((page) => page.pageSlug === pageSlug && page.status === "published" && isCanonicalPage(page)) ?? null;
 }
 
 export function getPublishedZapierPages(pageTypes: string[] = ["zapier_hub", "zapier_pair"]) {
   return zapierPages
-    .filter((page) => page.siloSlug === "zapier" && page.status === "published" && pageTypes.includes(page.pageType))
+    .filter(
+      (page) => page.siloSlug === "zapier" && page.status === "published" && pageTypes.includes(page.pageType) && isCanonicalPage(page),
+    )
     .sort((a, b) => a.priority - b.priority || a.pageTitle.localeCompare(b.pageTitle));
 }
 
 export function getZapierSiloIndexPage() {
-  return zapierPages.find((page) => page.pageType === "zapier_index" && page.status === "published") ?? null;
+  return zapierPages.find((page) => page.pageType === "zapier_index" && page.status === "published" && isCanonicalPage(page)) ?? null;
 }
 
 export function getPublishedAiAutomationPageBySlug(pageSlug: string) {
-  return aiAutomationPages.find((page) => page.pageSlug === pageSlug && page.status === "published") ?? null;
+  return aiAutomationPages.find((page) => page.pageSlug === pageSlug && page.status === "published" && isCanonicalPage(page)) ?? null;
 }
 
 export function getPublishedAiAutomationPages(
   pageTypes: string[] = ["ai_automation_hub", "ai_automation_sub_hub", "ai_automation_leaf"],
 ) {
   return aiAutomationPages
-    .filter((page) => page.siloSlug === "ai-automation" && page.status === "published" && pageTypes.includes(page.pageType))
+    .filter(
+      (page) =>
+        page.siloSlug === "ai-automation" &&
+        page.status === "published" &&
+        pageTypes.includes(page.pageType) &&
+        isCanonicalPage(page),
+    )
     .sort((a, b) => a.priority - b.priority || a.pageTitle.localeCompare(b.pageTitle));
 }
 
 export function getAiAutomationSiloIndexPage() {
-  return aiAutomationPages.find((page) => page.pageType === "ai_automation_index" && page.status === "published") ?? null;
+  return aiAutomationPages.find((page) => page.pageType === "ai_automation_index" && page.status === "published" && isCanonicalPage(page)) ?? null;
 }
 
 export function searchProgrammaticPages(query: string, limit = 24) {
@@ -123,7 +140,7 @@ export function searchProgrammaticPages(query: string, limit = 24) {
   if (!term) return [];
 
   return allPages
-    .filter((page) => page.status === "published")
+    .filter((page) => page.status === "published" && isCanonicalPage(page))
     .map((page) => ({
       page,
       score: scoreSearchMatch(page, term),
@@ -142,7 +159,9 @@ export function getRelatedPages(page: ProgrammaticPage) {
   ].filter((slug) => slug !== page.pageSlug);
 
   if (candidateSlugs.length > 0) {
-    const related = allPages.filter((candidate) => candidate.status === "published" && candidateSlugs.includes(candidate.pageSlug));
+    const related = allPages.filter(
+      (candidate) => candidate.status === "published" && candidateSlugs.includes(candidate.pageSlug) && isCanonicalPage(candidate),
+    );
     if (related.length > 0) {
       return related.slice(0, 5);
     }
@@ -151,7 +170,7 @@ export function getRelatedPages(page: ProgrammaticPage) {
   const appFilters = [page.appPrimaryShort, page.appSecondaryShort, page.appPrimary, page.appSecondary].filter(isString);
 
   return allPages
-    .filter((candidate) => candidate.status === "published" && candidate.siloSlug === page.siloSlug)
+    .filter((candidate) => candidate.status === "published" && candidate.siloSlug === page.siloSlug && isCanonicalPage(candidate))
     .filter((candidate) => candidate.id !== page.id)
     .filter((candidate) =>
       [candidate.appPrimaryShort, candidate.appSecondaryShort, candidate.appPrimary, candidate.appSecondary]
@@ -203,4 +222,8 @@ function unique(values: string[]) {
 
 function isString(value: string | null): value is string {
   return Boolean(value);
+}
+
+function isCanonicalPage(page: ProgrammaticPage) {
+  return !isConsolidatedAlias(page.siloSlug, page.pageSlug);
 }

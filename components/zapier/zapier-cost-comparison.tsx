@@ -14,6 +14,11 @@ export function ZapierCostComparison({ page }: Props) {
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.22em] text-[#18E38A]">Cost context</p>
           <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Zapier subscription vs scoped build</h2>
           <p className="mt-4 leading-7 text-[#B8C2BE]">{page.zapierCostContext}</p>
+          {page.nuancedContent?.when_zapier_is_still_right ? (
+            <p className="mt-4 rounded-xl border border-[#243034] bg-[#0F1517] p-4 text-sm leading-6 text-[#B8C2BE]">
+              {page.nuancedContent.when_zapier_is_still_right}
+            </p>
+          ) : null}
           <p className="mt-3 text-sm text-[#7E8A86]">
             Assumption: {page.estimatedTaskVolume || "task volume varies by workflow"}.
           </p>

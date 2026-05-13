@@ -10,7 +10,10 @@
     "typecheck": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "worker:video": "tsx workers/video/index.ts"
+    "worker:video": "tsx workers/video/index.ts",
+    "enrich:pages": "tsx scripts/enrich-programmatic-pages.ts",
+    "audit:similarity": "tsx scripts/audit-page-similarity.ts",
+    "report:enrichment": "tsx scripts/export-enrichment-report.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1041.0",
@@ -22,12 +25,15 @@
     "@tanstack/react-query": "^5.100.9",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "dotenv": "^17.4.2",
     "drizzle-orm": "^0.45.2",
     "next": "16.2.4",
     "next-auth": "^4.24.14",
+    "openai": "^6.37.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-hook-form": "^7.75.0",
+    "zod": "^4.4.3",
     "zustand": "^5.0.12"
   },
   "devDependencies": {

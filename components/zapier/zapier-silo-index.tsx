@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ProgrammaticPage } from "@/lib/programmatic-pages";
 import { buildBriefUrl } from "@/lib/brief-prefill";
 import { HeroSummary } from "@/components/programmatic/hero-summary";
+import { MarketContextSection } from "@/components/programmatic/market-context-section";
 import { ZapierBriefCard } from "@/components/zapier/zapier-brief-card";
 import { ZapierTrustBar } from "@/components/zapier/zapier-trust-bar";
 
@@ -37,6 +38,9 @@ export function ZapierSiloIndex({ page, pages }: Props) {
         </div>
       </section>
       <ZapierTrustBar />
+      <section className="container py-12">
+        <MarketContextSection focus="zapier" />
+      </section>
       <PageGrid title="App hub pages" pages={hubs} />
       <PageGrid title="Integration-pair pages" pages={pairs} />
     </main>

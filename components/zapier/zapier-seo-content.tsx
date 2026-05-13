@@ -10,10 +10,22 @@ export function ZapierSEOContent({ page }: Props) {
   return (
     <section className="container py-16">
       <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,760px)_280px]">
-        <div
-          className="zapier-prose max-w-none text-[#B8C2BE]"
-          dangerouslySetInnerHTML={{ __html: page.bodyHtml || "" }}
-        />
+        <div>
+          <div className="zapier-prose max-w-none text-[#B8C2BE]" dangerouslySetInnerHTML={{ __html: page.bodyHtml || "" }} />
+          {page.nuancedContent?.faq?.length ? (
+            <div className="mt-10 rounded-2xl border border-[#243034] bg-[#0F1517] p-6">
+              <h3 className="text-2xl font-bold">Frequently asked questions</h3>
+              <div className="mt-4 space-y-4">
+                {page.nuancedContent.faq.slice(0, 5).map((item) => (
+                  <div key={item.question} className="rounded-xl border border-[#243034] bg-[#050708] p-4">
+                    <p className="font-semibold text-[#F4F7F5]">{item.question}</p>
+                    <p className="mt-2 text-sm leading-6 text-[#B8C2BE]">{item.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : null}
+        </div>
         <aside className="hidden rounded-2xl border border-[#243034] bg-[#0F1517] p-5 lg:sticky lg:top-24 lg:block">
           <p className="mb-3 text-sm font-semibold">Ready to replace this workflow?</p>
           <Link

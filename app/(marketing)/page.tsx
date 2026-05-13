@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LeadForm } from "@/components/forms/lead-form";
+import { MarketContextSection } from "@/components/programmatic/market-context-section";
 import { SaasCalculator } from "@/components/sections/saas-calculator";
 
 const steps = [
@@ -12,8 +13,8 @@ const steps = [
 
 export default function HomePage() {
   return (
-    <div className="container py-12 md:py-16">
-      <section className="grid gap-9 pt-12 md:pt-14 lg:grid-cols-[minmax(0,1.05fr)_minmax(380px,0.8fr)] lg:gap-14 lg:pt-18">
+    <div className="container pb-12 pt-4 md:pb-16 md:pt-6">
+      <section className="grid gap-9 pt-4 md:pt-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(380px,0.8fr)] lg:gap-14 lg:pt-8">
         <div className="space-y-5">
           <p className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1.5 text-sm font-medium text-emerald-200">
             Stop paying software rent
@@ -69,6 +70,8 @@ export default function HomePage() {
           </p>
         </div>
       </section>
+
+      <MarketContextSection focus="homepage" className="mt-14" />
 
       <section className="mt-16 rounded-2xl border border-border bg-card p-8 md:p-10">
         <p className="text-sm uppercase tracking-[0.22em] text-[#7e8a86]">Who are we?</p>

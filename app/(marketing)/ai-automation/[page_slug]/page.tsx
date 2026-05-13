@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { AiAutomationPage } from "@/components/ai-automation/ai-automation-page";
 import { generatePageSchema } from "@/lib/schema";
+import { getCanonicalProgrammaticSlug } from "@/lib/programmatic-consolidation";
 import {
   getPublishedAiAutomationPageBySlug,
   getPublishedAiAutomationPages,
@@ -18,6 +19,10 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { page_slug: pageSlug } = await params;
+  const canonicalSlug = getCanonicalProgrammaticSlug("ai-automation", pageSlug);
+  if (canonicalSlug !== pageSlug) {
+    return {};
+  }
   const page = getPublishedAiAutomationPageBySlug(pageSlug);
   if (!page) return {};
 
@@ -44,6 +49,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function AiAutomationDetailPage({ params }: Props) {
   const { page_slug: pageSlug } = await params;
+  const canonicalSlug = getCanonicalProgrammaticSlug("ai-automation", pageSlug);
+  if (canonicalSlug !== pageSlug) {
+    permanentRedirect(`/ai-automation/${canonicalSlug}/`);
+  }
   const page = getPublishedAiAutomationPageBySlug(pageSlug);
   if (!page) notFound();
 

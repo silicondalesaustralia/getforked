@@ -11,7 +11,7 @@ export default function MarketplaceLayout({ children }: MarketplaceLayoutProps) 
     <>
       <SiteHeader />
       <SiteSearchBar />
-      <main className="flex-1 pb-10">{children}</main>
+      <main className="public-content flex-1 pb-10">{children}</main>
       <SiteFooter />
     </>
   );

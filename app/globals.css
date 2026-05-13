@@ -95,3 +95,23 @@ a {
     width: min(100% - 32px, 100%);
   }
 }
+
+.public-content > .container:first-child {
+  padding-top: 0.75rem !important;
+}
+
+.public-content > main:first-of-type > section:first-child,
+.public-content > main:first-of-type > .container:first-child {
+  padding-top: 0.75rem !important;
+}
+
+@media (min-width: 768px) {
+  .public-content > .container:first-child {
+    padding-top: 1rem !important;
+  }
+
+  .public-content > main:first-of-type > section:first-child,
+  .public-content > main:first-of-type > .container:first-child {
+    padding-top: 1rem !important;
+  }
+}
