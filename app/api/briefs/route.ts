@@ -31,6 +31,9 @@ export async function POST(request: Request) {
       metadata: {
         contactEmail: payload.contactEmail,
         projectType: payload.projectType,
+        tools: payload.tools.join(", "),
+        budget: payload.budget,
+        urgency: payload.urgency,
         source: payload.source,
         silo: payload.silo,
         page: payload.page,

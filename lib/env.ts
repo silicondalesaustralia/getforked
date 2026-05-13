@@ -1,21 +1,8 @@
-type RequiredEnvKey =
-  | "DATABASE_URL"
-  | "NEXTAUTH_SECRET"
-  | "NEXTAUTH_URL"
-  | "AWS_REGION"
-  | "AWS_S3_BUCKET"
-  | "AWS_ACCESS_KEY_ID"
-  | "AWS_SECRET_ACCESS_KEY";
+type DatabaseEnvKey = "DATABASE_URL";
+type AwsEnvKey = "AWS_REGION" | "AWS_S3_BUCKET" | "AWS_ACCESS_KEY_ID" | "AWS_SECRET_ACCESS_KEY";
 
-const requiredKeys: RequiredEnvKey[] = [
-  "DATABASE_URL",
-  "NEXTAUTH_SECRET",
-  "NEXTAUTH_URL",
-  "AWS_REGION",
-  "AWS_S3_BUCKET",
-  "AWS_ACCESS_KEY_ID",
-  "AWS_SECRET_ACCESS_KEY",
-];
+const requiredDatabaseKeys: DatabaseEnvKey[] = ["DATABASE_URL"];
+const requiredAwsKeys: AwsEnvKey[] = ["AWS_REGION", "AWS_S3_BUCKET", "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"];
 
 function readEnv() {
   return {
@@ -31,9 +18,9 @@ function readEnv() {
 
 export const env = readEnv();
 
-export function assertRequiredEnv() {
+function assertKeysPresent(keys: string[]) {
   const missing: string[] = [];
-  for (const key of requiredKeys) {
+  for (const key of keys) {
     if (!process.env[key]) {
       missing.push(key);
     }
@@ -41,4 +28,12 @@ export function assertRequiredEnv() {
   if (missing.length > 0) {
     throw new Error(`Missing environment variables: ${missing.join(", ")}`);
   }
+}
+
+export function assertDatabaseEnv() {
+  assertKeysPresent(requiredDatabaseKeys);
+}
+
+export function assertAwsEnv() {
+  assertKeysPresent(requiredAwsKeys);
 }

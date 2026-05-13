@@ -11,7 +11,8 @@ export function ContactForm({ endpoint }: ContactFormProps) {
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const form = new FormData(event.currentTarget);
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
     try {
       const response = await fetch(endpoint, {
         method: "POST",
@@ -25,7 +26,7 @@ export function ContactForm({ endpoint }: ContactFormProps) {
       }
       await response.json();
       setMessage("Thanks. We received your message.");
-      event.currentTarget.reset();
+      formElement.reset();
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Submission failed.");
     }

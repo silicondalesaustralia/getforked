@@ -20,7 +20,8 @@ export function LeadForm({ industrySlug, leadForm, source = "site" }: LeadFormPr
     setStatus("submitting");
     setMessage("");
 
-    const formData = new FormData(event.currentTarget);
+    const formElement = event.currentTarget;
+    const formData = new FormData(formElement);
     const payload = Object.fromEntries(formData.entries());
     const softwareSelections = formData.getAll("softwareSelections").map(String);
 
@@ -39,7 +40,7 @@ export function LeadForm({ industrySlug, leadForm, source = "site" }: LeadFormPr
 
       setStatus("success");
       setMessage("Thanks. We will be in touch within one business day.");
-      event.currentTarget.reset();
+      formElement.reset();
     } catch {
       setStatus("error");
       setMessage("Something went wrong. Please email hello@getforked.dev.");

@@ -1,7 +1,7 @@
 import { withAuth } from "next-auth/middleware";
 
 export const config = {
-  matcher: ["/admin/:path*", "/api/admin/:path*", "/buyer/:path*", "/builder/:path*"],
+  matcher: ["/admin/:path*", "/api/admin/:path*", "/dashboard/:path*", "/buyer/:path*", "/builder/:path*"],
 };
 
 export default withAuth({

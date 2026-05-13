@@ -18,7 +18,19 @@ export async function POST(request: Request) {
       source: payload.source,
       qualification: { reason: payload.reason, message: payload.message },
     });
-    await sendNotification({ type: "contact_submitted", recipient: "admin", subject: "New contact request" });
+    await sendNotification({
+      type: "contact_submitted",
+      recipient: "admin",
+      subject: "New contact request",
+      metadata: {
+        name: payload.name,
+        email: payload.email,
+        company: payload.company,
+        reason: payload.reason,
+        source: payload.source,
+        message: payload.message,
+      },
+    });
     return NextResponse.json({ ok: true });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Failed to submit contact request.";
