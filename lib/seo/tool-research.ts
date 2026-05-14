@@ -56,6 +56,7 @@ export async function buildResearchNotes(page: ProgrammaticPage) {
   const secondaryProfile = secondary ? toolProfiles[secondary] ?? null : null;
   const knowledge = combinedKnowledge(primary, secondary);
   const webResearch = process.env.OPENAI_API_KEY ? await fetchWebResearch(page, primary, secondary) : null;
+  const expanded = expandResearch(page, primary, secondary, primaryProfile, secondaryProfile, webResearch);
 
   return {
     pageType: page.pageType,
@@ -64,6 +65,7 @@ export async function buildResearchNotes(page: ProgrammaticPage) {
     secondaryTool: secondary ? { slug: secondary, displayName: displayName(secondary), profile: secondaryProfile } : null,
     taxonomyKnowledge: knowledge,
     webResearch,
+    ...expanded,
     constraints: [
       "Use verified facts only from provided research notes.",
       "If a claim is uncertain, use soft language (may/can/often).",
@@ -88,6 +90,11 @@ async function fetchWebResearch(page: ProgrammaticPage, primary: string, seconda
         entity_examples: ["string", "string", "string"],
         failure_signatures: ["string", "string", "string", "string"],
         implementation_notes: ["string", "string", "string"],
+        pair_specific_failures: ["string", "string"],
+        pair_specific_triggers: ["string", "string"],
+        api_constraints: ["string"],
+        real_world_scenario: "string",
+        data_flow_description: "string",
         source_urls: ["string", "string", "string"],
       },
       null,
@@ -120,4 +127,61 @@ async function fetchWebResearch(page: ProgrammaticPage, primary: string, seconda
       error: error instanceof Error ? error.message : String(error),
     };
   }
+}
+
+function expandResearch(
+  page: ProgrammaticPage,
+  primary: string,
+  secondary: string | null,
+  primaryProfile: ToolProfile | null,
+  secondaryProfile: ToolProfile | null,
+  webResearch: unknown,
+) {
+  const web = typeof webResearch === "object" && webResearch !== null ? (webResearch as Record<string, unknown>) : {};
+  const primaryName = displayName(primary);
+  const secondaryName = secondary ? displayName(secondary) : "";
+  const pairName = secondaryName ? `${primaryName} and ${secondaryName}` : primaryName;
+  const failures = [
+    ...list(web.pair_specific_failures),
+    ...list(web.failure_signatures),
+    ...(primaryProfile?.notes ?? []),
+    ...(secondaryProfile?.notes ?? []),
+  ].filter(Boolean);
+  const triggers = [
+    ...list(web.pair_specific_triggers),
+    ...list(web.trigger_examples),
+    ...(primaryProfile?.events ?? []),
+    ...(secondaryProfile?.events ?? []),
+  ].filter(Boolean);
+  const entities = [
+    ...list(web.entity_examples),
+    ...(primaryProfile?.entities ?? []),
+    ...(secondaryProfile?.entities ?? []),
+  ].filter(Boolean);
+  const apiConstraints = [
+    ...list(web.api_constraints),
+    primaryProfile?.docsUrl ? `${primaryName} API behavior should be checked against ${primaryProfile.docsUrl}` : "",
+    secondaryProfile?.docsUrl && secondaryName ? `${secondaryName} API behavior should be checked against ${secondaryProfile.docsUrl}` : "",
+  ].filter(Boolean);
+
+  return {
+    pairSpecificFailures: unique(failures).slice(0, 6),
+    pairSpecificTriggers: unique(triggers).slice(0, 6),
+    apiConstraints: unique(apiConstraints).slice(0, 4),
+    realWorldScenario:
+      String(web.real_world_scenario || "") ||
+      `${page.buyerPainPoint || "An operations team"} uses ${pairName} for ${page.uniqueContentAngle || page.macroContext}.`,
+    dataFlowDescription:
+      String(web.data_flow_description || "") ||
+      `${entities.slice(0, 3).join(", ") || "business data"} moves through ${pairName} around ${triggers[0] || page.triggerEvent || "workflow events"}.`,
+    volumeProfile: page.estimatedTaskVolume || "unknown",
+  };
+}
+
+function list(value: unknown) {
+  return Array.isArray(value) ? value.filter((item): item is string => typeof item === "string" && item.trim().length > 0) : [];
+}
+
+function unique(values: string[]) {
+  return [...new Set(values.map((value) => value.trim()).filter(Boolean))];
 }

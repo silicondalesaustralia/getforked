@@ -4,9 +4,10 @@ import OpenAI from "openai";
 config({ path: ".env.local" });
 config();
 
-export const ENRICHMENT_MODEL = process.env.OPENAI_ENRICHMENT_MODEL || "gpt-4o-mini";
+export const ENRICHMENT_MODEL = process.env.OPENAI_ENRICHMENT_MODEL || "gpt-5.4";
 export const QA_MODEL = process.env.OPENAI_QA_MODEL || ENRICHMENT_MODEL;
-const WEB_RESEARCH_MODEL = process.env.OPENAI_WEB_RESEARCH_MODEL || "gpt-4o-mini";
+const EMBEDDING_MODEL = process.env.OPENAI_EMBEDDING_MODEL || "text-embedding-3-small";
+const WEB_RESEARCH_MODEL = process.env.OPENAI_WEB_RESEARCH_MODEL || "gpt-5.4-mini";
 
 export function getOpenAiClient() {
   if (!process.env.OPENAI_API_KEY) {
@@ -31,6 +32,14 @@ export async function runWebResearchPrompt(prompt: string, model = WEB_RESEARCH_
     tools: [{ type: "web_search_preview" }],
   });
   return parseJsonObject(response.output_text);
+}
+
+export async function createEmbedding(input: string) {
+  const response = await getOpenAiClient().embeddings.create({
+    model: EMBEDDING_MODEL,
+    input,
+  });
+  return response.data[0]?.embedding ?? [];
 }
 
 function parseJsonObject(value: string) {
