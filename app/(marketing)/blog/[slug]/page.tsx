@@ -1,27 +1,41 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-
-const postMap: Record<string, { title: string; body: string }> = {
-  "why-owning-your-stack-matters": {
-    title: "Why Owning Your Stack Matters",
-    body: "Subscription software becomes expensive and fragile over time. Owning the code gives you control over cost, roadmap, and data.",
-  },
-};
+import { EnrichedStaticPage } from "@/components/marketplace/enriched-static-page";
+import { getStaticPageByPath } from "@/lib/content/static-pages";
+import { buildStaticPageMetadata } from "@/lib/seo/static-page-seo";
+import { generateStaticPageSchema } from "@/lib/schema";
 
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
 };
 
+export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getStaticPageByPath(`/blog/${slug}/`);
+  if (!post) return {};
+
+  return buildStaticPageMetadata(post);
+}
+
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
-  const post = postMap[slug];
+  const post = getStaticPageByPath(`/blog/${slug}/`);
   if (!post) {
     notFound();
   }
+  const schema = generateStaticPageSchema({
+    path: post.path,
+    title: post.seoTitle,
+    headline: post.h1,
+    description: post.metaDescription,
+    about: post.schemaAbout,
+    mentions: post.schemaMentions,
+  });
 
   return (
-    <article className="container py-14">
-      <h1 className="text-3xl font-bold">{post.title}</h1>
-      <p className="mt-4 max-w-3xl text-zinc-300">{post.body}</p>
-    </article>
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <EnrichedStaticPage page={post} />
+    </>
   );
 }

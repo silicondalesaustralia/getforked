@@ -1,14 +1,26 @@
-import { MarketingPage } from "@/components/marketplace/marketing-page";
+import { EnrichedStaticPage } from "@/components/marketplace/enriched-static-page";
+import { getStaticPage } from "@/lib/content/static-pages";
+import { buildStaticPageMetadata } from "@/lib/seo/static-page-seo";
+import { generateStaticPageSchema } from "@/lib/schema";
+
+const staticPage = getStaticPage("approved-builders");
+
+export const metadata = buildStaticPageMetadata(staticPage);
 
 export default function ApprovedBuildersPage() {
+  const schema = generateStaticPageSchema({
+    path: staticPage.path,
+    title: staticPage.seoTitle,
+    headline: staticPage.h1,
+    description: staticPage.metaDescription,
+    about: staticPage.schemaAbout,
+    mentions: staticPage.schemaMentions,
+  });
+
   return (
-    <MarketingPage
-      eyebrow="Approved builders"
-      title="Every builder is reviewed before project invitations."
-      description="Approved builders are verified for communication, AI workflow capability, tool fit, and delivery standards before they enter matching."
-      points={["What approved means", "Skill verification", "Tool and category badges", "Communication standards", "QA and handover expectations", "Suspension and removal standards"]}
-      ctaHref="/builder/apply"
-      ctaLabel="Apply as a Builder"
-    />
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <EnrichedStaticPage page={staticPage} />
+    </>
   );
 }

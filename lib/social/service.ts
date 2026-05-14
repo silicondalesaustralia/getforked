@@ -5,6 +5,7 @@ import { publishToPlatform } from "@/lib/publish/adapters";
 import type { PublishPlatform } from "@/lib/publish/types";
 import type { SocialChannel, SocialCopy } from "@/lib/social/types";
 
+const enabledChannels: SocialChannel[] = ["youtube", "facebook", "instagram", "tiktok", "x"];
 const platformMap: Record<SocialChannel, PublishPlatform> = {
   youtube: "youtube",
   instagram: "instagram",
@@ -14,11 +15,16 @@ const platformMap: Record<SocialChannel, PublishPlatform> = {
   twitter: "twitter",
 };
 
-function buildDefaultCopy(sourceId: string, channel: SocialChannel): SocialCopy {
+function buildDefaultCopy(sourceId: string, channel: SocialChannel, snapshot?: Record<string, unknown>): SocialCopy {
+  const context = objectField(snapshot, "context");
+  const slideCopy = objectField(snapshot, "slideCopy");
+  const title = stringField(objectField(slideCopy, "s1"), "title") || `${sourceId} update`;
+  const cta = objectField(context, "cta");
+  const ctaUrl = stringField(cta, "url");
   return {
-    title: `${sourceId} update`,
-    description: `Fresh ${channel} post for ${sourceId}.`,
-    hashtags: ["#getforked"],
+    title: channel === "youtube" ? title : clamp(title, 90),
+    description: [stringField(objectField(slideCopy, "s2"), "body") || `Fresh ${channel} post for ${sourceId}.`, ctaUrl ? `Learn more: ${ctaUrl}` : ""].filter(Boolean).join("\n\n"),
+    hashtags: ["#getforked", "#workflowautomation", "#saasreplacement"],
   };
 }
 
@@ -33,8 +39,8 @@ export async function buildSocialDraft(topicVideoId: string, channel: SocialChan
     return { ok: false as const, error: "Video must be approved before social copy can be built." };
   }
 
-  const variant = channel === "youtube" ? "landscape_16_9" : "vertical_9_16";
-  const copy = buildDefaultCopy(video.sourceId, channel);
+  const variant = channel === "youtube" || channel === "facebook" ? "landscape_16_9" : "vertical_9_16";
+  const copy = buildDefaultCopy(video.sourceId, channel, asRecord(video.renderConfigJson));
 
   const existing = await db
     .select({ id: socialPosts.id })
@@ -85,7 +91,7 @@ export async function publishSocialPost(topicVideoId: string, channel: SocialCha
     return { ok: false as const, error: "Only approved videos can publish." };
   }
 
-  const variant = channel === "youtube" ? "landscape_16_9" : "vertical_9_16";
+  const variant = channel === "youtube" || channel === "facebook" ? "landscape_16_9" : "vertical_9_16";
   const matches = await db
     .select()
     .from(socialPosts)
@@ -114,10 +120,13 @@ export async function publishSocialPost(topicVideoId: string, channel: SocialCha
     .where(eq(socialPosts.id, post.id));
 
   const copy = post.copyJson as SocialCopy;
+  const snapshot = asRecord(video.renderConfigJson);
   const publishResult = await publishToPlatform(platformMap[channel], {
-    videoUrl: video.primaryVideoUrl ?? "",
+    videoUrl: videoUrlForVariant(snapshot, variant) || video.primaryVideoUrl || "",
     title: copy.title,
     description: copy.description,
+    thumbnailUrl: video.primaryThumbnailUrl,
+    tags: copy.hashtags,
   });
 
   if (!publishResult.ok) {
@@ -134,7 +143,7 @@ export async function publishSocialPost(topicVideoId: string, channel: SocialCha
   }
 
   const externalPostId = publishResult.platformPostId ?? "";
-  const externalUrl = externalPostId ? `https://${channel}.com/${externalPostId}` : null;
+  const externalUrl = publishResult.externalUrl ?? (externalPostId ? `https://${channel}.com/${externalPostId}` : null);
   await db
     .update(socialPosts)
     .set({
@@ -148,4 +157,53 @@ export async function publishSocialPost(topicVideoId: string, channel: SocialCha
     .where(eq(socialPosts.id, post.id));
 
   return { ok: true as const, socialPostId: post.id, externalPostId, externalUrl };
+}
+
+export async function buildAllSocialDrafts(topicVideoId: string) {
+  const results = [];
+  for (const channel of enabledChannels) {
+    results.push({ channel, result: await buildSocialDraft(topicVideoId, channel) });
+  }
+  return { ok: true as const, results };
+}
+
+export async function publishAllSocialPosts(topicVideoId: string) {
+  const results = [];
+  for (const channel of enabledChannels) {
+    const draft = await buildSocialDraft(topicVideoId, channel);
+    if (!draft.ok) {
+      results.push({ channel, ok: false, error: draft.error });
+      continue;
+    }
+    const result = await publishSocialPost(topicVideoId, channel);
+    results.push({ channel, ...result });
+  }
+  return { ok: results.some((item) => item.ok), results };
+}
+
+function videoUrlForVariant(snapshot: Record<string, unknown>, variant: string) {
+  const render = objectField(snapshot, "render");
+  const variants = Array.isArray(render.variants) ? render.variants.filter(isRecord) : [];
+  const match = variants.find((item) => item.key === variant);
+  return match ? stringField(match, "videoUrl") : undefined;
+}
+
+function objectField(value: unknown, key: string) {
+  return isRecord(value) && isRecord(value[key]) ? value[key] : {};
+}
+
+function asRecord(value: unknown) {
+  return isRecord(value) ? value : {};
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
+}
+
+function stringField(value: unknown, key: string) {
+  return isRecord(value) && typeof value[key] === "string" ? value[key] : "";
+}
+
+function clamp(value: string, max: number) {
+  return value.length <= max ? value : `${value.slice(0, max - 1).trim()}…`;
 }

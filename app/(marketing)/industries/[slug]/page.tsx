@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { LeadForm } from "@/components/forms/lead-form";
 import { SaasCalculator } from "@/components/sections/saas-calculator";
 import { getIndustryBySlug, getPublishedIndustries } from "@/lib/content/industries";
+import { buildStaticMetadata } from "@/lib/seo/static-page-seo";
+import { generateStaticPageSchema } from "@/lib/schema";
 
 type IndustryPageProps = {
   params: Promise<{ slug: string }>;
@@ -19,12 +21,23 @@ export async function generateMetadata({ params }: IndustryPageProps): Promise<M
     return {};
   }
 
+  const title = industry.pageTitle ?? `${industry.name} Software Replacement | GetForked`;
+  const description = industry.metaDescription;
+  const metadata = buildStaticMetadata({
+    title,
+    description,
+    path: `/industries/${industry.slug}/`,
+  });
+
   return {
-    title: industry.pageTitle ?? `${industry.name} Software Replacement | getforked.dev`,
-    description: industry.metaDescription,
+    ...metadata,
     openGraph: {
-      title: industry.ogImageText ?? industry.pageTitle ?? industry.name,
-      description: industry.metaDescription,
+      ...metadata.openGraph,
+      title: industry.ogImageText ?? title,
+    },
+    twitter: {
+      ...metadata.twitter,
+      title: industry.ogImageText ?? title,
     },
   };
 }
@@ -36,10 +49,19 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
   if (!industry || industry.status !== "published") {
     notFound();
   }
+  const schema = generateStaticPageSchema({
+    path: `/industries/${industry.slug}/`,
+    title: industry.pageTitle ?? `${industry.name} Software Replacement | GetForked`,
+    headline: industry.heroHeadline ?? `${industry.name}: Fork Your SaaS Stack`,
+    description: industry.metaDescription,
+    about: [`${industry.name} workflow automation`, `${industry.name} SaaS replacement`, "Business process automation"],
+  });
 
   return (
-    <div className="container py-14">
-      <section className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <div className="container py-14">
+        <section className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
         <div className="grid gap-12">
           <div>
             <p className="text-sm uppercase tracking-[0.25em] text-zinc-400">Industry landing page</p>
@@ -87,51 +109,52 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
             ) : null}
           </section>
         </aside>
-      </section>
-      {industry.replacementRows ? (
-        <section className="mt-16">
-          <h2 className="text-2xl font-semibold">What We Replace → What We Build</h2>
-          <div className="mt-5 overflow-hidden rounded-xl border border-zinc-800">
-            <table className="w-full border-collapse text-left text-sm">
-              <thead className="bg-zinc-900 text-zinc-200">
-                <tr>
-                  <th className="p-4">You are currently paying for</th>
-                  <th className="p-4">What we build you</th>
-                </tr>
-              </thead>
-              <tbody>
-                {industry.replacementRows.map((row) => (
-                  <tr key={row.current} className="border-t border-zinc-800">
-                    <td className="p-4 text-zinc-300">{row.current}</td>
-                    <td className="p-4 text-zinc-100">{row.replacement}</td>
+        </section>
+        {industry.replacementRows ? (
+          <section className="mt-16">
+            <h2 className="text-2xl font-semibold">What We Replace → What We Build</h2>
+            <div className="mt-5 overflow-hidden rounded-xl border border-zinc-800">
+              <table className="w-full border-collapse text-left text-sm">
+                <thead className="bg-zinc-900 text-zinc-200">
+                  <tr>
+                    <th className="p-4">You are currently paying for</th>
+                    <th className="p-4">What we build you</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-      ) : null}
-      {industry.regionalStackExamples ? (
-        <section className="mt-16">
-          <h2 className="text-2xl font-semibold">Stacks We Replace Across Markets</h2>
-          <p className="mt-2 max-w-3xl text-zinc-300">
-            The names change by country. The problem is the same: rented tools, locked data, and monthly
-            software tax.
-          </p>
-          <div className="mt-5 grid gap-4 md:grid-cols-4">
-            {industry.regionalStackExamples.map((region) => (
-              <article key={region.country} className="rounded-xl border border-zinc-800 p-5">
-                <h3 className="font-semibold text-accent">{region.country}</h3>
-                <ul className="mt-3 space-y-2 text-sm text-zinc-300">
-                  {region.examples.map((example) => (
-                    <li key={example}>{example}</li>
+                </thead>
+                <tbody>
+                  {industry.replacementRows.map((row) => (
+                    <tr key={row.current} className="border-t border-zinc-800">
+                      <td className="p-4 text-zinc-300">{row.current}</td>
+                      <td className="p-4 text-zinc-100">{row.replacement}</td>
+                    </tr>
                   ))}
-                </ul>
-              </article>
-            ))}
-          </div>
-        </section>
-      ) : null}
-    </div>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        ) : null}
+        {industry.regionalStackExamples ? (
+          <section className="mt-16">
+            <h2 className="text-2xl font-semibold">Stacks We Replace Across Markets</h2>
+            <p className="mt-2 max-w-3xl text-zinc-300">
+              The names change by country. The problem is the same: rented tools, locked data, and monthly software
+              tax.
+            </p>
+            <div className="mt-5 grid gap-4 md:grid-cols-4">
+              {industry.regionalStackExamples.map((region) => (
+                <article key={region.country} className="rounded-xl border border-zinc-800 p-5">
+                  <h3 className="font-semibold text-accent">{region.country}</h3>
+                  <ul className="mt-3 space-y-2 text-sm text-zinc-300">
+                    {region.examples.map((example) => (
+                      <li key={example}>{example}</li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
+            </div>
+          </section>
+        ) : null}
+      </div>
+    </>
   );
 }

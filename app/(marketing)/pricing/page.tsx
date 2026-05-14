@@ -1,12 +1,26 @@
-import { MarketingPage } from "@/components/marketplace/marketing-page";
+import { EnrichedStaticPage } from "@/components/marketplace/enriched-static-page";
+import { getStaticPage } from "@/lib/content/static-pages";
+import { buildStaticPageMetadata } from "@/lib/seo/static-page-seo";
+import { generateStaticPageSchema } from "@/lib/schema";
+
+const staticPage = getStaticPage("pricing");
+
+export const metadata = buildStaticPageMetadata(staticPage);
 
 export default function PricingPage() {
+  const schema = generateStaticPageSchema({
+    path: staticPage.path,
+    title: staticPage.seoTitle,
+    headline: staticPage.h1,
+    description: staticPage.metaDescription,
+    about: staticPage.schemaAbout,
+    mentions: staticPage.schemaMentions,
+  });
+
   return (
-    <MarketingPage
-      eyebrow="Pricing"
-      title="Projects are quoted after scope, not fixed-price gigs."
-      description="Simple automations can start lower, while dashboard platforms and CRM replacements require deeper scoping. Buyer protection fee and builder commission are applied transparently."
-      points={["Complexity-based quoting", "Common pricing factors", "Buyer service fee model", "Builder commission model", "Managed build option", "Support and maintenance options"]}
-    />
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <EnrichedStaticPage page={staticPage} />
+    </>
   );
 }

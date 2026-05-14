@@ -1,7 +1,8 @@
 import { eq, sql } from "drizzle-orm";
 import { getDb } from "@/lib/db/client";
 import { topicVideoJobs } from "@/lib/db/schema";
-import { markTopicVideoReadyForReview, markTopicVideoRenderFailed } from "@/lib/video/service";
+import { renderTopicVideo } from "@/lib/video/render-pipeline";
+import { markTopicVideoRenderFailed } from "@/lib/video/service";
 
 type ClaimedTopicVideoJob = {
   id: string;
@@ -59,8 +60,7 @@ export async function claimNextJob(workerId: string): Promise<ClaimedTopicVideoJ
 
 export async function processClaimedJob(job: ClaimedTopicVideoJob) {
   try {
-    // Placeholder render completion to wire lifecycle end-to-end.
-    await markTopicVideoReadyForReview(job.topicVideoId);
+    await renderTopicVideo(job.topicVideoId);
 
     await getDb()
       .delete(topicVideoJobs)

@@ -12,6 +12,7 @@
     "db:migrate": "drizzle-kit migrate",
     "worker:video": "tsx workers/video/index.ts",
     "enrich:pages": "tsx scripts/enrich-programmatic-pages.ts",
+    "enrich:static-pages": "tsx scripts/enrich-static-pages.ts",
     "audit:similarity": "tsx scripts/audit-page-similarity.ts",
     "report:enrichment": "tsx scripts/export-enrichment-report.ts"
   },

@@ -3,6 +3,14 @@ import type { ProgrammaticPage } from "@/lib/programmatic-pages";
 
 type JsonLd = Record<string, unknown>;
 type Thing = { "@type": "Thing"; name: string };
+type StaticSchemaInput = {
+  path: string;
+  title: string;
+  description: string;
+  headline?: string;
+  about?: string[];
+  mentions?: string[];
+};
 
 const siteUrl = "https://getforked.dev";
 
@@ -11,6 +19,70 @@ export function generatePageSchema(page: ProgrammaticPage, relatedPages: Program
 
   if (isIndexPage(page) && relatedPages.length > 0) {
     graph.push(itemListSchema(page, relatedPages));
+  }
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": graph,
+  };
+}
+
+/** JSON-LD for `/` — keep WebPage.description in sync with root `metadata.description` in app/layout.tsx. */
+export function generateHomeSchema(input?: StaticSchemaInput) {
+  const title = input?.title ?? "GetForked | Managed Software Marketplace";
+  const headline = input?.headline ?? "Stop renting software. Start owning it.";
+  const description = input?.description ?? "Submit structured software briefs and get matched with approved builders.";
+  const webpage: JsonLd = {
+    "@type": "WebPage",
+    "@id": `${siteUrl}/#webpage`,
+    url: `${siteUrl}/`,
+    name: title,
+    headline,
+    description,
+    isPartOf: { "@id": `${siteUrl}/#website` },
+    publisher: { "@id": `${siteUrl}/#organization` },
+    inLanguage: "en",
+  };
+  if (input?.about && input.about.length > 0) webpage.about = toThings(input.about);
+  if (input?.mentions && input.mentions.length > 0) webpage.mentions = toThings(input.mentions);
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [organizationSchema(), websiteSchema(), webpage],
+  };
+}
+
+export function generateStaticPageSchema(input: StaticSchemaInput) {
+  const fullPath = normalizePath(input.path);
+  const graph: JsonLd[] = [
+    organizationSchema(),
+    websiteSchema(),
+    {
+      "@type": "WebPage",
+      "@id": `${siteUrl}${fullPath}#webpage`,
+      url: `${siteUrl}${fullPath}`,
+      name: input.title,
+      headline: input.headline ?? input.title,
+      description: input.description,
+      isPartOf: { "@id": `${siteUrl}/#website` },
+      publisher: { "@id": `${siteUrl}/#organization` },
+      inLanguage: "en",
+    },
+    staticBreadcrumbSchema(fullPath, input.headline ?? input.title),
+  ];
+
+  if (input.about && input.about.length > 0) {
+    graph[2] = {
+      ...graph[2],
+      about: toThings(input.about),
+    };
+  }
+
+  if (input.mentions && input.mentions.length > 0) {
+    graph[2] = {
+      ...graph[2],
+      mentions: toThings(input.mentions),
+    };
   }
 
   return {
@@ -158,6 +230,27 @@ function breadcrumbLeafName(page: ProgrammaticPage) {
   return page.h1Heading;
 }
 
+function staticBreadcrumbSchema(fullPath: string, leafName: string) {
+  return {
+    "@type": "BreadcrumbList",
+    "@id": `${siteUrl}${fullPath}#breadcrumb`,
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: `${siteUrl}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: leafName,
+        item: `${siteUrl}${fullPath}`,
+      },
+    ],
+  };
+}
+
 function itemListSchema(page: ProgrammaticPage, relatedPages: ProgrammaticPage[]) {
   return {
     "@type": "ItemList",
@@ -240,4 +333,10 @@ function isIndexPage(page: ProgrammaticPage) {
 
 function isString(value: string | null | undefined): value is string {
   return Boolean(value);
+}
+
+function normalizePath(path: string) {
+  if (!path.startsWith("/")) return `/${path}/`;
+  if (path === "/") return "/";
+  return path.endsWith("/") ? path : `${path}/`;
 }

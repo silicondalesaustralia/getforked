@@ -18,7 +18,7 @@ export const authOptions: NextAuthOptions = {
         const email = String(credentials?.email ?? "").toLowerCase();
         const password = String(credentials?.password ?? "");
 
-        if (!email || !password || password !== env.nextAuthSecret) {
+        if (!email || !password || !validPasswordForEmail(email, password)) {
           return null;
         }
 
@@ -42,3 +42,24 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
 };
+
+function validPasswordForEmail(email: string, password: string) {
+  const userPassword = authUserCredentials().get(email);
+  if (userPassword) return password === userPassword;
+  return password === env.nextAuthSecret;
+}
+
+function authUserCredentials() {
+  return new Map(
+    (process.env.AUTH_USER_CREDENTIALS ?? "")
+      .split(",")
+      .map((pair) => {
+        const separator = pair.indexOf(":");
+        if (separator < 1) return null;
+        const email = pair.slice(0, separator).trim().toLowerCase();
+        const password = pair.slice(separator + 1);
+        return email && password ? [email, password] as const : null;
+      })
+      .filter((entry): entry is readonly [string, string] => Boolean(entry)),
+  );
+}

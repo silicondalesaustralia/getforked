@@ -11,6 +11,7 @@ import { ZapierRelatedPages } from "@/components/zapier/zapier-related-pages";
 import { ZapierReplacementSection } from "@/components/zapier/zapier-replacement-section";
 import { ZapierSEOContent } from "@/components/zapier/zapier-seo-content";
 import { ZapierTrustBar } from "@/components/zapier/zapier-trust-bar";
+import { useZapierLayoutTest } from "@/components/zapier/zapier-layout-test";
 
 type Props = {
   page: ProgrammaticPage;
@@ -18,9 +19,11 @@ type Props = {
 };
 
 export function ZapierLandingPage({ page, relatedPages }: Props) {
+  const layoutTest = useZapierLayoutTest(page);
+
   return (
-    <main className="min-h-screen bg-[#050708] text-[#F4F7F5]">
-      <section className="container pb-16 pt-16 md:pt-24">
+    <div className="min-h-screen bg-[#050708] text-[#F4F7F5]">
+      <section className={`container ${layoutTest ? "pb-12 pt-10 md:pt-14" : "pb-16 pt-16 md:pt-24"}`}>
         <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(380px,0.8fr)] lg:gap-14">
           <ZapierHero page={page} />
           <ZapierBriefCard page={page} />
@@ -38,6 +41,6 @@ export function ZapierLandingPage({ page, relatedPages }: Props) {
       <ZapierSEOContent page={page} />
       <ZapierRelatedPages page={page} relatedPages={relatedPages} />
       <ZapierFinalCTA page={page} />
-    </main>
+    </div>
   );
 }

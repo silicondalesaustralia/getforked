@@ -1,0 +1,833 @@
+{
+  "current": {
+    "id": "zapier-calendar-notion",
+    "siloSlug": "zapier",
+    "pageSlug": "calendar-notion",
+    "fullUrl": "/zapier/calendar-notion/",
+    "pageType": "zapier_pair",
+    "status": "published",
+    "priority": 1,
+    "pageTitle": "Google Calendar and Notion Integration Replacement | GetForked",
+    "h1Heading": "Replace your Google Calendar and Notion integration with owned workflow logic",
+    "metaDescription": "Replace fragile Zapier sync between Google Calendar and Notion with a scoped two-way workflow that handles Notion database mapping, required start and end fields, deduping, and.",
+    "canonicalUrl": "https://getforked.dev/zapier/calendar-notion/",
+    "centralEntity": "Zapier",
+    "attribute": "Google Calendar to Notion replacement",
+    "entityAttributePair": "Google Calendar and Notion integration workflows",
+    "macroContext": "Replacing Zapier workflows for Google Calendar and Notion",
+    "microContexts": "Google Calendar integration patterns; Zapier task limits; direct API connector options; workflow ownership; builder matching",
+    "centralSearchIntent": "Replacing Zapier middleware with a scoped custom automation build",
+    "sourceContextBridge": "GetForked matches businesses with approved builders who can scope and replace Zapier-dependent workflows.",
+    "contextualVector": "H1: Replace Zapier Workflows for Google Calendar and Notion\nH2: Why this Zapier workflow breaks\nH3: Field mapping and trigger failures\nH3: Manual cleanup and reporting gaps\nH2: What a custom replacement looks like\nH3: Direct API or webhook approach\nH3: Validation, retries, and workflow ownership\nH2: How GetForked matches you with the right builder\nH3: Scoped before you commit\nH2: Cost comparison - Zapier subscription vs custom build\nH2: Related Zapier replacements",
+    "appPrimary": "google-calendar",
+    "appSecondary": "notion",
+    "appPrimaryShort": "google-calendar",
+    "appSecondaryShort": "notion",
+    "integrationDirection": "Google Calendar to Notion",
+    "triggerEvent": "Google Calendar event or record change",
+    "destinationAction": "Notion sync, alert, or update",
+    "introSummary": "Google Calendar and Notion usually get connected in two directions: a new Google Calendar event should create a Notion database item, and a Notion database item should create or update a Google Calendar event.\n\nThat setup becomes unreliable when the target is not a Notion page in a database/data source, the Notion database schema cannot hold the calendar fields, or event creation is attempted without both required start and end values. GetForked scopes the exact workflow, then matches you with an approved builder to deliver an owned integration your team can run and maintain.",
+    "heroSummary": "Google Calendar and Notion usually get connected in two directions: a new Google Calendar event should create a Notion database item, and a Notion database item should create or update a Google Calendar event.\n\nThat setup becomes unreliable when the target is not a Notion page in a database/data source, the Notion database schema cannot hold the calendar fields, or event creation is attempted without both required start and end values. GetForked scopes the exact workflow, then matches you with an approved builder to deliver an owned integration your team can run and maintain.",
+    "problemSummary": "This pairing usually fails through field-shape mistakes, missing permissions, and update noise rather than a single visible outage. A Google Calendar event can reach Notion but lose title, time, attendees, or status because the Notion database lacks matching properties. A Notion database item can try to create a calendar event from loose page content instead of structured properties, which produces the wrong event shape or no event at all. Trust drops when people have to open the Google Calendar event, compare it to the Notion database item, and manually decide which system holds the correct version.",
+    "replacementSummary": "A stronger replacement treats this as two controlled workflows with shared IDs, not one loose sync. In the Calendar-to-Notion direction, a Google Calendar event trigger sends event metadata into a Notion database item/page only after the process confirms the destination is a database-backed record and that each mapped field fits the schema. In the Notion-to-Calendar direction, the process reads structured page properties, not freeform page text, then sends structured page properties into Google Calendar event creation, which requires start/end timestamps and can also include attendees, visibility, reminders, or conferencing details.",
+    "uniqueContentAngle": "Replace Zapier sync between Notion and Google Calendar with a direct two-way integration",
+    "bodyHtml": "<h2>The two Google Calendar and Notion workflows most teams are actually running</h2>\n<p>This is usually not one integration. It is two separate jobs that happen to involve the same tools. First, a new Google Calendar event should create a Notion database item. Second, a Notion database item should create or update a Google Calendar event.</p>\n<p>Those two jobs need different controls. Calendar-to-Notion depends on the destination database schema and property mapping. Notion-to-Calendar depends on structured date fields, complete event timing, and clear rules for whether a page update should create a new event or modify an existing one.</p>\n<h3>Google Calendar into a Notion database</h3>\n<p>This flow works best when the Notion database already contains properties for event title, date, start, end, attendees, owner, and status. If those properties are missing, the google calendar event may sync only partially or fail to land as a usable notion database item.</p>\n<h3>Notion database item into Google Calendar</h3>\n<p>This flow depends on structured page properties. If the notion page stores timing in free text instead of database fields, the process cannot reliably produce the `start` and `end` values required to create a google calendar event.</p>\n<h3>Why edits create confusion</h3>\n<p>Once both systems can change the same meeting, the integration needs a stored cross-reference and a rule for which side controls each field. Without that, a normal edit can be mistaken for a new item and create duplicate records.</p>\n<h2>Where Google Calendar and Notion usually break in production</h2>\n<p>The common issues are operational, not theoretical. A record appears to sync, but a field is blank, a date range is malformed, or a rollup value never arrives because the related source was not shared with the integration.</p>\n<p>That pattern is what makes teams stop trusting the automation. They no longer assume a synced event or page is correct, so they start checking every important item by hand.</p>\n<h3>Schema mismatch on the Notion side</h3>\n<p>Use database-backed Notion pages when you need structured field mapping. Notion’s API treats database rows as pages whose properties must match the database schema, so a page outside a database/data source is a poor target for repeatable automation.</p>\n<h3>Required fields on the Google Calendar side</h3>\n<p>For Google Calendar event creation, map at least `start` and `end`. Optional fields like attendees, visibility, reminders, conference data, and attachments can be added later, but missing base timing fields will break the event request.</p>\n<h3>Sharing gaps on relation-linked records</h3>\n<p>If the workflow reads relation or rollup properties, the related parent database must also be shared with the integration. Otherwise the process may run successfully while still returning empty or partial values.</p>\n<h2>What to include in the implementation brief</h2>\n<p>A useful brief names the exact calendars, notion database objects, trigger events, and decision rules instead of saying only that Google Calendar and Notion should sync. It should identify which side is authoritative for each field and what happens when values conflict.</p>\n<p>It should also define the operational boundary of the workflow: what gets created automatically, what gets updated, what gets ignored, and where exceptions are reviewed.</p>\n<h3>Trigger choices and routing rules</h3>\n<p>Specify whether the process should react to New Google Calendar event, Google Calendar event ends, or New or updated Google Calendar event, and list which calendar each rule applies to.</p>\n<h3>Field map and required properties</h3>\n<p>Document the Notion database properties and the Google Calendar fields they map to, including title, date, start, end, attendees, status, reminders, and any visibility settings. This is where missing fields become visible before build work starts.</p>\n<h3>Failure handling and ownership</h3>\n<p>State where failed runs are logged, who reviews them, how retries work, and what documentation must be handed over so future schema changes do not require reverse-engineering the whole integration.</p>\n<h2>Why a direct replacement can be worth it</h2>\n<p>A direct implementation matters when this workflow controls meetings, deadlines, or work planning rather than simple reference data. In those cases, a bad sync changes what people see on their schedule and what they assume has been captured in Notion.</p>\n<p>It also matters when the team needs durable controls around ID matching, update filtering, permission checks, and audit visibility instead of relying on a chain of middleware steps that are hard to reason about later.</p>\n<h3>Simple logging can stay lightweight</h3>\n<p>If you are only copying a google calendar event into a notion database for reference and someone can fix occasional mismatches quickly, a lighter setup is often enough.</p>\n<h3>Two-way scheduling needs stronger rules</h3>\n<p>If a notion database item can create a google calendar event and later edits should update that same event, the process needs stored IDs, validation before writes, and explicit rules for duplicates, skipped records, and partial updates.</p>\n<h3>The handover is part of the deliverable</h3>\n<p>A solid outcome includes the field map, trigger definitions, permission prerequisites, known failure modes, and a maintenance runbook so the team can operate the workflow without depending on tribal knowledge.</p>",
+    "supplementaryBridge": "Related Zapier replacement pages for adjacent workflows.",
+    "mainContentFormat": "problem-solution",
+    "primaryCta": "Get Matched With a Google Calendar Automation Builder",
+    "secondaryCta": "See What This Replaces",
+    "briefPrefillCategory": "replace-zapier",
+    "briefPrefillTools": "google-calendar,notion",
+    "buyerPainPoint": "Google Calendar to Notion workflows can break when trigger timing, field mappings, duplicates, rate limits, or missing retries leave the team checking both systems by hand.",
+    "projectType": "Zapier replacement workflow",
+    "sourceParam": "zapier-calendar-notion",
+    "zapierCostContext": "Zapier is still reasonable for a narrow one-way copy, such as logging a new Google Calendar event into a Notion database for reference when someone can quickly correct the occasional mismatch. A direct build becomes easier to justify when the workflow runs in both directions, when staff keep cleaning up duplicate events or incomplete database items, or when scheduling errors start affecting client meetings, internal planning, or deadline visibility. The real cost shows up in repeated investigation, reruns, and manual comparison between the calendar event and the Notion record.",
+    "estimatedTaskVolume": "Low to high depending on trigger frequency and sync retries",
+    "customBuildContext": "A scoped build can replace brittle middleware with validation, retries, logs, and a workflow your team owns.",
+    "costComparisonHtml": "<table><thead><tr><th>Cost factor</th><th>Zapier workflow</th><th>Custom build</th></tr></thead><tbody><tr><td>Monthly subscription</td><td>Depends on plan, premium apps, and task usage.</td><td>Scoped upfront with hosting and maintenance discussed separately.</td></tr><tr><td>Task volume</td><td>Higher volume can increase plan pressure.</td><td>Designed around expected Google Calendar and Notion events and retry volume.</td></tr><tr><td>Failure handling</td><td>Usually reviewed through Zap history and alerts.</td><td>Can include validation, logs, queues, and human review states.</td></tr><tr><td>Ownership</td><td>Workflow logic lives in middleware.</td><td>Workflow logic is documented and owned by your team.</td></tr></tbody></table>",
+    "builderSkillProfile": "API integration, webhook handling, data validation, queueing/retry logic, dashboarding, and workflow documentation.",
+    "builderMatchFactors": "GetForked does not just point you at a freelancer directory. We turn the Google Calendar and Notion workflow into a builder-ready brief that names the exact triggers, calendars, databases, field mappings, ID strategy, dedupe rules, permission requirements, and handoff needs. Then we match you with an approved builder who can replace the Zapier-dependent setup with an owned integration, documented controls, and a handover your team can keep operating after delivery.",
+    "requiredBuilderBadges": "Google Calendar API integration, Notion database schema mapping, Two-way sync deduplication, Permission and sharing diagnostics, Queue and retry handling, Operational handoff documentation",
+    "trustProofElements": "Approved builders only. Scope is reviewed before work starts.",
+    "groundednessSignals": "Specific workflow mechanics and cost assumptions are stated clearly.",
+    "temporalFreshness": "Refresh Zapier pricing, API references, and examples quarterly.",
+    "lastVerifiedNote": "Last verified 12 May 2026.",
+    "primaryKeyword": "notion google calendar integration",
+    "secondaryKeywords": "zapier notion google calendar",
+    "semanticTerms": "Google Calendar and Notion integration workflows, Two-way sync replacement for Google Calendar events and Notion database items, Scoped briefs and approved builder matching for owned workflow implementations, Google Calendar event, Notion database item, Notion page in a database/data source",
+    "rootLink": "/zapier/",
+    "seedLinks": "/zapier/",
+    "nodeLinks": "/zapier/google-calendar/, /zapier/calendar-slack/, /zapier/asana-calendar/, /zapier/airtable-calendar/, /zapier/calendar-trello/",
+    "crossSiloLinks": "",
+    "anchorTexts": "Zapier replacement builders | approved automation builders | custom workflow connector",
+    "relatedPageIds": "google-calendar, calendar-slack, asana-calendar, airtable-calendar, calendar-trello",
+    "imageAltPrimary": "Custom Google Calendar to Notion workflow replacing Zapier",
+    "imageUrlSlug": "calendar-notion",
+    "workflowBeforeLabel": "A project manager creates a client planning meeting in Google Calendar and expects a notion database item with the meeting title, time, attendees, and follow-up notes, but the workflow writes to a page outside a database/data source and the destination lacks matching properties, so the team.",
+    "workflowAfterLabel": "When that meeting is created, the integration writes only to a database-backed Notion page after checking the schema, and when a deadline on a Notion database item later needs calendar time, it sends structured page properties into Google Calendar event creation, which requires start/end.",
+    "schemaType": "Service",
+    "updatedAt": "2026-05-14T01:18:03.159Z",
+    "enrichmentStatus": "needs_manual_enrichment",
+    "enrichmentVersion": 1,
+    "nuancedContent": {
+      "seo_title": "Google Calendar and Notion Integration Replacement | GetForked",
+      "h1": "Replace your Google Calendar and Notion integration with owned workflow logic",
+      "meta_description": "Replace fragile Zapier sync between Google Calendar and Notion with a scoped two-way workflow that handles Notion database mapping, required start and end fields, deduping, and.",
+      "hero_intro": [
+        "Google Calendar and Notion usually get connected in two directions: a new Google Calendar event should create a Notion database item, and a Notion database item should create or update a Google Calendar event.",
+        "That setup becomes unreliable when the target is not a Notion page in a database/data source, the Notion database schema cannot hold the calendar fields, or event creation is attempted without both required start and end values. GetForked scopes the exact workflow, then matches you with an approved builder to deliver an owned integration your team can run and maintain."
+      ],
+      "problem_heading": "Why Google Calendar and Notion syncs stop being trustworthy",
+      "problem_summary": "This pairing usually fails through field-shape mistakes, missing permissions, and update noise rather than a single visible outage. A Google Calendar event can reach Notion but lose title, time, attendees, or status because the Notion database lacks matching properties. A Notion database item can try to create a calendar event from loose page content instead of structured properties, which produces the wrong event shape or no event at all. Trust drops when people have to open the Google Calendar event, compare it to the Notion database item, and manually decide which system holds the correct version.",
+      "failure_modes": [
+        "A Google Calendar event is pushed into Notion, but the Notion database is missing columns for title, time, attendees,.",
+        "A Notion action fails because the target record is not a Notion page in a database/data source and therefore exposes.",
+        "A Google Calendar create-event request fails or returns incomplete output when the workflow does not send both.",
+        "Relation or rollup values come back empty or partial because the related parent database was not shared with the."
+      ],
+      "replacement_heading": "What owned workflow logic does differently",
+      "replacement_summary": "A stronger replacement treats this as two controlled workflows with shared IDs, not one loose sync. In the Calendar-to-Notion direction, a Google Calendar event trigger sends event metadata into a Notion database item/page only after the process confirms the destination is a database-backed record and that each mapped field fits the schema. In the Notion-to-Calendar direction, the process reads structured page properties, not freeform page text, then sends structured page properties into Google Calendar event creation, which requires start/end timestamps and can also include attendees, visibility, reminders, or conferencing details.",
+      "replacement_cards": [
+        {
+          "title": "Separate the two directions",
+          "description": "One workflow handles when a new Google Calendar event is created, add a database item in Notion. The other handles when a Notion database item is created or updated, create or update a Google Calendar event. That keeps trigger behavior, source-of-truth rules, and update handling explicit."
+        },
+        {
+          "title": "Validate the Notion destination first",
+          "description": "Before writing anything, the process checks that the target is a Notion page in a database/data source and that the notion database contains the properties needed for the google calendar event."
+        },
+        {
+          "title": "Block incomplete event creation",
+          "description": "Google Calendar event creation requires authorization and the request body must include `start` and `end`. Owned logic can reject partial Notion records before they produce malformed calendar events."
+        },
+        {
+          "title": "Store IDs for update-safe sync",
+          "description": "The integration keeps both the Google Calendar event ID and the Notion database item ID so edits can update the right record instead of generating duplicates."
+        },
+        {
+          "title": "Account for relation and rollup dependencies",
+          "description": "If the workflow reads relation-linked data, the relevant database must be shared with the integration. If sharing is missing, the process should log the exact dependency that blocked the update."
+        },
+        {
+          "title": "Make exceptions visible",
+          "description": "A practical build records skip reasons, failed validations, retry attempts, and review cases so someone can see whether the issue was schema mismatch, permissions, missing time fields, or duplicate-trigger noise."
+        }
+      ],
+      "before_flow": "A project manager creates a client planning meeting in Google Calendar and expects a notion database item with the meeting title, time, attendees, and follow-up notes, but the workflow writes to a page outside a database/data source and the destination lacks matching properties, so the team.",
+      "after_flow": "When that meeting is created, the integration writes only to a database-backed Notion page after checking the schema, and when a deadline on a Notion database item later needs calendar time, it sends structured page properties into Google Calendar event creation, which requires start/end.",
+      "cost_context": "Zapier is still reasonable for a narrow one-way copy, such as logging a new Google Calendar event into a Notion database for reference when someone can quickly correct the occasional mismatch. A direct build becomes easier to justify when the workflow runs in both directions, when staff keep cleaning up duplicate events or incomplete database items, or when scheduling errors start affecting client meetings, internal planning, or deadline visibility. The real cost shows up in repeated investigation, reruns, and manual comparison between the calendar event and the Notion record.",
+      "when_zapier_is_still_right": "Keep Zapier when the workflow is low volume, the Notion database schema is stable, and the process can tolerate occasional manual fixes. It works well for simple logging, lightweight reminders, or an early version used to confirm which Google Calendar fields and Notion properties actually matter before a heavier implementation is scoped.",
+      "builder_matching_summary": "GetForked does not just point you at a freelancer directory. We turn the Google Calendar and Notion workflow into a builder-ready brief that names the exact triggers, calendars, databases, field mappings, ID strategy, dedupe rules, permission requirements, and handoff needs. Then we match you with an approved builder who can replace the Zapier-dependent setup with an owned integration, documented controls, and a handover your team can keep operating after delivery.",
+      "builder_skill_tags": [
+        "Google Calendar API integration",
+        "Notion database schema mapping",
+        "Two-way sync deduplication",
+        "Permission and sharing diagnostics",
+        "Queue and retry handling",
+        "Operational handoff documentation"
+      ],
+      "seo_body_sections": [
+        {
+          "h2": "The two Google Calendar and Notion workflows most teams are actually running",
+          "paragraphs": [
+            "This is usually not one integration. It is two separate jobs that happen to involve the same tools. First, a new Google Calendar event should create a Notion database item. Second, a Notion database item should create or update a Google Calendar event.",
+            "Those two jobs need different controls. Calendar-to-Notion depends on the destination database schema and property mapping. Notion-to-Calendar depends on structured date fields, complete event timing, and clear rules for whether a page update should create a new event or modify an existing one."
+          ],
+          "h3_sections": [
+            {
+              "h3": "Google Calendar into a Notion database",
+              "paragraph": "This flow works best when the Notion database already contains properties for event title, date, start, end, attendees, owner, and status. If those properties are missing, the google calendar event may sync only partially or fail to land as a usable notion database item."
+            },
+            {
+              "h3": "Notion database item into Google Calendar",
+              "paragraph": "This flow depends on structured page properties. If the notion page stores timing in free text instead of database fields, the process cannot reliably produce the `start` and `end` values required to create a google calendar event."
+            },
+            {
+              "h3": "Why edits create confusion",
+              "paragraph": "Once both systems can change the same meeting, the integration needs a stored cross-reference and a rule for which side controls each field. Without that, a normal edit can be mistaken for a new item and create duplicate records."
+            }
+          ]
+        },
+        {
+          "h2": "Where Google Calendar and Notion usually break in production",
+          "paragraphs": [
+            "The common issues are operational, not theoretical. A record appears to sync, but a field is blank, a date range is malformed, or a rollup value never arrives because the related source was not shared with the integration.",
+            "That pattern is what makes teams stop trusting the automation. They no longer assume a synced event or page is correct, so they start checking every important item by hand."
+          ],
+          "h3_sections": [
+            {
+              "h3": "Schema mismatch on the Notion side",
+              "paragraph": "Use database-backed Notion pages when you need structured field mapping. Notion’s API treats database rows as pages whose properties must match the database schema, so a page outside a database/data source is a poor target for repeatable automation."
+            },
+            {
+              "h3": "Required fields on the Google Calendar side",
+              "paragraph": "For Google Calendar event creation, map at least `start` and `end`. Optional fields like attendees, visibility, reminders, conference data, and attachments can be added later, but missing base timing fields will break the event request."
+            },
+            {
+              "h3": "Sharing gaps on relation-linked records",
+              "paragraph": "If the workflow reads relation or rollup properties, the related parent database must also be shared with the integration. Otherwise the process may run successfully while still returning empty or partial values."
+            }
+          ]
+        },
+        {
+          "h2": "What to include in the implementation brief",
+          "paragraphs": [
+            "A useful brief names the exact calendars, notion database objects, trigger events, and decision rules instead of saying only that Google Calendar and Notion should sync. It should identify which side is authoritative for each field and what happens when values conflict.",
+            "It should also define the operational boundary of the workflow: what gets created automatically, what gets updated, what gets ignored, and where exceptions are reviewed."
+          ],
+          "h3_sections": [
+            {
+              "h3": "Trigger choices and routing rules",
+              "paragraph": "Specify whether the process should react to New Google Calendar event, Google Calendar event ends, or New or updated Google Calendar event, and list which calendar each rule applies to."
+            },
+            {
+              "h3": "Field map and required properties",
+              "paragraph": "Document the Notion database properties and the Google Calendar fields they map to, including title, date, start, end, attendees, status, reminders, and any visibility settings. This is where missing fields become visible before build work starts."
+            },
+            {
+              "h3": "Failure handling and ownership",
+              "paragraph": "State where failed runs are logged, who reviews them, how retries work, and what documentation must be handed over so future schema changes do not require reverse-engineering the whole integration."
+            }
+          ]
+        },
+        {
+          "h2": "Why a direct replacement can be worth it",
+          "paragraphs": [
+            "A direct implementation matters when this workflow controls meetings, deadlines, or work planning rather than simple reference data. In those cases, a bad sync changes what people see on their schedule and what they assume has been captured in Notion.",
+            "It also matters when the team needs durable controls around ID matching, update filtering, permission checks, and audit visibility instead of relying on a chain of middleware steps that are hard to reason about later."
+          ],
+          "h3_sections": [
+            {
+              "h3": "Simple logging can stay lightweight",
+              "paragraph": "If you are only copying a google calendar event into a notion database for reference and someone can fix occasional mismatches quickly, a lighter setup is often enough."
+            },
+            {
+              "h3": "Two-way scheduling needs stronger rules",
+              "paragraph": "If a notion database item can create a google calendar event and later edits should update that same event, the process needs stored IDs, validation before writes, and explicit rules for duplicates, skipped records, and partial updates."
+            },
+            {
+              "h3": "The handover is part of the deliverable",
+              "paragraph": "A solid outcome includes the field map, trigger definitions, permission prerequisites, known failure modes, and a maintenance runbook so the team can operate the workflow without depending on tribal knowledge."
+            }
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "question": "Why does a Google Calendar event fail to create from Notion?",
+          "answer": "The most common reason is incomplete time data. Google Calendar event creation requires both `start` and `end`, so a Notion database item with only a single date, vague text, or no end time cannot reliably create the event."
+        },
+        {
+          "question": "Why does Notion only show a title when the workflow runs?",
+          "answer": "That usually means the target is not a Notion page in a database/data source. Outside a database, the page does not expose the structured properties needed for consistent field mapping."
+        },
+        {
+          "question": "Why do relation or rollup fields come through empty?",
+          "answer": "The related parent database often was not shared with the integration. Notion integrations need the relevant database shared with the integration to update relation-linked data correctly."
+        },
+        {
+          "question": "How do you prevent duplicate records between Google Calendar and Notion?",
+          "answer": "Store the Google Calendar event ID and the Notion database item ID together, then run a lookup before every write. That lets the integration decide whether to create, update, or skip instead of treating every change as a new record."
+        },
+        {
+          "question": "What should be handed over after the integration is built?",
+          "answer": "You should receive the trigger rules, field map, permission requirements, ID strategy, dedupe logic, error-handling notes, and a runbook for common fixes and future schema changes."
+        }
+      ],
+      "schema_about": [
+        "Google Calendar and Notion integration workflows",
+        "Two-way sync replacement for Google Calendar events and Notion database items",
+        "Scoped briefs and approved builder matching for owned workflow implementations"
+      ],
+      "schema_mentions": [
+        "Google Calendar event",
+        "Notion database item",
+        "Notion page in a database/data source"
+      ]
+    },
+    "enrichmentScores": {
+      "tool_specificity": 8,
+      "workflow_specificity": 8,
+      "difference_from_template": 6,
+      "commercial_clarity": 8,
+      "seo_alignment": 8,
+      "repetition_risk": 4
+    },
+    "lastEnrichedAt": "2026-05-14T01:18:03.159Z",
+    "enrichmentModel": "gpt-5.4",
+    "needsManualReview": true,
+    "enrichmentNotes": "Meta description appears truncated and ends with 'and.' which weakens polish and may reduce SEO usefulness.; A few phrases are slightly repetitive across hero, problem, replacement, and FAQ, which increases repetition risk.",
+    "researchNotes": {
+      "pageType": "zapier_pair",
+      "businessContext": "Replace Zapier sync between Notion and Google Calendar with a direct two-way integration",
+      "primaryTool": {
+        "slug": "google-calendar",
+        "displayName": "Google Calendar",
+        "profile": null
+      },
+      "secondaryTool": {
+        "slug": "notion",
+        "displayName": "Notion",
+        "profile": null
+      },
+      "taxonomyKnowledge": {
+        "primary": {
+          "category": "general_workflow",
+          "taxonomy": {}
+        },
+        "secondary": {
+          "category": "general_workflow",
+          "taxonomy": {}
+        }
+      },
+      "webResearch": {
+        "summary": "Zapier’s Google Calendar ↔ Notion template page shows the pairing is commonly used in both directions: Google Calendar events can be copied into Notion databases, and Notion database items can generate Google Calendar events. Zapier’s Google Calendar app page exposes event/search actions such as finding calendars, finding events, moving events, and creating events; Google Calendar’s API requires `start` and `end` to create an event. On the Notion side, pages that live in a data source/database are the easiest shape for automation because their properties must match the database schema, and integrations need the relevant database shared to them to read or update relation-linked data. These constraints imply the most common failures are schema mismatches, missing permissions/sharing, incomplete time mapping, and trigger noise from recurring or updated events. ([zapier.com](https://zapier.com/apps/google-calendar/integrations/notion?utm_source=openai))",
+        "trigger_examples": [
+          "New Google Calendar event",
+          "Google Calendar event ends",
+          "New or updated Google Calendar event"
+        ],
+        "entity_examples": [
+          "Google Calendar event",
+          "Notion database item",
+          "Notion page in a database/data source"
+        ],
+        "failure_signatures": [
+          "Notion action fails because the target page is not in a database/data source and therefore only has a title property available.",
+          "Google Calendar create-event step fails or produces incomplete output when the workflow does not supply both required `start` and `end` fields.",
+          "Relation or rollup-style Notion updates come back empty or partial because the related parent database was not shared with the integration.",
+          "Duplicate or noisy records appear when the workflow is triggered by updated events or recurring-event instances instead of only first-time creations."
+        ],
+        "implementation_notes": [
+          "Use database-backed Notion pages when you need structured field mapping; Notion’s API treats database rows as pages whose properties must match the database schema. ([developers.notion.com](https://developers.notion.com/reference/page?utm_source=openai))",
+          "For Google Calendar event creation, map at least `start` and `end`; the API also supports optional fields like attendees, visibility, reminders, conference data, and attachments. ([developers.google.com](https://developers.google.com/workspace/calendar/api/v3/reference/events/insert?utm_source=openai))",
+          "Zapier’s Google Calendar app exposes search and utility actions such as Find Calendars, Find Events, Move Event to Another Calendar, and Find or Create Events, which are useful for dedupe, routing, and update-safe workflows. ([zapier.com](https://zapier.com/apps/google-calendar/integrations/notion?utm_source=openai))"
+        ],
+        "pair_specific_failures": [
+          "Calendar-to-Notion sync misses fields when the Notion database lacks matching columns for event title, time, attendees, or status.",
+          "Notion-to-Calendar sync creates the wrong event shape when Notion date/time data is stored in a non-structured page or missing start/end time details."
+        ],
+        "pair_specific_triggers": [
+          "When a new Google Calendar event is created, add a database item in Notion.",
+          "When a Notion database item is created or updated, create or update a Google Calendar event."
+        ],
+        "api_constraints": [
+          "Google Calendar event creation requires authorization and the request body must include `start` and `end`. ([developers.google.com](https://developers.google.com/workspace/calendar/api/v3/reference/events/insert?utm_source=openai))",
+          "Notion integrations need the relevant database shared with the integration to update relation-linked data correctly. ([developers.notion.com](https://developers.notion.com/reference/page-property-values?utm_source=openai))"
+        ],
+        "real_world_scenario": "A project manager creates a meeting in Google Calendar and wants the meeting automatically logged in a Notion project database with the meeting title, time, and follow-up notes; later, if a Notion task is updated with a deadline, a corresponding calendar event is created so the team sees it on their schedules. ([zapier.com](https://zapier.com/apps/google-calendar/integrations/notion?utm_source=openai))",
+        "data_flow_description": "In the Calendar-to-Notion direction, a Google Calendar event trigger sends event metadata into a Notion database item/page, where each mapped field must fit the destination database schema. In the Notion-to-Calendar direction, a Notion database item trigger sends structured page properties into Google Calendar event creation, which requires start/end timestamps and can optionally carry reminders, attendees, visibility, and conferencing details. ([zapier.com](https://zapier.com/apps/google-calendar/integrations/notion?utm_source=openai))",
+        "source_urls": [
+          "https://zapier.com/apps/google-calendar/integrations/notion",
+          "https://developers.google.com/workspace/calendar/api/v3/reference/events/insert",
+          "https://developers.notion.com/reference/page"
+        ]
+      },
+      "pairSpecificFailures": [
+        "Calendar-to-Notion sync misses fields when the Notion database lacks matching columns for event title, time, attendees, or status.",
+        "Notion-to-Calendar sync creates the wrong event shape when Notion date/time data is stored in a non-structured page or missing start/end time details.",
+        "Notion action fails because the target page is not in a database/data source and therefore only has a title property available.",
+        "Google Calendar create-event step fails or produces incomplete output when the workflow does not supply both required `start` and `end` fields.",
+        "Relation or rollup-style Notion updates come back empty or partial because the related parent database was not shared with the integration.",
+        "Duplicate or noisy records appear when the workflow is triggered by updated events or recurring-event instances instead of only first-time creations."
+      ],
+      "pairSpecificTriggers": [
+        "When a new Google Calendar event is created, add a database item in Notion.",
+        "When a Notion database item is created or updated, create or update a Google Calendar event.",
+        "New Google Calendar event",
+        "Google Calendar event ends",
+        "New or updated Google Calendar event"
+      ],
+      "apiConstraints": [
+        "Google Calendar event creation requires authorization and the request body must include `start` and `end`. ([developers.google.com](https://developers.google.com/workspace/calendar/api/v3/reference/events/insert?utm_source=openai))",
+        "Notion integrations need the relevant database shared with the integration to update relation-linked data correctly. ([developers.notion.com](https://developers.notion.com/reference/page-property-values?utm_source=openai))"
+      ],
+      "realWorldScenario": "A project manager creates a meeting in Google Calendar and wants the meeting automatically logged in a Notion project database with the meeting title, time, and follow-up notes; later, if a Notion task is updated with a deadline, a corresponding calendar event is created so the team sees it on their schedules. ([zapier.com](https://zapier.com/apps/google-calendar/integrations/notion?utm_source=openai))",
+      "dataFlowDescription": "In the Calendar-to-Notion direction, a Google Calendar event trigger sends event metadata into a Notion database item/page, where each mapped field must fit the destination database schema. In the Notion-to-Calendar direction, a Notion database item trigger sends structured page properties into Google Calendar event creation, which requires start/end timestamps and can optionally carry reminders, attendees, visibility, and conferencing details. ([zapier.com](https://zapier.com/apps/google-calendar/integrations/notion?utm_source=openai))",
+      "volumeProfile": "Low to high depending on trigger frequency and sync retries",
+      "constraints": [
+        "Use verified facts only from provided research notes.",
+        "If a claim is uncertain, use soft language (may/can/often).",
+        "Do not invent pricing or official limits."
+      ]
+    }
+  },
+  "next": {
+    "id": "zapier-calendar-notion",
+    "siloSlug": "zapier",
+    "pageSlug": "calendar-notion",
+    "fullUrl": "/zapier/calendar-notion/",
+    "pageType": "zapier_pair",
+    "status": "published",
+    "priority": 1,
+    "pageTitle": "Replace Google Calendar and Notion Zapier Sync | GetForked",
+    "h1Heading": "Replace Google Calendar and Notion Zapier Sync",
+    "metaDescription": "Scope a direct Google Calendar and Notion integration that handles recurring events, timezone mapping, schema drift, relation permissions, and reliable page updates.",
+    "canonicalUrl": "https://getforked.dev/zapier/calendar-notion/",
+    "centralEntity": "Zapier",
+    "attribute": "Google Calendar to Notion replacement",
+    "entityAttributePair": "Google Calendar event syncing to Notion database pages",
+    "macroContext": "Replacing Zapier workflows for Google Calendar and Notion",
+    "microContexts": "Google Calendar integration patterns; Zapier task limits; direct API connector options; workflow ownership; builder matching",
+    "centralSearchIntent": "Replacing Zapier middleware with a scoped custom automation build",
+    "sourceContextBridge": "GetForked matches businesses with approved builders who can scope and replace Zapier-dependent workflows.",
+    "contextualVector": "H1: Replace Zapier Workflows for Google Calendar and Notion\nH2: Why this Zapier workflow breaks\nH3: Field mapping and trigger failures\nH3: Manual cleanup and reporting gaps\nH2: What a custom replacement looks like\nH3: Direct API or webhook approach\nH3: Validation, retries, and workflow ownership\nH2: How GetForked matches you with the right builder\nH3: Scoped before you commit\nH2: Cost comparison - Zapier subscription vs custom build\nH2: Related Zapier replacements",
+    "appPrimary": "google-calendar",
+    "appSecondary": "notion",
+    "appPrimaryShort": "google-calendar",
+    "appSecondaryShort": "notion",
+    "integrationDirection": "Google Calendar to Notion",
+    "triggerEvent": "Google Calendar event or record change",
+    "destinationAction": "Notion sync, alert, or update",
+    "introSummary": "A Google Calendar and Notion workflow often starts as a simple meeting log: create a Notion page when a calendar event appears.\n\nIt gets unreliable once that Google Calendar event with title, start/end time, organizer, recurrence, location, and attendees is rescheduled, cancelled, shifted across time zones, or tied to Notion relation and people properties that need stricter handling.",
+    "heroSummary": "A Google Calendar and Notion workflow often starts as a simple meeting log: create a Notion page when a calendar event appears.\n\nIt gets unreliable once that Google Calendar event with title, start/end time, organizer, recurrence, location, and attendees is rescheduled, cancelled, shifted across time zones, or tied to Notion relation and people properties that need stricter handling.",
+    "problemSummary": "The usual setup is easy to describe: a new Google Calendar event creates a Notion database page with title plus date, select, rich text, relation, or people properties. The problems begin during ordinary calendar maintenance. An existing calendar event is rescheduled, and the Notion record should update its date fields, but the workflow creates a duplicate page, leaves the old date in place, or loses the connection to the original event. A recurring meeting is created or modified, and the workflow needs to decide whether to sync the series or each occurrence. If that rule is not explicit, Notion ends up holding stale meeting pages, wrong-day entries, or incomplete attendee and relation data.",
+    "replacementSummary": "A stronger replacement starts by modeling the real objects on both sides. Google Calendar event data is read from the source calendar, normalized into a canonical event record, then written to a Notion database page using mapped properties such as title and date. On updates, the workflow should locate the existing Notion page by a stable event identifier and patch only changed fields. It should preserve the Google Calendar event ID and calendar ID, use Notion property IDs rather than display names where possible, and define whether recurring changes apply to the series, an occurrence, or an exception.",
+    "uniqueContentAngle": "Replace Zapier sync between Notion and Google Calendar with a direct two-way integration",
+    "bodyHtml": "<h2>What this Google Calendar and Notion workflow usually looks like</h2>\n<p>Most teams use this pattern for a practical reason. A new Google Calendar event is created and should generate a new Notion page so the meeting also exists in a database used for notes, project tracking, interview coordination, or reporting.</p>\n<p>The page often needs more than a title and date. It may include the organizer, location, attendees, recurrence details, a project relation, and a people property for the owner. That is where a simple copy step starts running into the difference between a calendar system and a schema-driven workspace.</p>\n<h3>Meeting logs and coordination</h3>\n<p>A team uses Google Calendar for meetings and Notion as a lightweight meeting log. When a meeting is created in Calendar, a Notion page is created with the event title and time. If the organizer later changes the meeting time, the corresponding Notion row should update instead of duplicating.</p>\n<h3>Structured Notion records</h3>\n<p>A Notion database page with title plus date, select, rich text, relation, or people properties can hold a full meeting record, but only if the integration knows the current schema and has access to every linked database it needs.</p>\n<h3>Two-way planning scope</h3>\n<p>If the team also wants Notion edits to feed back into Google Calendar, the brief has to specify which side owns title, start/end time, attendees, and status. Without ownership rules, both systems can overwrite each other or loop on minor edits.</p>\n<h2>Why these syncs become unreliable in normal use</h2>\n<p>These failures usually show up as small but repeated trust problems rather than one big outage. A page duplicates after a reschedule, a recurring event update never reaches Notion, or a meeting shows up on the wrong day for a team member in another region.</p>\n<p>The root cause is that Google Calendar and Notion represent data differently. Google Calendar carries organizer, attendee, recurrence, and time-zone behavior that has to be interpreted carefully. Notion depends on explicit property types, current schema definitions, and database sharing permissions.</p>\n<h3>Recurring events are not one simple record</h3>\n<p>A recurring meeting is created or modified, and the workflow needs to decide whether to sync the series or each occurrence. If it does not, updates to recurring Google Calendar events are not reflected correctly in Notion because the integration treats the series like a single event or misses recurrence-related data.</p>\n<h3>Time handling causes wrong-day records</h3>\n<p>Model time carefully: Notion date filters and comparisons default to UTC when timezone is omitted, so event start/end normalization matters. That matters most for all-day entries, meetings that cross midnight, and events moved between offices or participants in different regions.</p>\n<h3>Notion schema and permissions drift over time</h3>\n<p>Event-to-page mapping breaks when the Notion database schema changes and the workflow still writes to old property names or types. Relation fields remain empty or fail to update because the related parent database was not shared with the integration.</p>\n<h2>What the replacement implementation should do</h2>\n<p>A direct implementation should read the Google Calendar event, convert it into a canonical internal record, compare that record with the current Notion page state, and then patch only the changed fields. That avoids duplicate pages and makes later troubleshooting much easier.</p>\n<p>It also needs to distinguish between a page retrieval used for lightweight checks and a deeper fetch used for complete property handling. That matters when the workflow depends on attendees, rich text content, formula outputs, or relation data for downstream decisions.</p>\n<h3>Use stable IDs on both sides</h3>\n<p>Use stable identifiers for deduplication and updates; Notion property IDs remain constant even if property names change, which is safer than keying on display labels. The workflow should also preserve the Google Calendar event ID and source calendar ID on the Notion page.</p>\n<h3>Fetch full Notion property data when required</h3>\n<p>If syncing into relation, people, rich_text, or formula-heavy fields, account for pagination and partial inline returns, and fetch property items when you need completeness. Retrieve page returns a maximum of 25 inline references for some formula/rich property cases.</p>\n<h3>Handle cancellation and exceptions explicitly</h3>\n<p>When an event is cancelled, moved, or edited as one exception inside a recurring series, the workflow should update status, archive behavior, or page content according to a clear rule. That prevents stale Notion rows and makes exception handling visible instead of silent.</p>\n<h2>What to put in the GetForked brief</h2>\n<p>A useful brief names the actual operating workflow, not just the two tools. It should explain which calendars are involved, which Notion databases receive pages, which fields matter, and what should happen for create, update, cancellation, recurrence edits, and optional two-way sync.</p>\n<p>It should also set support expectations. That includes how duplicates are detected, how quickly updates should appear, how errors are surfaced, who owns credentials, and what documentation the team receives at handover.</p>\n<h3>Source, destination, and mapping rules</h3>\n<p>List the source Google Calendar IDs, the destination Notion database IDs, the exact mapping for title, start/end time, organizer, recurrence, location, attendees, and every select, rich text, relation, or people property involved.</p>\n<h3>Control requirements</h3>\n<p>Specify retry behavior, logging, alerts, replay options, timezone assumptions, recurrence policy, and when edge cases should pause for review instead of writing uncertain data.</p>\n<h3>Handover deliverables</h3>\n<p>Ask for documented property mappings, credential ownership, schema dependency notes, test cases for recurring edits and timezone shifts, and a runbook for verifying that Google Calendar events and Notion pages stay aligned after changes.</p>",
+    "supplementaryBridge": "Related Zapier replacement pages for adjacent workflows.",
+    "mainContentFormat": "problem-solution",
+    "primaryCta": "Get Matched With a Google Calendar Automation Builder",
+    "secondaryCta": "See What This Replaces",
+    "briefPrefillCategory": "replace-zapier",
+    "briefPrefillTools": "google-calendar,notion",
+    "buyerPainPoint": "Google Calendar to Notion workflows can break when trigger timing, field mappings, duplicates, rate limits, or missing retries leave the team checking both systems by hand.",
+    "projectType": "Zapier replacement workflow",
+    "sourceParam": "zapier-calendar-notion",
+    "zapierCostContext": "Zapier still makes sense when the workflow is one-way, low volume, and easy to verify, such as copying a simple internal meeting into a Notion database page that no one depends on for planning. The tradeoff changes when Notion becomes the working record for meetings, projects, or interview schedules and staff keep checking Google Calendar against Notion to sort out duplicate pages, stale recurring entries, wrong-day dates, or missing relations after normal edits.",
+    "estimatedTaskVolume": "Low to high depending on trigger frequency and sync retries",
+    "customBuildContext": "A scoped build can replace brittle middleware with validation, retries, logs, and a workflow your team owns.",
+    "costComparisonHtml": "<table><thead><tr><th>Cost factor</th><th>Zapier workflow</th><th>Custom build</th></tr></thead><tbody><tr><td>Monthly subscription</td><td>Depends on plan, premium apps, and task usage.</td><td>Scoped upfront with hosting and maintenance discussed separately.</td></tr><tr><td>Task volume</td><td>Higher volume can increase plan pressure.</td><td>Designed around expected Google Calendar and Notion events and retry volume.</td></tr><tr><td>Failure handling</td><td>Usually reviewed through Zap history and alerts.</td><td>Can include validation, logs, queues, and human review states.</td></tr><tr><td>Ownership</td><td>Workflow logic lives in middleware.</td><td>Workflow logic is documented and owned by your team.</td></tr></tbody></table>",
+    "builderSkillProfile": "API integration, webhook handling, data validation, queueing/retry logic, dashboarding, and workflow documentation.",
+    "builderMatchFactors": "GetForked turns this into a scoped implementation brief and matches you with an approved builder for the actual replacement work. That brief should define which Google Calendar calendars are in scope, which Notion database or databases receive pages, the exact mapping for title, date, select, rich text, relation, and people properties, the stable ID strategy, recurrence policy, timezone rules, cancellation behavior, error handling, retry rules, alerting, and handover materials. The builder’s deliverable is not a vague sync. It is a documented workflow with tested create and update paths, known exception handling, credential ownership defined, and a runbook your team can use after launch.",
+    "requiredBuilderBadges": "Google Calendar and Notion API integration, Recurring event sync and timezone normalization, Notion schema, relation, and property-item handling",
+    "trustProofElements": "Approved builders only. Scope is reviewed before work starts.",
+    "groundednessSignals": "Specific workflow mechanics and cost assumptions are stated clearly.",
+    "temporalFreshness": "Refresh Zapier pricing, API references, and examples quarterly.",
+    "lastVerifiedNote": "Last verified 12 May 2026.",
+    "primaryKeyword": "notion google calendar integration",
+    "secondaryKeywords": "zapier notion google calendar",
+    "semanticTerms": "Google Calendar event syncing to Notion database pages, Direct replacement for Zapier-dependent Google Calendar and Notion workflows, GetForked scoped brief and approved builder matching for workflow replacement, notion google calendar integration, Zapier replacement, Workflow automation, Custom integration, Business process automation, Google Calendar, Notion, GetForked, field mapping breaks, manual retry work, Validation layer, Workflow automation, Custom integration, Business process automation",
+    "rootLink": "/zapier/",
+    "seedLinks": "/zapier/",
+    "nodeLinks": "/zapier/google-calendar/, /zapier/calendar-slack/, /zapier/asana-calendar/, /zapier/airtable-calendar/, /zapier/calendar-trello/",
+    "crossSiloLinks": "",
+    "anchorTexts": "Zapier replacement builders | approved automation builders | custom workflow connector",
+    "relatedPageIds": "google-calendar, calendar-slack, asana-calendar, airtable-calendar, calendar-trello",
+    "imageAltPrimary": "Custom Google Calendar to Notion workflow replacing Zapier",
+    "imageUrlSlug": "calendar-notion",
+    "workflowBeforeLabel": "A recruiting team logs candidate interviews in Notion after scheduling them in Google Calendar, but when an interviewer moves a panel session to the next day for a different time zone the old Notion page stays in place, a second page appears, and the project relation remains empty because Google.",
+    "workflowAfterLabel": "The replacement watches the correct Google Calendar, finds the existing Notion page by stored event ID and calendar ID when the interview is moved, rewrites the date fields after Model time carefully: Notion date filters and comparisons default to UTC when timezone is omitted, and uses.",
+    "schemaType": "Service",
+    "updatedAt": "2026-05-14T03:57:53.181Z",
+    "enrichmentStatus": "needs_manual_enrichment",
+    "enrichmentVersion": 1,
+    "nuancedContent": {
+      "seo_title": "Replace Google Calendar and Notion Zapier Sync | GetForked",
+      "h1": "Replace Google Calendar and Notion Zapier Sync",
+      "meta_description": "Scope a direct Google Calendar and Notion integration that handles recurring events, timezone mapping, schema drift, relation permissions, and reliable page updates.",
+      "hero_intro": [
+        "A Google Calendar and Notion workflow often starts as a simple meeting log: create a Notion page when a calendar event appears.",
+        "It gets unreliable once that Google Calendar event with title, start/end time, organizer, recurrence, location, and attendees is rescheduled, cancelled, shifted across time zones, or tied to Notion relation and people properties that need stricter handling."
+      ],
+      "problem_heading": "Why Google Calendar Events and Notion Pages Stop Matching",
+      "problem_summary": "The usual setup is easy to describe: a new Google Calendar event creates a Notion database page with title plus date, select, rich text, relation, or people properties. The problems begin during ordinary calendar maintenance. An existing calendar event is rescheduled, and the Notion record should update its date fields, but the workflow creates a duplicate page, leaves the old date in place, or loses the connection to the original event. A recurring meeting is created or modified, and the workflow needs to decide whether to sync the series or each occurrence. If that rule is not explicit, Notion ends up holding stale meeting pages, wrong-day entries, or incomplete attendee and relation data.",
+      "failure_modes": [
+        "A new Google Calendar event creates a Notion page correctly, but a later edit cannot find that same page because the.",
+        "Recurring updates go wrong when one exception in a series is edited, cancelled, or moved and the integration treats.",
+        "A calendar event appears in Notion with the wrong day because timezone or all-day date handling was mapped.",
+        "Notion writes become partial or fail silently when property names change, relation fields point to an unshared."
+      ],
+      "replacement_heading": "What a Direct Google Calendar and Notion Workflow Should Control",
+      "replacement_summary": "A stronger replacement starts by modeling the real objects on both sides. Google Calendar event data is read from the source calendar, normalized into a canonical event record, then written to a Notion database page using mapped properties such as title and date. On updates, the workflow should locate the existing Notion page by a stable event identifier and patch only changed fields. It should preserve the Google Calendar event ID and calendar ID, use Notion property IDs rather than display names where possible, and define whether recurring changes apply to the series, an occurrence, or an exception.",
+      "replacement_cards": [
+        {
+          "title": "Durable event-to-page identity",
+          "description": "Store the Google Calendar event ID and source calendar ID on the Notion page so a reschedule, cancellation, or organizer edit updates the right page instead of creating another one."
+        },
+        {
+          "title": "Recurrence rules that match reality",
+          "description": "Define whether the workflow syncs the recurring series, each occurrence, or only exceptions, then process edits and cancellations according to that policy."
+        },
+        {
+          "title": "Timezone and all-day normalization",
+          "description": "Normalize start/end values before every Notion write so events that cross midnight or shift time zones do not appear on the wrong day."
+        },
+        {
+          "title": "Schema-aware Notion writes",
+          "description": "Map against the current Notion database structure, prefer stable property IDs, and stop with a clear error when a property type or expected field no longer matches."
+        },
+        {
+          "title": "Relation and people permission checks",
+          "description": "Verify that any related project, client, or parent database is shared with the integration before attempting relation updates."
+        },
+        {
+          "title": "Complete property retrieval",
+          "description": "Fetch additional Notion property data when needed, because Retrieve page returns a maximum of 25 inline references for some formula/rich property cases."
+        }
+      ],
+      "before_flow": "A recruiting team logs candidate interviews in Notion after scheduling them in Google Calendar, but when an interviewer moves a panel session to the next day for a different time zone the old Notion page stays in place, a second page appears, and the project relation remains empty because Google.",
+      "after_flow": "The replacement watches the correct Google Calendar, finds the existing Notion page by stored event ID and calendar ID when the interview is moved, rewrites the date fields after Model time carefully: Notion date filters and comparisons default to UTC when timezone is omitted, and uses.",
+      "cost_context": "Zapier still makes sense when the workflow is one-way, low volume, and easy to verify, such as copying a simple internal meeting into a Notion database page that no one depends on for planning. The tradeoff changes when Notion becomes the working record for meetings, projects, or interview schedules and staff keep checking Google Calendar against Notion to sort out duplicate pages, stale recurring entries, wrong-day dates, or missing relations after normal edits.",
+      "when_zapier_is_still_right": "Zapier is still a reasonable choice when one Google Calendar event should create one basic Notion page and someone can spot-check the result manually. It becomes harder to trust when the workflow must keep title, start/end time, organizer, recurrence, location, attendees, and Notion property mappings aligned through reschedules, cancellations, recurring exceptions, and schema changes.",
+      "builder_matching_summary": "GetForked turns this into a scoped implementation brief and matches you with an approved builder for the actual replacement work. That brief should define which Google Calendar calendars are in scope, which Notion database or databases receive pages, the exact mapping for title, date, select, rich text, relation, and people properties, the stable ID strategy, recurrence policy, timezone rules, cancellation behavior, error handling, retry rules, alerting, and handover materials. The builder’s deliverable is not a vague sync. It is a documented workflow with tested create and update paths, known exception handling, credential ownership defined, and a runbook your team can use after launch.",
+      "builder_skill_tags": [
+        "Google Calendar and Notion API integration",
+        "Recurring event sync and timezone normalization",
+        "Notion schema, relation, and property-item handling"
+      ],
+      "seo_body_sections": [
+        {
+          "h2": "What this Google Calendar and Notion workflow usually looks like",
+          "paragraphs": [
+            "Most teams use this pattern for a practical reason. A new Google Calendar event is created and should generate a new Notion page so the meeting also exists in a database used for notes, project tracking, interview coordination, or reporting.",
+            "The page often needs more than a title and date. It may include the organizer, location, attendees, recurrence details, a project relation, and a people property for the owner. That is where a simple copy step starts running into the difference between a calendar system and a schema-driven workspace."
+          ],
+          "h3_sections": [
+            {
+              "h3": "Meeting logs and coordination",
+              "paragraph": "A team uses Google Calendar for meetings and Notion as a lightweight meeting log. When a meeting is created in Calendar, a Notion page is created with the event title and time. If the organizer later changes the meeting time, the corresponding Notion row should update instead of duplicating."
+            },
+            {
+              "h3": "Structured Notion records",
+              "paragraph": "A Notion database page with title plus date, select, rich text, relation, or people properties can hold a full meeting record, but only if the integration knows the current schema and has access to every linked database it needs."
+            },
+            {
+              "h3": "Two-way planning scope",
+              "paragraph": "If the team also wants Notion edits to feed back into Google Calendar, the brief has to specify which side owns title, start/end time, attendees, and status. Without ownership rules, both systems can overwrite each other or loop on minor edits."
+            }
+          ]
+        },
+        {
+          "h2": "Why these syncs become unreliable in normal use",
+          "paragraphs": [
+            "These failures usually show up as small but repeated trust problems rather than one big outage. A page duplicates after a reschedule, a recurring event update never reaches Notion, or a meeting shows up on the wrong day for a team member in another region.",
+            "The root cause is that Google Calendar and Notion represent data differently. Google Calendar carries organizer, attendee, recurrence, and time-zone behavior that has to be interpreted carefully. Notion depends on explicit property types, current schema definitions, and database sharing permissions."
+          ],
+          "h3_sections": [
+            {
+              "h3": "Recurring events are not one simple record",
+              "paragraph": "A recurring meeting is created or modified, and the workflow needs to decide whether to sync the series or each occurrence. If it does not, updates to recurring Google Calendar events are not reflected correctly in Notion because the integration treats the series like a single event or misses recurrence-related data."
+            },
+            {
+              "h3": "Time handling causes wrong-day records",
+              "paragraph": "Model time carefully: Notion date filters and comparisons default to UTC when timezone is omitted, so event start/end normalization matters. That matters most for all-day entries, meetings that cross midnight, and events moved between offices or participants in different regions."
+            },
+            {
+              "h3": "Notion schema and permissions drift over time",
+              "paragraph": "Event-to-page mapping breaks when the Notion database schema changes and the workflow still writes to old property names or types. Relation fields remain empty or fail to update because the related parent database was not shared with the integration."
+            }
+          ]
+        },
+        {
+          "h2": "What the replacement implementation should do",
+          "paragraphs": [
+            "A direct implementation should read the Google Calendar event, convert it into a canonical internal record, compare that record with the current Notion page state, and then patch only the changed fields. That avoids duplicate pages and makes later troubleshooting much easier.",
+            "It also needs to distinguish between a page retrieval used for lightweight checks and a deeper fetch used for complete property handling. That matters when the workflow depends on attendees, rich text content, formula outputs, or relation data for downstream decisions."
+          ],
+          "h3_sections": [
+            {
+              "h3": "Use stable IDs on both sides",
+              "paragraph": "Use stable identifiers for deduplication and updates; Notion property IDs remain constant even if property names change, which is safer than keying on display labels. The workflow should also preserve the Google Calendar event ID and source calendar ID on the Notion page."
+            },
+            {
+              "h3": "Fetch full Notion property data when required",
+              "paragraph": "If syncing into relation, people, rich_text, or formula-heavy fields, account for pagination and partial inline returns, and fetch property items when you need completeness. Retrieve page returns a maximum of 25 inline references for some formula/rich property cases."
+            },
+            {
+              "h3": "Handle cancellation and exceptions explicitly",
+              "paragraph": "When an event is cancelled, moved, or edited as one exception inside a recurring series, the workflow should update status, archive behavior, or page content according to a clear rule. That prevents stale Notion rows and makes exception handling visible instead of silent."
+            }
+          ]
+        },
+        {
+          "h2": "What to put in the GetForked brief",
+          "paragraphs": [
+            "A useful brief names the actual operating workflow, not just the two tools. It should explain which calendars are involved, which Notion databases receive pages, which fields matter, and what should happen for create, update, cancellation, recurrence edits, and optional two-way sync.",
+            "It should also set support expectations. That includes how duplicates are detected, how quickly updates should appear, how errors are surfaced, who owns credentials, and what documentation the team receives at handover."
+          ],
+          "h3_sections": [
+            {
+              "h3": "Source, destination, and mapping rules",
+              "paragraph": "List the source Google Calendar IDs, the destination Notion database IDs, the exact mapping for title, start/end time, organizer, recurrence, location, attendees, and every select, rich text, relation, or people property involved."
+            },
+            {
+              "h3": "Control requirements",
+              "paragraph": "Specify retry behavior, logging, alerts, replay options, timezone assumptions, recurrence policy, and when edge cases should pause for review instead of writing uncertain data."
+            },
+            {
+              "h3": "Handover deliverables",
+              "paragraph": "Ask for documented property mappings, credential ownership, schema dependency notes, test cases for recurring edits and timezone shifts, and a runbook for verifying that Google Calendar events and Notion pages stay aligned after changes."
+            }
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "question": "Can Google Calendar and Notion sync both ways?",
+          "answer": "Yes, but the scope has to define ownership clearly. If both systems can edit title, date, attendees, or status, the workflow needs conflict rules and loop prevention so one change does not trigger endless rewrites."
+        },
+        {
+          "question": "Why do recurring events break Notion syncs so often?",
+          "answer": "Because the workflow must decide whether the tracked record is the recurring series, each occurrence, or only exceptions. Without that rule, updates to one instance can duplicate pages, overwrite the wrong record, or leave older pages unchanged."
+        },
+        {
+          "question": "Why does a Google Calendar event sometimes show the wrong day in Notion?",
+          "answer": "Usually because timezone or all-day handling was mapped incorrectly. Notion date filters and comparisons can default to UTC when timezone is omitted, so start/end normalization matters for midnight crossings and timezone shifts."
+        },
+        {
+          "question": "Why do Notion relation fields fail during this sync?",
+          "answer": "A Notion relation property pointing to another database entry requires that related database to be shared with the integration. If that database is not shared, the page may be created but the relation field can stay empty or fail to update."
+        },
+        {
+          "question": "What should the implementation do for long attendee lists or formula-heavy properties?",
+          "answer": "It should not rely only on the basic page response. Retrieve page returns a maximum of 25 inline references for some formula/rich property cases, so the workflow may need property-item requests to get complete attendee, relation, rich text, or formula-related data."
+        }
+      ],
+      "schema_about": [
+        "Google Calendar event syncing to Notion database pages",
+        "Direct replacement for Zapier-dependent Google Calendar and Notion workflows",
+        "GetForked scoped brief and approved builder matching for workflow replacement",
+        "notion google calendar integration",
+        "Zapier replacement",
+        "Workflow automation",
+        "Custom integration",
+        "Business process automation"
+      ],
+      "schema_mentions": [
+        "Google Calendar",
+        "Notion",
+        "GetForked",
+        "field mapping breaks",
+        "manual retry work",
+        "Validation layer",
+        "Workflow automation",
+        "Custom integration",
+        "Business process automation"
+      ]
+    },
+    "enrichmentScores": {
+      "tool_specificity": 8,
+      "workflow_specificity": 8,
+      "difference_from_template": 7,
+      "commercial_clarity": 8,
+      "seo_alignment": 8,
+      "repetition_risk": 3
+    },
+    "lastEnrichedAt": "2026-05-14T03:57:53.181Z",
+    "enrichmentModel": "gpt-5.4",
+    "needsManualReview": true,
+    "enrichmentNotes": "Semantic entity coverage is too thin.; Missing concrete tooling/integration implementation details beyond general API and schema handling, but still sufficiently specific for a landing-page brief.",
+    "researchNotes": {
+      "pageType": "zapier_pair",
+      "businessContext": "Replace Zapier sync between Notion and Google Calendar with a direct two-way integration",
+      "primaryTool": {
+        "slug": "google-calendar",
+        "displayName": "Google Calendar",
+        "profile": null
+      },
+      "secondaryTool": {
+        "slug": "notion",
+        "displayName": "Notion",
+        "profile": null
+      },
+      "taxonomyKnowledge": {
+        "primary": {
+          "category": "general_workflow",
+          "taxonomy": {}
+        },
+        "secondary": {
+          "category": "general_workflow",
+          "taxonomy": {}
+        }
+      },
+      "webResearch": {
+        "summary": "Google Calendar to Notion workflows usually map calendar events into Notion database rows, often creating or updating pages when events are created or changed. The main risks come from date/time handling, recurring-event expansion, permissions on both sides, and Notion property/schema limits. Notion API page properties are schema-driven, paginated for some rich fields, and relations require the related database to be shared with the integration. Google Calendar events can have tricky organizer/recurrence/resource behaviors, and deleted or unorganized events can become hard to manage. ([developers.notion.com](https://developers.notion.com/reference/page-property-values?utm_source=openai))",
+        "trigger_examples": [
+          "A new Google Calendar event is created and should generate a new Notion page.",
+          "An existing calendar event is rescheduled, and the Notion record should update its date fields.",
+          "A recurring meeting is created or modified, and the workflow needs to decide whether to sync the series or each occurrence."
+        ],
+        "entity_examples": [
+          "Google Calendar event with title, start/end time, organizer, recurrence, location, and attendees. ([support.google.com](https://support.google.com/calendar/answer/72143?hl=en-au&utm_source=openai))",
+          "Notion database page with title plus date, select, rich text, relation, or people properties. ([developers.notion.com](https://developers.notion.com/reference/page-property-values?utm_source=openai))",
+          "Notion relation property pointing to another database entry, which requires that related database to be shared with the integration. ([developers.notion.com](https://developers.notion.com/reference/page-property-values?utm_source=openai))"
+        ],
+        "failure_signatures": [
+          "Calendar event appears in Notion with the wrong day because timezone or all-day date handling was mapped incorrectly. ([developers.notion.com](https://developers.notion.com/reference/post-database-query-filter?utm_source=openai))",
+          "Only part of a long title, attendee list, or formula/rollup-derived value is visible because Notion paginates some property types and limits inline results. ([developers.notion.com](https://developers.notion.com/reference/page-property-values?utm_source=openai))",
+          "Relation fields remain empty or fail to update because the related parent database was not shared with the integration. ([developers.notion.com](https://developers.notion.com/reference/page-property-values?utm_source=openai))",
+          "Recurring or organizer-less calendar items do not behave as expected during updates or deletions, leaving stale Notion rows or orphaned calendar records. ([support.google.com](https://support.google.com/a/answer/7399420?hl=en&utm_source=openai))"
+        ],
+        "implementation_notes": [
+          "Use stable identifiers for deduplication and updates; Notion property IDs remain constant even if property names change, which is safer than keying on display labels. ([developers.notion.com](https://developers.notion.com/reference/page-property-values?utm_source=openai))",
+          "Model time carefully: Notion date filters and comparisons default to UTC when timezone is omitted, so event start/end normalization matters. ([developers.notion.com](https://developers.notion.com/reference/post-database-query-filter?utm_source=openai))",
+          "If syncing into relation, people, rich_text, or formula-heavy fields, account for pagination and partial inline returns, and fetch property items when you need completeness. ([developers.notion.com](https://developers.notion.com/reference/page-property-values?utm_source=openai))"
+        ],
+        "pair_specific_failures": [
+          "Event-to-page mapping breaks when the Notion database schema changes and the workflow still writes to old property names or types. ([developers.notion.com](https://developers.notion.com/reference/page-property-values?utm_source=openai))",
+          "Updates to recurring Google Calendar events are not reflected correctly in Notion because the integration treats the series like a single event or misses recurrence-related data. ([support.google.com](https://support.google.com/calendar/answer/10041132?hl=en&utm_source=openai))"
+        ],
+        "pair_specific_triggers": [
+          "Calendar event created with a start/end time that crosses midnight or includes a timezone shift. ([developers.notion.com](https://developers.notion.com/reference/post-database-query-filter?utm_source=openai))",
+          "Event is moved, cancelled, or edited on a recurring series after the initial Notion row already exists. ([support.google.com](https://support.google.com/calendar/answer/10041132?hl=en&utm_source=openai))"
+        ],
+        "api_constraints": [
+          "Notion relation updates require the related parent database to be shared with the integration; formula values cannot be updated directly. ([developers.notion.com](https://developers.notion.com/reference/page-property-values?utm_source=openai))",
+          "Retrieve page returns a maximum of 25 inline references for some formula/rich property cases; property-item endpoints are needed for complete results. ([developers.notion.com](https://developers.notion.com/reference/page-property-values?utm_source=openai))",
+          "If a date string omits timezone, Notion date filtering defaults to UTC. ([developers.notion.com](https://developers.notion.com/reference/post-database-query-filter?utm_source=openai))"
+        ],
+        "real_world_scenario": "A team uses Google Calendar for meetings and Notion as a lightweight meeting log. When a meeting is created in Calendar, a Notion page is created with the event title and time. If the organizer later changes the meeting time, the corresponding Notion row should update instead of duplicating. The team also wants attendee and project relations, which can fail if the Notion database permissions or property schema are not set up correctly. ([support.google.com](https://support.google.com/calendar/answer/72143?hl=en-au&utm_source=openai))",
+        "data_flow_description": "Google Calendar event data is read from the source calendar, normalized into a canonical event record, then written to a Notion database page using mapped properties such as title and date. On updates, the workflow should locate the existing Notion page by a stable event identifier and patch only changed fields. For richer properties like relations, the integration must have access to the linked database and may need separate fetches to avoid truncated or partial data. ([support.google.com](https://support.google.com/calendar/answer/72143?hl=en-au&utm_source=openai))",
+        "source_urls": [
+          "https://developers.notion.com/reference/page-property-values",
+          "https://developers.notion.com/reference/property-object",
+          "https://developers.notion.com/reference/page",
+          "https://developers.notion.com/reference/property-item-object",
+          "https://developers.notion.com/reference/property-schema-object",
+          "https://support.google.com/calendar/answer/10041132?hl=en",
+          "https://support.google.com/a/answer/7399420?hl=en",
+          "https://support.google.com/calendar/answer/72143?hl=en-au"
+        ]
+      },
+      "pairSpecificFailures": [
+        "Event-to-page mapping breaks when the Notion database schema changes and the workflow still writes to old property names or types. ([developers.notion.com](https://developers.notion.com/reference/page-property-values?utm_source=openai))",
+        "Updates to recurring Google Calendar events are not reflected correctly in Notion because the integration treats the series like a single event or misses recurrence-related data. ([support.google.com](https://support.google.com/calendar/answer/10041132?hl=en&utm_source=openai))",
+        "Calendar event appears in Notion with the wrong day because timezone or all-day date handling was mapped incorrectly. ([developers.notion.com](https://developers.notion.com/reference/post-database-query-filter?utm_source=openai))",
+        "Only part of a long title, attendee list, or formula/rollup-derived value is visible because Notion paginates some property types and limits inline results. ([developers.notion.com](https://developers.notion.com/reference/page-property-values?utm_source=openai))",
+        "Relation fields remain empty or fail to update because the related parent database was not shared with the integration. ([developers.notion.com](https://developers.notion.com/reference/page-property-values?utm_source=openai))",
+        "Recurring or organizer-less calendar items do not behave as expected during updates or deletions, leaving stale Notion rows or orphaned calendar records. ([support.google.com](https://support.google.com/a/answer/7399420?hl=en&utm_source=openai))"
+      ],
+      "pairSpecificTriggers": [
+        "Calendar event created with a start/end time that crosses midnight or includes a timezone shift. ([developers.notion.com](https://developers.notion.com/reference/post-database-query-filter?utm_source=openai))",
+        "Event is moved, cancelled, or edited on a recurring series after the initial Notion row already exists. ([support.google.com](https://support.google.com/calendar/answer/10041132?hl=en&utm_source=openai))",
+        "A new Google Calendar event is created and should generate a new Notion page.",
+        "An existing calendar event is rescheduled, and the Notion record should update its date fields.",
+        "A recurring meeting is created or modified, and the workflow needs to decide whether to sync the series or each occurrence."
+      ],
+      "apiConstraints": [
+        "Notion relation updates require the related parent database to be shared with the integration; formula values cannot be updated directly. ([developers.notion.com](https://developers.notion.com/reference/page-property-values?utm_source=openai))",
+        "Retrieve page returns a maximum of 25 inline references for some formula/rich property cases; property-item endpoints are needed for complete results. ([developers.notion.com](https://developers.notion.com/reference/page-property-values?utm_source=openai))",
+        "If a date string omits timezone, Notion date filtering defaults to UTC. ([developers.notion.com](https://developers.notion.com/reference/post-database-query-filter?utm_source=openai))"
+      ],
+      "realWorldScenario": "A team uses Google Calendar for meetings and Notion as a lightweight meeting log. When a meeting is created in Calendar, a Notion page is created with the event title and time. If the organizer later changes the meeting time, the corresponding Notion row should update instead of duplicating. The team also wants attendee and project relations, which can fail if the Notion database permissions or property schema are not set up correctly. ([support.google.com](https://support.google.com/calendar/answer/72143?hl=en-au&utm_source=openai))",
+      "dataFlowDescription": "Google Calendar event data is read from the source calendar, normalized into a canonical event record, then written to a Notion database page using mapped properties such as title and date. On updates, the workflow should locate the existing Notion page by a stable event identifier and patch only changed fields. For richer properties like relations, the integration must have access to the linked database and may need separate fetches to avoid truncated or partial data. ([support.google.com](https://support.google.com/calendar/answer/72143?hl=en-au&utm_source=openai))",
+      "volumeProfile": "Low to high depending on trigger frequency and sync retries",
+      "constraints": [
+        "Use verified facts only from provided research notes.",
+        "If a claim is uncertain, use soft language (may/can/often).",
+        "Do not invent pricing or official limits."
+      ]
+    }
+  },
+  "issues": [
+    "Semantic entity coverage is too thin.",
+    "Missing concrete tooling/integration implementation details beyond general API and schema handling, but still sufficiently specific for a landing-page brief."
+  ],
+  "researchQuality": {
+    "sufficient": true,
+    "score": 100,
+    "gaps": []
+  },
+  "classification": {
+    "page_type": "zapier_pair",
+    "search_intent": "tool_pair",
+    "page_role": "tool_pair_page",
+    "buyer_stage": "solution_aware",
+    "commercial_job": "convert_to_brief",
+    "semantic_angle": "Replace Zapier sync between Notion and Google Calendar with a direct two-way integration",
+    "primary_tool": "google-calendar",
+    "primary_tool_display": "Google Calendar",
+    "secondary_tool": "notion",
+    "secondary_tool_display": "Notion",
+    "workflow_category": "general_workflow",
+    "business_context": "Replace Zapier sync between Notion and Google Calendar with a direct two-way integration"
+  },
+  "writerBrief": {
+    "centralEntity": "Google Calendar and Notion",
+    "entityAttributes": [
+      "Calendar event created with a start/end time that crosses midnight or includes a timezone shift. ()",
+      "Event is moved, cancelled, or edited on a recurring series after the initial Notion row already exists. ()",
+      "A new Google Calendar event is created and should generate a new Notion page.",
+      "An existing calendar event is rescheduled, and the Notion record should update its date fields.",
+      "A recurring meeting is created or modified, and the workflow needs to decide whether to sync the series or each occurrence.",
+      "Event-to-page mapping breaks when the Notion database schema changes and the workflow still writes to old property names or types. ()",
+      "Updates to recurring Google Calendar events are not reflected correctly in Notion because the integration treats the series like a single event or misses recurrence-related data. ()",
+      "Calendar event appears in Notion with the wrong day because timezone or all-day date handling was mapped incorrectly. ()",
+      "Only part of a long title, attendee list, or formula/rollup-derived value is visible because Notion paginates some property types and limits inline results. ()",
+      "Relation fields remain empty or fail to update because the related parent database was not shared with the integration. ()"
+    ],
+    "contextualDomain": "general_workflow",
+    "sourceContext": "GetForked matches businesses with approved builders who can scope and replace Zapier-dependent workflows.",
+    "macroContext": "Replace Zapier sync between Notion and Google Calendar with a direct two-way integration",
+    "microContexts": [
+      "Google Calendar integration patterns",
+      "Zapier task limits",
+      "direct API connector options",
+      "workflow ownership",
+      "builder matching"
+    ],
+    "queryIntent": "tool_pair",
+    "likelySearcher": "A business owner or operations lead already using Zapier and looking for a sturdier workflow.",
+    "pageMustAnswer": [
+      "What Google Calendar and Notion workflow is probably running through Zapier?",
+      "What specifically breaks or becomes hard to trust?",
+      "What would owned workflow logic control differently?",
+      "When is Zapier still the right lightweight answer?",
+      "What should GetForked match for in the builder brief?"
+    ],
+    "avoidRepeating": [
+      "The first event is rarely the real problem. The trouble starts when the meeting changes after creation. A single meeting event with summary, start/end date-time, location, attendees, reminders, visibility, and conferencing settings may sync correctly at first, then drift after a reschedule, cancellation, calendar move, or reminder change. Google Calendar also treats a recurring event series differently from one standalone event, so a workflow that handles simple appointments can break once one instance is edited, a weekly series shifts time zones, or a reminder was scheduled from an older start time.",
+      "A sturdier replacement starts by defining the exact Google Calendar object and trigger being handled before any downstream write is allowed. The implementation records whether the source is a user’s primary calendar or another calendar returned by Find Calendars / Get Calendar Information, stores the calendar ID and event ID as the durable reference, and separates create, update, cancel, and time-before-start behavior into different paths.",
+      "A customer success team updates a weekly onboarding call in Google Calendar after the client changes regions, and Zapier still fires the old 30-minute reminder and writes the wrong meeting time into the CRM because recurring-event expansion is handled differently from single events and the.",
+      "An owned Google Calendar workflow listens for New or Updated Event on the correct calendar, stores the source calendar ID and event ID, applies Google Calendar API uses IANA time zone identifiers before recalculating reminder timing, and routes a series edit differently from a one-instance change.",
+      "A simple Google Calendar Slack integration looks fine until the team depends on it for real scheduling decisions. Then late triggers, missing events, duplicate messages, and messy formatting push people back to checking both systems by hand. Special cases like recurring meetings, all-day events, and schedule changes often need logic a basic Zap does not manage well. Zapier is still the right choice for lightweight, low-risk notifications where occasional delay or manual cleanup is acceptable.",
+      "An owned Google Calendar and Slack workflow gives you clear rules for what counts as a real notification, where it should go, and when it should be held back. Instead of treating every calendar item the same, the logic can separate a team meeting added to a shared Google Calendar from an all-day out-of-office event, a recurring series update, or a Gmail-generated item. It can also track whether Slack already received a message, retry safely after API issues, and send uncertain cases to a person for review before posting.",
+      "A team meeting added to a shared Google Calendar should alert Slack, but late polling, duplicate updates, and messy all-day or recurring events leave the team checking both systems by hand.",
+      "When a meeting changes in Google Calendar, the right Slack channel gets one clear update, retries happen quietly, and edge cases can wait for human review before anything posts."
+    ],
+    "informationGain": "This page should explain the operational failure pattern and replacement scope for Google Calendar and Notion, not a generic Zapier alternative.",
+    "requiredEntities": [
+      "Google Calendar",
+      "Notion",
+      "Google Calendar event with title, start/end time, organizer, recurrence, location, and attendees. ()",
+      "Notion database page with title plus date, select, rich text, relation, or people properties. ()",
+      "Notion relation property pointing to another database entry, which requires that related database to be shared with the integration. ()"
+    ],
+    "requiredNgrams": [
+      "google",
+      "calendar",
+      "google calendar",
+      "notion",
+      "event",
+      "with",
+      "title,",
+      "start/end",
+      "time,",
+      "organizer,",
+      "recurrence,",
+      "location,",
+      "and",
+      "attendees.",
+      "calendar event",
+      "event with",
+      "with title,",
+      "title, start/end"
+    ],
+    "sectionIntents": {
+      "meta_hero": "Name the page promise and the real workflow around Google Calendar and Notion.",
+      "problem": "Explain the workflow pain in concrete terms without raw research fragments.",
+      "replacement": "Describe owned workflow control in plain English with practical implementation pieces.",
+      "flow": "Write before and after as plain-English operational scenarios, not arrows.",
+      "trust": "Explain when Zapier remains good enough and when owned logic becomes worth considering.",
+      "builder": "Clarify GetForked's service: scoped brief, approved builder match, owned workflow, handover-ready implementation.",
+      "seo_body": "Add depth not already covered: workflow examples, risks, scope details, handover, and what to include in the brief."
+    },
+    "toneRules": [
+      "Write like a practical operator, not a generic SaaS marketer.",
+      "Translate research into plain English instead of pasting source fragments.",
+      "Keep GetForked positioned as scoped brief plus approved builder matching.",
+      "Do not attack Zapier or existing SaaS; explain when it remains good enough."
+    ]
+  }
+}

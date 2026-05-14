@@ -3,6 +3,7 @@ import { getDb } from "@/lib/db/client";
 import { topicVideos } from "@/lib/db/schema";
 import { enqueueTopicVideoJob } from "@/lib/video/job-queue";
 import { shouldRunVideoInlineInLocal } from "@/lib/video/local-inline";
+import { renderTopicVideo } from "@/lib/video/render-pipeline";
 import type { TopicVideoJobKind } from "@/lib/video/types";
 
 type CreateTopicVideoInput = {
@@ -54,7 +55,7 @@ export async function queueTopicVideoJob(input: QueueTopicVideoInput) {
     .where(eq(topicVideos.id, input.topicVideoId));
 
   if (shouldRunVideoInlineInLocal()) {
-    await markTopicVideoReadyForReview(input.topicVideoId);
+    await renderTopicVideo(input.topicVideoId);
     return { ok: true, status: "ready_for_review" as const, mode: "inline" as const };
   }
 

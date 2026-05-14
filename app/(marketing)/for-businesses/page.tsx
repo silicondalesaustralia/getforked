@@ -1,12 +1,26 @@
-import { MarketingPage } from "@/components/marketplace/marketing-page";
+import { EnrichedStaticPage } from "@/components/marketplace/enriched-static-page";
+import { getStaticPage } from "@/lib/content/static-pages";
+import { buildStaticPageMetadata } from "@/lib/seo/static-page-seo";
+import { generateStaticPageSchema } from "@/lib/schema";
+
+const staticPage = getStaticPage("for-businesses");
+
+export const metadata = buildStaticPageMetadata(staticPage);
 
 export default function ForBusinessesPage() {
+  const schema = generateStaticPageSchema({
+    path: staticPage.path,
+    title: staticPage.seoTitle,
+    headline: staticPage.h1,
+    description: staticPage.metaDescription,
+    about: staticPage.schemaAbout,
+    mentions: staticPage.schemaMentions,
+  });
+
   return (
-    <MarketingPage
-      eyebrow="For businesses"
-      title="Stop managing freelancer chaos and start with a scoped brief."
-      description="Explain your workflow and pain points once, then get matched with approved builders who can actually ship your replacement system."
-      points={["Use cases we support", "What can be automated", "What affects project cost", "Why we start with a brief", "Private-by-default project data", "Managed matching by fit"]}
-    />
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <EnrichedStaticPage page={staticPage} />
+    </>
   );
 }

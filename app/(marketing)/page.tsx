@@ -2,6 +2,11 @@ import Link from "next/link";
 import { LeadForm } from "@/components/forms/lead-form";
 import { MarketContextSection } from "@/components/programmatic/market-context-section";
 import { SaasCalculator } from "@/components/sections/saas-calculator";
+import { getStaticPage } from "@/lib/content/static-pages";
+import { buildStaticPageMetadata } from "@/lib/seo/static-page-seo";
+import { generateHomeSchema } from "@/lib/schema";
+
+const staticPage = getStaticPage("home");
 
 const steps = [
   { title: "Brief", body: "Tell us what you want to replace, connect or automate." },
@@ -11,21 +16,30 @@ const steps = [
   { title: "Launch", body: "You receive a working tool, handover notes and support options." },
 ];
 
+export const metadata = buildStaticPageMetadata(staticPage);
+
 export default function HomePage() {
+  const schema = generateHomeSchema({
+    path: staticPage.path,
+    title: staticPage.seoTitle,
+    headline: staticPage.h1,
+    description: staticPage.metaDescription,
+    about: staticPage.schemaAbout,
+    mentions: staticPage.schemaMentions,
+  });
   return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
     <div className="container pb-12 pt-4 md:pb-16 md:pt-6">
       <section className="grid gap-9 pt-4 md:pt-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(380px,0.8fr)] lg:gap-14 lg:pt-8">
         <div className="space-y-5">
           <p className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1.5 text-sm font-medium text-emerald-200">
-            Stop paying software rent
+            {staticPage.eyebrow}
           </p>
           <h1 className="max-w-[720px] text-[clamp(44px,12vw,58px)] font-extrabold leading-[0.96] tracking-[-0.055em] md:text-[clamp(52px,6vw,82px)]">
-            Stop renting software. Start owning it.
+            {staticPage.h1}
           </h1>
-          <p className="max-w-[620px] text-[18px] leading-7 text-muted">
-            We match your business with approved AI automation builders who replace SaaS subscriptions, messy
-            spreadsheets and manual workflows with custom tools built around your business.
-          </p>
+          <p className="max-w-[620px] text-[18px] leading-7 text-muted">{staticPage.heroSummary}</p>
           <div className="hero-actions flex flex-wrap gap-3 max-[520px]:grid max-[520px]:grid-cols-1">
             <Link
               href="/brief/new"
@@ -41,7 +55,7 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="mt-3 flex flex-wrap gap-2">
-            {["Approved builders only", "Structured project briefs", "Manual matching available", "Support-ready builds"].map((chip) => (
+            {staticPage.points.map((chip) => (
               <span key={chip} className="inline-flex items-center gap-2 rounded-full border border-border bg-white/5 px-2.5 py-1.5 text-xs text-muted">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                 {chip}
@@ -55,19 +69,13 @@ export default function HomePage() {
       <section className="mt-14 grid gap-6 md:grid-cols-2">
         <div className="rounded-[18px] border border-border border-l-[3px] border-l-orange-500 bg-card p-7 shadow-[0_14px_42px_rgba(0,0,0,0.18)]">
           <p className="text-sm uppercase tracking-[0.22em] text-[#7e8a86]">The problem</p>
-          <h2 className="text-2xl font-semibold">The SaaS tax is real</h2>
-          <p className="mt-2 text-zinc-300">
-            Businesses run on 10-30 subscriptions, fragile integrations, manual data entry and spreadsheets nobody
-            fully trusts.
-          </p>
+          <h2 className="text-2xl font-semibold">{staticPage.sections[0]?.heading}</h2>
+          <p className="mt-2 text-zinc-300">{staticPage.sections[0]?.paragraphs[0]}</p>
         </div>
         <div className="rounded-[18px] border border-border border-l-[3px] border-l-emerald-400 bg-card p-7 shadow-[0_14px_42px_rgba(0,0,0,0.18)]">
           <p className="text-sm uppercase tracking-[0.22em] text-[#7e8a86]">The replacement</p>
-          <h2 className="text-2xl font-semibold">The replacement</h2>
-          <p className="mt-2 text-zinc-300">
-            Get matched with approved builders who use AI-assisted delivery to build custom tools, dashboards and
-            workflows your business can own.
-          </p>
+          <h2 className="text-2xl font-semibold">{staticPage.sections[1]?.heading}</h2>
+          <p className="mt-2 text-zinc-300">{staticPage.sections[1]?.paragraphs[0]}</p>
         </div>
       </section>
 
@@ -136,5 +144,6 @@ export default function HomePage() {
         <SaasCalculator />
       </section>
     </div>
+    </>
   );
 }

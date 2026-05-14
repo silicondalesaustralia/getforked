@@ -9,6 +9,7 @@ const adminItems = [
   { href: "/admin/users", label: "Users" },
   { href: "/admin/tenants", label: "Tenants" },
   { href: "/admin/programmatic", label: "Programmatic" },
+  { href: "/admin/videos", label: "Videos" },
   { href: "/admin/settings", label: "Settings" },
 ];
 
