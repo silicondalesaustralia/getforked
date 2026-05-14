@@ -180,13 +180,13 @@
     "pageType": "ai_automation_leaf",
     "status": "published",
     "priority": 1,
-    "pageTitle": "AI Automation Agency | GetForked",
-    "h1Heading": "AI Automation Agency for Business Operations",
-    "metaDescription": "Explore how AI can automate customer inquiries, product availability checks, and internal processes through enhanced workflows.",
+    "pageTitle": "AI Automation Agency for Commercial Service Pages | GetForked",
+    "h1Heading": "AI Automation Agency for Commercial Service Pages",
+    "metaDescription": "Scope an AI automation agency workflow for commercial service pages with structured page payloads, approval controls, CMS validation, and GetForked matching.",
     "canonicalUrl": "https://getforked.dev/ai-automation/ai-automation-agency/",
     "centralEntity": "AI automation",
     "attribute": "ai automation agency",
-    "entityAttributePair": "AI automation agency",
+    "entityAttributePair": "AI automation agency services for commercial service pages",
     "macroContext": "Capture buyers searching for a service provider and route them into GetForked matching instead of a generic agency pitch.",
     "microContexts": "Commercial Service Pages; workflow automation; AI agents; builder matching; custom systems",
     "centralSearchIntent": "Informational,Non-branded,Non-local",
@@ -199,12 +199,12 @@
     "integrationDirection": "Commercial Service Pages workflow automation",
     "triggerEvent": "ai automation agency brief or workflow need",
     "destinationAction": "Matched AI automation builder brief",
-    "introSummary": "AI Automation Agency assists organizations in optimizing customer interactions and specific workflows while ensuring adequate oversight.\n\nWith a strong review mechanism, AI can notably enhance response times and lessen the burden on support teams.",
-    "heroSummary": "AI Automation Agency assists organizations in optimizing customer interactions and specific workflows while ensuring adequate oversight.\n\nWith a strong review mechanism, AI can notably enhance response times and lessen the burden on support teams.",
-    "problemSummary": "AI Automation Agency can become problematic when handling significant tasks, such as customer inquiries, without the necessary checks, resulting in data misalignment and unaccountable outputs.",
-    "replacementSummary": "A well-defined AI automation can manage customer inquiries with meticulous review states, validation procedures, and auditing features, ensuring seamless operations.",
+    "introSummary": "If you are hiring an AI automation agency for commercial service pages, the real deliverable is a controlled content pipeline that turns a service brief into a valid landing page payload with the required sections, metadata, and publication checks.\n\nGetForked helps define that scope first, then matches you with approved builders who can implement the workflow across your forms, CMS, internal data sources, and review process. For simpler notifications or light intake routing around the edges, Zapier can still be enough.",
+    "heroSummary": "If you are hiring an AI automation agency for commercial service pages, the real deliverable is a controlled content pipeline that turns a service brief into a valid landing page payload with the required sections, metadata, and publication checks.\n\nGetForked helps define that scope first, then matches you with approved builders who can implement the workflow across your forms, CMS, internal data sources, and review process. For simpler notifications or light intake routing around the edges, Zapier can still be enough.",
+    "problemSummary": "Teams looking for an AI automation agency often already know a model can draft readable text. The harder part is producing commercial service pages that fit the actual offer, include the right service page entities, and pass QA without manual repair. A common failure pattern is this: a marketing or operations team submits a thin brief, the system generates agency-style page content that sounds acceptable, but the landing page is missing service name, audience, benefits, CTA blocks, or metadata required by the CMS. In commercial service pages, the issue is not just wording quality.",
+    "replacementSummary": "A reliable AI automation agency setup for commercial service pages should start with a page brief or CMS request and end with a validated page object that your application can trust. In a practical build, the workflow accepts structured inputs for the commercial service, decides whether it needs enrichment, and then either uses tool calls to fetch approved business details or emits a strict page payload directly. Use function calling when the model must connect to external systems or invoke business logic; use Structured Outputs when the model should emit a page payload in a strict schema. This matters because the system is not just writing copy.",
     "uniqueContentAngle": "Capture buyers searching for a service provider and route them into GetForked matching instead of a generic agency pitch.",
-    "bodyHtml": "<h2>Risk Factors in AI Automation Agency</h2>\n<p>AI Automation Agency can become problematic when handling significant tasks, such as customer inquiries, without the necessary checks, resulting in data misalignment and unaccountable outputs.</p>\n<h2>Components of a Tailored AI Workflow</h2>\n<p>A well-defined AI automation can manage customer inquiries with meticulous review states, validation procedures, and auditing features, ensuring seamless operations.</p>\n<h2>How GetForked Ensures Effective Solutions</h2>\n<p>GetForked matches enterprises with vetted providers for tailored AI workflows.</p>",
+    "bodyHtml": "<h2>What this automation agency workflow actually covers</h2>\n<p>For commercial service pages, the workflow usually starts when a team submits a brief with partial information. That request can come from sales, marketing, operations, or a CMS update asking for a new service page variant. The system then has to turn that input into landing page content, metadata, and section blocks that reflect the offer being sold.</p>\n<p>That means the implementation needs more than prompt writing. It needs operational entities like tool calls, JSON schema fields, and response objects used to assemble the page content pipeline. It also needs clear rules for which fields are required, what can be inferred, what must be approved by staff, and what the CMS will accept.</p>\n<h3>When the brief is incomplete</h3>\n<p>A commercial service page brief is submitted with limited details, and the AI must infer the right sections and structured metadata. A stronger build does not leave that inference unmanaged. It either requests the missing fields up front or uses approved systems to enrich the brief before the final page object is created.</p>\n<h3>When the page needs repeatable variants</h3>\n<p>The page needs variant generation from a fixed schema, such as headline, benefits, CTA, and FAQ blocks, all validated before publish. That matters when one commercial service needs multiple page versions for industries, locations, campaigns, or search intent without creating a QA mess.</p>\n<h3>When publishing cannot rely on manual cleanup</h3>\n<p>If the page is going into a CMS with strict field rules, the application should validate character limits, required metadata, section order, CTA presence, and block completeness before content reaches staging or live publishing.</p>\n<h2>Where AI automation agency projects break down</h2>\n<p>One common mistake is treating parseable JSON as success. For commercial service pages, parseable output is not enough if the payload does not match the exact structure expected by the CMS, page builder, or QA process. The result can read well and still fail the actual page workflow.</p>\n<p>Another mistake is choosing the wrong implementation pattern. Prefer Structured Outputs over JSON mode because it enforces schema adherence; JSON mode only guarantees parseable JSON. That distinction matters when your system depends on exact fields, not best-effort formatting.</p>\n<h3>Schema mismatch despite valid output</h3>\n<p>Model returns valid JSON but not the required schema when JSON mode is used instead of Structured Outputs. If the page pipeline expects fixed objects for hero copy, CTA blocks, FAQs, benefits, and metadata, the application still needs schema validation before save or publish.</p>\n<h3>Incomplete output from weak implementation</h3>\n<p>Model output is incomplete or non-terminating because JSON mode was enabled without an explicit instruction to produce JSON. If JSON mode is used at all, the request must explicitly require JSON output and the payload must be validated in code before anything is stored or published.</p>\n<h3>Context pressure from oversized tool definitions</h3>\n<p>Tool definitions are too large or verbose, causing context pressure or token-limit failures because function schemas count toward input tokens. For commercial service pages, that means the implementation should keep tool specs focused and avoid sending unnecessary schema detail on every request.</p>\n<h2>What to include in the brief for a stronger GetForked match</h2>\n<p>Better scoping detail makes it easier to match the right implementation profile. GetForked works best when the brief explains the commercial service pages process itself: who requests the page, where source data lives, what the page must contain, and how review and publication should work.</p>\n<p>That helps separate light workflow needs from true custom system work. If you only need notifications or simple routing, a smaller setup may do the job. If you need a controlled landing page content pipeline with schema enforcement and publishing gates, that should be explicit from the start.</p>\n<h3>Page structure and content requirements</h3>\n<p>Include the required service page entities, the exact sections expected on the page, metadata rules, CTA patterns, internal naming conventions, and examples of strong commercial service pages already in use.</p>\n<h3>System and publishing requirements</h3>\n<p>List the forms, CMS, internal data sources, documents, or APIs involved, plus whether the system should draft only, create staging entries, or publish after approval. If external data or actions are needed, specify which tool calls or integrations are allowed.</p>\n<h3>Risk, review, and handover requirements</h3>\n<p>State what must be reviewed by staff, what should trigger a stop, how refusals or schema errors should be handled, and who owns the workflow after launch. That gives the matched implementation team a clear operational target instead of a loose content request.</p>",
     "supplementaryBridge": "Related AI automation pages for adjacent use cases.",
     "mainContentFormat": "problem-solution",
     "primaryCta": "Get Matched With an AI Automation Builder",
@@ -214,20 +214,20 @@
     "buyerPainPoint": "Teams searching for ai automation agency are usually trying to remove manual steps, reduce context switching, or make a process more reliable. The work becomes risky when data lives across tools, approvals are handled in chat, or staff need to copy information between systems.",
     "projectType": "AI automation build",
     "sourceParam": "ai-automation-ai-automation-agency",
-    "zapierCostContext": "The expense involved in AI automation varies based on the complexity of workflows, access to data, depth of integration, review requirements, and support needs.",
+    "zapierCostContext": "Cost depends on how much of the commercial service pages pipeline needs to be owned. A smaller build may cover intake, page generation, and approval-ready drafts. A broader implementation may include tool-connected enrichment, schema enforcement, refusal handling, staging support, QA checks, audit logs, and handover documentation for the team responsible for the workflow after launch.",
     "estimatedTaskVolume": "US search volume signal: 1900; global volume: 9500.",
     "customBuildContext": "A custom ai automation agency build can combine workflow logic, AI-assisted decisions, integrations, dashboards, alerts, and review steps into a system your team owns.",
     "costComparisonHtml": "<table><thead><tr><th>Cost factor</th><th>Generic tool</th><th>Custom build</th></tr></thead><tbody><tr><td>Fit</td><td>Limited to standard features.</td><td>Scoped around the ai automation agency workflow.</td></tr><tr><td>Integrations</td><td>Depends on app connectors.</td><td>Can connect APIs, documents, CRM, forms, and internal data.</td></tr><tr><td>Review</td><td>Often outside the workflow.</td><td>Can include approvals, audit trails, and alerts.</td></tr></tbody></table>",
     "builderSkillProfile": "AI workflow design, integrations, data handling, dashboards, prompt evaluation, and human-in-the-loop automation.",
-    "builderMatchFactors": "GetForked connects enterprises with approved service providers based on specific use cases, tool compatibility, data access, and a history of successful project deliveries, thus reducing risks in customer interaction management.",
-    "requiredBuilderBadges": "AI automation, workflow integration, API connectivity",
+    "builderMatchFactors": "GetForked does not sell this as a vague agency retainer. The process starts with a scoped brief covering your commercial service pages, intake sources, schema rules, approval points, publishing path, and ownership needs after launch. From there, GetForked matches you with approved builders who have experience in AI, CMS workflows, Structured Outputs, tool-connected content generation, and handover-ready custom systems. The aim is to match the right builders to the actual workflow rather than send you into a generic automation pitch.",
+    "requiredBuilderBadges": "Structured Outputs and response schema design, CMS workflow and commercial service page integration, Tool calling, validation, and approval-state implementation",
     "trustProofElements": "Approved builders only. Scoped before build. No open bid spam.",
     "groundednessSignals": "Uses source keyword demand and concrete workflow constraints, not unsupported best-in-market claims.",
     "temporalFreshness": "Ahrefs source last updated 2026-05-05 08:40:48. Refresh keyword and capability references quarterly.",
     "lastVerifiedNote": "Last verified 12 May 2026.",
     "primaryKeyword": "ai automation agency",
     "secondaryKeywords": "ai automation agency",
-    "semanticTerms": "AI automation agency, AI optimization, Workflow integration, inconsistent information across tools, AI output not integrated with business systems, AI classification",
+    "semanticTerms": "AI automation agency services for commercial service pages, Commercial service page content workflow design, Structured landing page generation, validation, and publication, ai automation agency, AI automation, Workflow automation, Custom integration, Business process automation, commercial service pages, AI automation agency landing page content for a commercial service offering, Operational entities like tool calls, JSON schema fields, and response objects, staff copying information between tools, AI output not connected to systems, AI classification, Workflow automation, Custom integration, Business process automation",
     "rootLink": "/ai-automation/",
     "seedLinks": "/ai-automation/",
     "nodeLinks": "/ai-automation/ai-automation-consultant/, /ai-automation/ai-automation-consulting/, /ai-automation/ai-automation-services/",
@@ -236,114 +236,179 @@
     "relatedPageIds": "ai-automation-consultant, ai-automation-consulting, ai-automation-services",
     "imageAltPrimary": "AI Automation Agency custom workflow landing page",
     "imageUrlSlug": "ai-automation-agency",
-    "workflowBeforeLabel": "A customer uses an AI chat feature to ask about product availability. Misalignments arise when responses fail to correspond with actual inventory data, delaying service.",
-    "workflowAfterLabel": "A customer inquiry is processed through a controlled AI workflow that checks inventory systems and interfaces with human reviewers to ensure accuracy.",
+    "workflowBeforeLabel": "A marketing lead receives a request for a new landing page for a niche service, pastes partial notes from a form and an internal doc into a model, gets generic agency copy back, and then manually rebuilds service page entities such as service name, audience, benefits, and CTA blocks so the CMS can.",
+    "workflowAfterLabel": "When a form submission or CMS update requests a new commercial service page variant, the application assembles the brief, uses Structured Outputs to return a schema-based page object, validates the response object against required fields and publish rules, and only then creates the staging entry.",
     "schemaType": "Service",
-    "updatedAt": "2026-05-13T12:09:32.435Z",
-    "enrichmentStatus": "enriched",
+    "updatedAt": "2026-05-14T06:01:26.835Z",
+    "enrichmentStatus": "needs_manual_enrichment",
     "enrichmentVersion": 1,
     "nuancedContent": {
-      "seo_title": "AI Automation Agency | GetForked",
-      "h1": "AI Automation Agency for Business Operations",
-      "meta_description": "Explore how AI can automate customer inquiries, product availability checks, and internal processes through enhanced workflows.",
+      "seo_title": "AI Automation Agency for Commercial Service Pages | GetForked",
+      "h1": "AI Automation Agency for Commercial Service Pages",
+      "meta_description": "Scope an AI automation agency workflow for commercial service pages with structured page payloads, approval controls, CMS validation, and GetForked matching.",
       "hero_intro": [
-        "AI Automation Agency assists organizations in optimizing customer interactions and specific workflows while ensuring adequate oversight.",
-        "With a strong review mechanism, AI can notably enhance response times and lessen the burden on support teams."
+        "If you are hiring an AI automation agency for commercial service pages, the real deliverable is a controlled content pipeline that turns a service brief into a valid landing page payload with the required sections, metadata, and publication checks.",
+        "GetForked helps define that scope first, then matches you with approved builders who can implement the workflow across your forms, CMS, internal data sources, and review process. For simpler notifications or light intake routing around the edges, Zapier can still be enough."
       ],
-      "problem_heading": "Risk Factors in AI Automation Agency",
-      "problem_summary": "AI Automation Agency can become problematic when handling significant tasks, such as customer inquiries, without the necessary checks, resulting in data misalignment and unaccountable outputs.",
+      "problem_heading": "The weak point is usually the page system around the copy",
+      "problem_summary": "Teams looking for an AI automation agency often already know a model can draft readable text. The harder part is producing commercial service pages that fit the actual offer, include the right service page entities, and pass QA without manual repair. A common failure pattern is this: a marketing or operations team submits a thin brief, the system generates agency-style page content that sounds acceptable, but the landing page is missing service name, audience, benefits, CTA blocks, or metadata required by the CMS. In commercial service pages, the issue is not just wording quality.",
       "failure_modes": [
-        "inconsistent information across tools",
-        "AI output not integrated with business systems",
-        "lack of review processes",
-        "decisions hidden in emails"
+        "The system produces broad automation agency copy instead of landing page content for the specific commercial service.",
+        "Service page entities such as service name, audience, benefits, CTA blocks, and metadata are missing, malformed, or.",
+        "The response is parseable JSON but does not match the required schema, so CMS rendering or publication fails",
+        "A refusal, incomplete payload, or thin brief moves forward without a retry, approval hold, or explicit stop state"
       ],
-      "replacement_heading": "Components of a Tailored AI Workflow",
-      "replacement_summary": "A well-defined AI automation can manage customer inquiries with meticulous review states, validation procedures, and auditing features, ensuring seamless operations.",
+      "replacement_heading": "What a production-ready setup should do",
+      "replacement_summary": "A reliable AI automation agency setup for commercial service pages should start with a page brief or CMS request and end with a validated page object that your application can trust. In a practical build, the workflow accepts structured inputs for the commercial service, decides whether it needs enrichment, and then either uses tool calls to fetch approved business details or emits a strict page payload directly. Use function calling when the model must connect to external systems or invoke business logic; use Structured Outputs when the model should emit a page payload in a strict schema. This matters because the system is not just writing copy.",
       "replacement_cards": [
         {
-          "title": "AI classification",
-          "description": "AI classification enhances workflows by maintaining visible staff review and handling exceptions effectively."
+          "title": "Brief intake mapped to page fields",
+          "description": "The workflow should accept a commercial service brief from a form, CMS request, or internal handoff, then map that input into named page fields before generation starts."
         },
         {
-          "title": "AI summarisation",
-          "description": "AI summarisation condenses inquiries for rapid responses, guaranteeing that review processes are established."
+          "title": "Strict payloads instead of open-ended drafts",
+          "description": "For commercial service pages, the model should return a response object that matches the required schema so headings, summaries, benefits, FAQs, metadata, and CTA blocks can be checked in code before render or publish."
         },
         {
-          "title": "AI drafting",
-          "description": "AI drafting formulates preliminary replies, enabling team members to review and refine the content."
+          "title": "Tool-connected enrichment for thin briefs",
+          "description": "If the brief is incomplete, the system can use tool calls to pull approved details from a CRM, knowledge base, offer sheet, or CMS records instead of relying on guesswork."
         },
         {
-          "title": "Workflow dashboard",
-          "description": "Dashboard tools provide insights into workflow stages, ensuring all integration points are actively monitored."
+          "title": "Approval states for commercial risk",
+          "description": "Claims, pricing language, audience fit, and CTA wording should move through named approval states so marketing, operations, or compliance can stop weak outputs before they go live."
+        },
+        {
+          "title": "Explicit handling for malformed or refused output",
+          "description": "The application should catch schema mismatches, incomplete JSON, non-terminating responses, and safety refusals, then route the page to review, retry, or hold rather than sending broken content downstream."
         }
       ],
-      "before_flow": "A customer uses an AI chat feature to ask about product availability. Misalignments arise when responses fail to correspond with actual inventory data, delaying service.",
-      "after_flow": "A customer inquiry is processed through a controlled AI workflow that checks inventory systems and interfaces with human reviewers to ensure accuracy.",
-      "cost_context": "The expense involved in AI automation varies based on the complexity of workflows, access to data, depth of integration, review requirements, and support needs.",
-      "human_in_the_loop": "AI should augment workflows, enabling human oversight through review states, validation steps, fallback regulations, and audit logs.",
-      "builder_matching_summary": "GetForked connects enterprises with approved service providers based on specific use cases, tool compatibility, data access, and a history of successful project deliveries, thus reducing risks in customer interaction management.",
+      "before_flow": "A marketing lead receives a request for a new landing page for a niche service, pastes partial notes from a form and an internal doc into a model, gets generic agency copy back, and then manually rebuilds service page entities such as service name, audience, benefits, and CTA blocks so the CMS can.",
+      "after_flow": "When a form submission or CMS update requests a new commercial service page variant, the application assembles the brief, uses Structured Outputs to return a schema-based page object, validates the response object against required fields and publish rules, and only then creates the staging entry.",
+      "cost_context": "Cost depends on how much of the commercial service pages pipeline needs to be owned. A smaller build may cover intake, page generation, and approval-ready drafts. A broader implementation may include tool-connected enrichment, schema enforcement, refusal handling, staging support, QA checks, audit logs, and handover documentation for the team responsible for the workflow after launch.",
+      "human_in_the_loop": "Human review should sit at the points where commercial accuracy and page validity matter. Staff need to see the original brief, any enriched source data, the generated fields, and the validation result before a page is staged or published. Review is especially important when the brief is incomplete, when required fields are inferred, when claims or offer details need approval, or when the system returns a refusal or schema error. The operator should be able to reject, revise, retry, or stop the page without touching raw code.",
+      "builder_matching_summary": "GetForked does not sell this as a vague agency retainer. The process starts with a scoped brief covering your commercial service pages, intake sources, schema rules, approval points, publishing path, and ownership needs after launch. From there, GetForked matches you with approved builders who have experience in AI, CMS workflows, Structured Outputs, tool-connected content generation, and handover-ready custom systems. The aim is to match the right builders to the actual workflow rather than send you into a generic automation pitch.",
       "builder_skill_tags": [
-        "AI automation",
-        "workflow integration",
-        "API connectivity"
+        "Structured Outputs and response schema design",
+        "CMS workflow and commercial service page integration",
+        "Tool calling, validation, and approval-state implementation"
       ],
       "seo_body_sections": [
         {
-          "h2": "Risk Factors in AI Automation Agency",
+          "h2": "What this automation agency workflow actually covers",
           "paragraphs": [
-            "AI Automation Agency can become problematic when handling significant tasks, such as customer inquiries, without the necessary checks, resulting in data misalignment and unaccountable outputs."
+            "For commercial service pages, the workflow usually starts when a team submits a brief with partial information. That request can come from sales, marketing, operations, or a CMS update asking for a new service page variant. The system then has to turn that input into landing page content, metadata, and section blocks that reflect the offer being sold.",
+            "That means the implementation needs more than prompt writing. It needs operational entities like tool calls, JSON schema fields, and response objects used to assemble the page content pipeline. It also needs clear rules for which fields are required, what can be inferred, what must be approved by staff, and what the CMS will accept."
           ],
-          "h3_sections": []
+          "h3_sections": [
+            {
+              "h3": "When the brief is incomplete",
+              "paragraph": "A commercial service page brief is submitted with limited details, and the AI must infer the right sections and structured metadata. A stronger build does not leave that inference unmanaged. It either requests the missing fields up front or uses approved systems to enrich the brief before the final page object is created."
+            },
+            {
+              "h3": "When the page needs repeatable variants",
+              "paragraph": "The page needs variant generation from a fixed schema, such as headline, benefits, CTA, and FAQ blocks, all validated before publish. That matters when one commercial service needs multiple page versions for industries, locations, campaigns, or search intent without creating a QA mess."
+            },
+            {
+              "h3": "When publishing cannot rely on manual cleanup",
+              "paragraph": "If the page is going into a CMS with strict field rules, the application should validate character limits, required metadata, section order, CTA presence, and block completeness before content reaches staging or live publishing."
+            }
+          ]
         },
         {
-          "h2": "Components of a Tailored AI Workflow",
+          "h2": "Where AI automation agency projects break down",
           "paragraphs": [
-            "A well-defined AI automation can manage customer inquiries with meticulous review states, validation procedures, and auditing features, ensuring seamless operations."
+            "One common mistake is treating parseable JSON as success. For commercial service pages, parseable output is not enough if the payload does not match the exact structure expected by the CMS, page builder, or QA process. The result can read well and still fail the actual page workflow.",
+            "Another mistake is choosing the wrong implementation pattern. Prefer Structured Outputs over JSON mode because it enforces schema adherence; JSON mode only guarantees parseable JSON. That distinction matters when your system depends on exact fields, not best-effort formatting."
           ],
-          "h3_sections": []
+          "h3_sections": [
+            {
+              "h3": "Schema mismatch despite valid output",
+              "paragraph": "Model returns valid JSON but not the required schema when JSON mode is used instead of Structured Outputs. If the page pipeline expects fixed objects for hero copy, CTA blocks, FAQs, benefits, and metadata, the application still needs schema validation before save or publish."
+            },
+            {
+              "h3": "Incomplete output from weak implementation",
+              "paragraph": "Model output is incomplete or non-terminating because JSON mode was enabled without an explicit instruction to produce JSON. If JSON mode is used at all, the request must explicitly require JSON output and the payload must be validated in code before anything is stored or published."
+            },
+            {
+              "h3": "Context pressure from oversized tool definitions",
+              "paragraph": "Tool definitions are too large or verbose, causing context pressure or token-limit failures because function schemas count toward input tokens. For commercial service pages, that means the implementation should keep tool specs focused and avoid sending unnecessary schema detail on every request."
+            }
+          ]
         },
         {
-          "h2": "How GetForked Ensures Effective Solutions",
+          "h2": "What to include in the brief for a stronger GetForked match",
           "paragraphs": [
-            "GetForked matches enterprises with vetted providers for tailored AI workflows."
+            "Better scoping detail makes it easier to match the right implementation profile. GetForked works best when the brief explains the commercial service pages process itself: who requests the page, where source data lives, what the page must contain, and how review and publication should work.",
+            "That helps separate light workflow needs from true custom system work. If you only need notifications or simple routing, a smaller setup may do the job. If you need a controlled landing page content pipeline with schema enforcement and publishing gates, that should be explicit from the start."
           ],
-          "h3_sections": []
+          "h3_sections": [
+            {
+              "h3": "Page structure and content requirements",
+              "paragraph": "Include the required service page entities, the exact sections expected on the page, metadata rules, CTA patterns, internal naming conventions, and examples of strong commercial service pages already in use."
+            },
+            {
+              "h3": "System and publishing requirements",
+              "paragraph": "List the forms, CMS, internal data sources, documents, or APIs involved, plus whether the system should draft only, create staging entries, or publish after approval. If external data or actions are needed, specify which tool calls or integrations are allowed."
+            },
+            {
+              "h3": "Risk, review, and handover requirements",
+              "paragraph": "State what must be reviewed by staff, what should trigger a stop, how refusals or schema errors should be handled, and who owns the workflow after launch. That gives the matched implementation team a clear operational target instead of a loose content request."
+            }
+          ]
         }
       ],
       "faq": [
         {
-          "question": "When is a custom workflow necessary?",
-          "answer": "The cost for AI automation varies based on workflow intricacies, data access needs, integration levels, review specifications, and anticipated support."
+          "question": "What does an AI automation agency build for commercial service pages?",
+          "answer": "Usually a full page-content workflow: intake from a brief or CMS request, optional enrichment through tool calls, structured generation of page sections and metadata, schema validation, approval routing, and handoff into staging or publication."
         },
         {
-          "question": "Will this eliminate all existing tools?",
-          "answer": "No. The aim is to retain effective tools, replace unreliable elements, and control workflow components that pose risks or inefficiencies."
+          "question": "Why is schema control so important for landing page content?",
+          "answer": "Because a readable draft is not the same as a usable page payload. Commercial service pages often depend on exact fields for hero copy, benefits, FAQs, metadata, CTA blocks, and CMS rendering rules. If those fields are wrong or missing, staff end up repairing the page by hand."
+        },
+        {
+          "question": "When should Structured Outputs be used instead of JSON mode?",
+          "answer": "Use Structured Outputs when the model should emit a page payload in a strict schema. JSON mode only guarantees parseable JSON, so it is weaker for page pipelines that need exact field shapes for validation and publication."
+        },
+        {
+          "question": "What should I prepare before asking GetForked for a match?",
+          "answer": "Bring examples of your commercial service pages, the intake source for page requests, required sections and metadata, source systems, approval rules, publishing destination, and what your team needs to own after handover."
         }
       ],
       "schema_about": [
-        "AI automation agency",
-        "AI optimization",
-        "Workflow integration"
+        "AI automation agency services for commercial service pages",
+        "Commercial service page content workflow design",
+        "Structured landing page generation, validation, and publication",
+        "ai automation agency",
+        "AI automation",
+        "Workflow automation",
+        "Custom integration",
+        "Business process automation"
       ],
       "schema_mentions": [
-        "inconsistent information across tools",
-        "AI output not integrated with business systems",
-        "AI classification"
+        "commercial service pages",
+        "AI automation agency landing page content for a commercial service offering",
+        "Operational entities like tool calls, JSON schema fields, and response objects",
+        "staff copying information between tools",
+        "AI output not connected to systems",
+        "AI classification",
+        "Workflow automation",
+        "Custom integration",
+        "Business process automation"
       ]
     },
     "enrichmentScores": {
-      "tool_specificity": 6,
-      "workflow_specificity": 7,
-      "difference_from_template": 5,
-      "commercial_clarity": 6,
+      "tool_specificity": 8,
+      "workflow_specificity": 9,
+      "difference_from_template": 7,
+      "commercial_clarity": 8,
       "seo_alignment": 8,
       "repetition_risk": 4
     },
-    "lastEnrichedAt": "2026-05-13T12:09:32.435Z",
-    "enrichmentModel": "gpt-4o-mini",
-    "needsManualReview": false,
-    "enrichmentNotes": "",
+    "lastEnrichedAt": "2026-05-14T06:01:26.835Z",
+    "enrichmentModel": "gpt-5.4",
+    "needsManualReview": true,
+    "enrichmentNotes": "Semantic entity coverage is too thin.; hero_intro has an overlong sentence.; One failure mode has a broken trailing fragment: 'The response is parseable JSON but does not match the required schema, so CMS rendering or publication fails' is fine, but the preceding bullet 'Service page entities such as service name, audience, benefits, CTA blocks, and metadata are missing, malformed, or.' is incomplete and needs repair.; The hero intro includes Zapier, which is allowed per instructions, but it slightly broadens the page away from the core GetForked positioning.; There is mild repetition around schema validation, approval states, and structured outputs across multiple sections, which raises repetition risk if reused at scale.",
     "researchNotes": {
       "pageType": "ai_automation_leaf",
       "businessContext": "Capture buyers searching for a service provider and route them into GetForked matching instead of a generic agency pitch.",
@@ -368,67 +433,67 @@
         }
       },
       "webResearch": {
-        "summary": "Integrating AI Commercial Service Pages involves connecting AI models to commercial service platforms to enhance functionalities such as customer support, content creation, and data analysis. This integration streamlines workflows, improves efficiency, and offers scalable solutions for businesses seeking to leverage AI capabilities in their services.",
+        "summary": "The workflow is best implemented as an OpenAI Responses API or function-calling integration that takes a Commercial Service Pages request, extracts page-specific intent, and returns structured content or tool calls. Official OpenAI docs emphasize that function calling connects models to external systems, while Structured Outputs is preferred when you need schema-adherent JSON for downstream page generation or QA checks. The key risks are malformed or incomplete page data, missing explicit JSON instructions when using JSON mode, schema mismatch, token-limit issues from large tool specs, and safety refusals that do not follow the requested schema. ([platform.openai.com](https://platform.openai.com/docs/api-reference/responses/retrieve?utm_source=openai))",
         "trigger_examples": [
-          "Customer submits a query through the service page.",
-          "User requests a product recommendation on the service page.",
-          "Client books an appointment via the service page."
+          "A visitor asks for an AI automation agency page tailored to a specific commercial service, and the system must generate page copy plus metadata from structured inputs. ([platform.openai.com](https://platform.openai.com/docs/api-reference/responses/retrieve?utm_source=openai))",
+          "The workflow is triggered when a page-specific request needs external data or actions, such as mapping service details into a structured content payload for the page. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
+          "A form submission or CMS update requests a new commercial service page variant, requiring the model to produce validated JSON instead of free-form prose. ([platform.openai.com](https://platform.openai.com/docs/guides/structured-outputs?api-mode=chat&utm_source=openai))"
         ],
         "entity_examples": [
-          "Customer Support Automation",
-          "Content Creation & Marketing",
-          "Data Analysis & Insights"
+          "AI automation agency landing page content for a commercial service offering. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
+          "Service page entities such as service name, audience, benefits, and CTA blocks that can be represented as structured output. ([platform.openai.com](https://platform.openai.com/docs/guides/structured-outputs?api-mode=chat&utm_source=openai))",
+          "Operational entities like tool calls, JSON schema fields, and response objects used to assemble the page content pipeline. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))"
         ],
         "failure_signatures": [
-          "AI model returns irrelevant or incorrect responses.",
-          "Integration causes service page to crash or become unresponsive.",
-          "Data synchronization issues between AI model and service platform."
+          "Model returns valid JSON but not the required schema when JSON mode is used instead of Structured Outputs. ([platform.openai.com](https://platform.openai.com/docs/guides/structured-outputs?api-mode=chat&utm_source=openai))",
+          "Model output is incomplete or non-terminating because JSON mode was enabled without an explicit instruction to produce JSON. ([platform.openai.com](https://platform.openai.com/docs/guides/structured-outputs?api-mode=chat&utm_source=openai))",
+          "A safety refusal appears in the response and does not conform to the requested schema, requiring special handling. ([platform.openai.com](https://platform.openai.com/docs/guides/structured-outputs?api-mode=chat&utm_source=openai))",
+          "Tool definitions are too large or verbose, causing context pressure or token-limit failures because function schemas count toward input tokens. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling/function-calling%20.webm?utm_source=openai))"
         ],
         "implementation_notes": [
-          "Ensure compatibility between the AI model's API and the service platform's integration capabilities.",
-          "Implement robust error handling to manage AI model failures gracefully.",
-          "Regularly update AI models to maintain accuracy and relevance of responses."
+          "Use function calling when the model must connect to external systems or invoke business logic; use Structured Outputs when the model should emit a page payload in a strict schema. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
+          "Prefer Structured Outputs over JSON mode because it enforces schema adherence; JSON mode only guarantees parseable JSON. ([platform.openai.com](https://platform.openai.com/docs/guides/structured-outputs?api-mode=chat&utm_source=openai))",
+          "If you use JSON mode, include an explicit instruction that the model must output JSON, and validate the payload in code before saving or publishing the page. ([platform.openai.com](https://platform.openai.com/docs/guides/structured-outputs?api-mode=chat&utm_source=openai))"
         ],
         "pair_specific_failures": [
-          "AI model misinterprets user intent, leading to incorrect responses.",
-          "Service page fails to display AI-generated content correctly."
+          "The AI generates generic agency copy that does not match the specific commercial service page, causing weak page relevance and poor QA fit. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
+          "The page generator omits required service-page sections or produces invalid field values, which breaks downstream CMS rendering or publication. ([platform.openai.com](https://platform.openai.com/docs/guides/structured-outputs?api-mode=chat&utm_source=openai))"
         ],
         "pair_specific_triggers": [
-          "User inputs ambiguous or unclear queries on the service page.",
-          "Service page experiences high traffic, affecting AI model response times."
+          "A commercial service page brief is submitted with limited details, and the AI must infer the right sections and structured metadata. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
+          "The page needs variant generation from a fixed schema, such as headline, benefits, CTA, and FAQ blocks, all validated before publish. ([platform.openai.com](https://platform.openai.com/docs/guides/structured-outputs?api-mode=chat&utm_source=openai))"
         ],
         "api_constraints": [
-          "Adhere to rate limits imposed by the AI model's API to prevent service disruptions.",
-          "Ensure data privacy and compliance with regulations when transmitting user data to AI models."
+          "Structured Outputs supports only a subset of JSON Schema and is supported with `response_format: {type: \"json_schema\", ...}` on specific models such as `gpt-4o-mini` and `gpt-4o-2024-08-06` and later. ([platform.openai.com](https://platform.openai.com/docs/guides/structured-outputs?api-mode=chat&utm_source=openai))"
         ],
-        "real_world_scenario": "A customer visits an e-commerce website and uses the AI-powered chat feature to inquire about product availability. The AI model processes the query and provides an instant response, enhancing the customer's shopping experience and reducing the workload on human support agents.",
-        "data_flow_description": "User inputs a query on the service page → Query is sent to the AI model via API → AI model processes the query and generates a response → Response is transmitted back to the service page → Service page displays the AI-generated response to the user.",
+        "real_world_scenario": "A marketing team asks an AI automation agency system to generate a new commercial service page for a niche offering. The model receives the service brief, uses a schema to output page sections, and the application validates the result before publishing it to the CMS. ([platform.openai.com](https://platform.openai.com/docs/api-reference/responses/retrieve?utm_source=openai))",
+        "data_flow_description": "Input starts as a page brief or CMS request for the commercial service page. The model then either calls tools to fetch or enrich business data, or emits a structured JSON page object. The application validates the response, handles refusals or schema issues, and sends the approved content into the page builder or CMS for publication. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
         "source_urls": [
-          "https://docs.anyapi.ai/",
-          "https://docs.apiyi.com/en",
-          "https://docs.getbifrost.ai/"
+          "https://platform.openai.com/docs/guides/function-calling?api-mode=chat",
+          "https://platform.openai.com/docs/guides/structured-outputs?api-mode=chat",
+          "https://platform.openai.com/docs/api-reference/responses/retrieve"
         ]
       },
       "pairSpecificFailures": [
-        "AI model misinterprets user intent, leading to incorrect responses.",
-        "Service page fails to display AI-generated content correctly.",
-        "AI model returns irrelevant or incorrect responses.",
-        "Integration causes service page to crash or become unresponsive.",
-        "Data synchronization issues between AI model and service platform."
+        "The AI generates generic agency copy that does not match the specific commercial service page, causing weak page relevance and poor QA fit. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
+        "The page generator omits required service-page sections or produces invalid field values, which breaks downstream CMS rendering or publication. ([platform.openai.com](https://platform.openai.com/docs/guides/structured-outputs?api-mode=chat&utm_source=openai))",
+        "Model returns valid JSON but not the required schema when JSON mode is used instead of Structured Outputs. ([platform.openai.com](https://platform.openai.com/docs/guides/structured-outputs?api-mode=chat&utm_source=openai))",
+        "Model output is incomplete or non-terminating because JSON mode was enabled without an explicit instruction to produce JSON. ([platform.openai.com](https://platform.openai.com/docs/guides/structured-outputs?api-mode=chat&utm_source=openai))",
+        "A safety refusal appears in the response and does not conform to the requested schema, requiring special handling. ([platform.openai.com](https://platform.openai.com/docs/guides/structured-outputs?api-mode=chat&utm_source=openai))",
+        "Tool definitions are too large or verbose, causing context pressure or token-limit failures because function schemas count toward input tokens. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling/function-calling%20.webm?utm_source=openai))"
       ],
       "pairSpecificTriggers": [
-        "User inputs ambiguous or unclear queries on the service page.",
-        "Service page experiences high traffic, affecting AI model response times.",
-        "Customer submits a query through the service page.",
-        "User requests a product recommendation on the service page.",
-        "Client books an appointment via the service page."
+        "A commercial service page brief is submitted with limited details, and the AI must infer the right sections and structured metadata. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
+        "The page needs variant generation from a fixed schema, such as headline, benefits, CTA, and FAQ blocks, all validated before publish. ([platform.openai.com](https://platform.openai.com/docs/guides/structured-outputs?api-mode=chat&utm_source=openai))",
+        "A visitor asks for an AI automation agency page tailored to a specific commercial service, and the system must generate page copy plus metadata from structured inputs. ([platform.openai.com](https://platform.openai.com/docs/api-reference/responses/retrieve?utm_source=openai))",
+        "The workflow is triggered when a page-specific request needs external data or actions, such as mapping service details into a structured content payload for the page. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
+        "A form submission or CMS update requests a new commercial service page variant, requiring the model to produce validated JSON instead of free-form prose. ([platform.openai.com](https://platform.openai.com/docs/guides/structured-outputs?api-mode=chat&utm_source=openai))"
       ],
       "apiConstraints": [
-        "Adhere to rate limits imposed by the AI model's API to prevent service disruptions.",
-        "Ensure data privacy and compliance with regulations when transmitting user data to AI models."
+        "Structured Outputs supports only a subset of JSON Schema and is supported with `response_format: {type: \"json_schema\", ...}` on specific models such as `gpt-4o-mini` and `gpt-4o-2024-08-06` and later. ([platform.openai.com](https://platform.openai.com/docs/guides/structured-outputs?api-mode=chat&utm_source=openai))"
       ],
-      "realWorldScenario": "A customer visits an e-commerce website and uses the AI-powered chat feature to inquire about product availability. The AI model processes the query and provides an instant response, enhancing the customer's shopping experience and reducing the workload on human support agents.",
-      "dataFlowDescription": "User inputs a query on the service page → Query is sent to the AI model via API → AI model processes the query and generates a response → Response is transmitted back to the service page → Service page displays the AI-generated response to the user.",
+      "realWorldScenario": "A marketing team asks an AI automation agency system to generate a new commercial service page for a niche offering. The model receives the service brief, uses a schema to output page sections, and the application validates the result before publishing it to the CMS. ([platform.openai.com](https://platform.openai.com/docs/api-reference/responses/retrieve?utm_source=openai))",
+      "dataFlowDescription": "Input starts as a page brief or CMS request for the commercial service page. The model then either calls tools to fetch or enrich business data, or emits a structured JSON page object. The application validates the response, handles refusals or schema issues, and sends the approved content into the page builder or CMS for publication. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
       "volumeProfile": "US search volume signal: 1900; global volume: 9500.",
       "constraints": [
         "Use verified facts only from provided research notes.",
@@ -437,10 +502,124 @@
       ]
     }
   },
-  "issues": [],
+  "issues": [
+    "Semantic entity coverage is too thin.",
+    "hero_intro has an overlong sentence.",
+    "One failure mode has a broken trailing fragment: 'The response is parseable JSON but does not match the required schema, so CMS rendering or publication fails' is fine, but the preceding bullet 'Service page entities such as service name, audience, benefits, CTA blocks, and metadata are missing, malformed, or.' is incomplete and needs repair.",
+    "The hero intro includes Zapier, which is allowed per instructions, but it slightly broadens the page away from the core GetForked positioning.",
+    "There is mild repetition around schema validation, approval states, and structured outputs across multiple sections, which raises repetition risk if reused at scale."
+  ],
   "researchQuality": {
     "sufficient": true,
     "score": 100,
     "gaps": []
+  },
+  "classification": {
+    "page_type": "ai_automation",
+    "search_intent": "service",
+    "page_role": "leaf",
+    "buyer_stage": "provider_aware",
+    "commercial_job": "convert_to_brief",
+    "semantic_angle": "Capture buyers searching for a service provider and route them into GetForked matching instead of a generic agency pitch.",
+    "primary_keyword": "ai automation agency",
+    "primary_keyword_display": "AI Automation Agency",
+    "workflow_category": "commercial-service-pages",
+    "business_context": "Capture buyers searching for a service provider and route them into GetForked matching instead of a generic agency pitch.",
+    "use_framing": {
+      "angle": "agency alternative and builder-matching service selection",
+      "scenarios": [
+        "service quote intake routed to builder matching",
+        "AI chatbot scope reviewed before build assignment",
+        "automation brief matched by tools, data access, and delivery risk"
+      ],
+      "comparison_frame": "generic agency retainer vs scoped approved-builder match",
+      "buyer_profile": "business owner comparing providers for a first AI automation build"
+    }
+  },
+  "writerBrief": {
+    "centralEntity": "AI and Commercial Service Pages",
+    "entityAttributes": [
+      "A commercial service page brief is submitted with limited details, and the AI must infer the right sections and structured metadata. ()",
+      "The page needs variant generation from a fixed schema, such as headline, benefits, CTA, and FAQ blocks, all validated before publish. ()",
+      "A visitor asks for an AI automation agency page tailored to a specific commercial service, and the system must generate page copy plus metadata from structured inputs. ()",
+      "The workflow is triggered when a page-specific request needs external data or actions, such as mapping service details into a structured content payload for the page. ()",
+      "A form submission or CMS update requests a new commercial service page variant, requiring the model to produce validated JSON instead of free-form prose. ()",
+      "The AI generates generic agency copy that does not match the specific commercial service page, causing weak page relevance and poor QA fit. ()",
+      "The page generator omits required service-page sections or produces invalid field values, which breaks downstream CMS rendering or publication. ()",
+      "Model returns valid JSON but not the required schema when JSON mode is used instead of Structured Outputs. ()",
+      "Model output is incomplete or non-terminating because JSON mode was enabled without an explicit instruction to produce JSON. ()",
+      "A safety refusal appears in the response and does not conform to the requested schema, requiring special handling. ()"
+    ],
+    "contextualDomain": "commercial-service-pages",
+    "sourceContext": "GetForked matches businesses with approved builders for custom AI automation systems.",
+    "macroContext": "Capture buyers searching for a service provider and route them into GetForked matching instead of a generic agency pitch.",
+    "microContexts": [
+      "Commercial Service Pages",
+      "workflow automation",
+      "AI agents",
+      "builder matching",
+      "custom systems"
+    ],
+    "queryIntent": "service",
+    "likelySearcher": "A business owner comparing AI automation providers and needing implementation clarity.",
+    "pageMustAnswer": [
+      "What concrete workflow sits behind \"ai automation agency\"?",
+      "Where does manual review or data control matter?",
+      "What should the owned workflow do differently from generic AI tooling?",
+      "What should GetForked match for in the builder brief?"
+    ],
+    "avoidRepeating": [
+      "The problem is usually not whether AI can produce an answer. The problem is whether workflow process automation can trust that answer enough to act on it. In a customer support email flow, missing order or account context can force the model to guess and send the case to the wrong queue. In a CRM lead or contact record workflow, the AI may identify the right details but a bad field mapping can push the wrong data shape into the downstream app. In an uploaded PDF or invoice document process, the summary may look fine while the actual payload is invalid, incomplete, or unusable for the next step.",
+      "A reliable setup treats AI as one checked step inside workflow process automation. The pattern should follow: trigger event enters the automation platform, the AI model interprets or extracts information, returns structured arguments or a structured response, the workflow validates the output, then executes one or more downstream actions in connected systems. If validation fails or confidence is insufficient, the flow branches to retry, fallback, or human review. Where schema match matters, Structured Outputs with function calling guarantee schema match only when `strict: true` is used, so the implementation needs validation and sequencing designed around that constraint.",
+      "A refund request lands in the support inbox, an agent reads the customer support email, checks the order in the helpdesk and CRM by hand, copies details into Slack for clarification, and later has to fix the case because a trigger payload is missing context and the request was routed with too.",
+      "A support inbox receives a refund request and the workflow triggers an AI classifier, which extracts order number, customer sentiment, and requested action, then the workflow engine validates the structured output, creates a refund task in the helpdesk, and posts a summary to the operations.",
+      "AI Automation Solutions becomes risky when AI output is disconnected from business systems, hidden from staff review, or used without fallback rules.",
+      "A scoped AI automation can combine classification, summarisation, drafting, dashboards and approval states without removing human judgement.",
+      "Manual process -> generic AI tool -> copy/paste checks -> unclear ownership",
+      "Business workflow -> custom AI automation -> review states, dashboards and connected handoff"
+    ],
+    "informationGain": "This page should frame ai automation agency by buyer situation, workflow control, and implementation scope.",
+    "requiredEntities": [
+      "AI",
+      "Commercial Service Pages",
+      "AI automation agency landing page content for a commercial service offering. ()",
+      "Service page entities such as service name, audience, benefits, and CTA blocks that can be represented as structured output. ()",
+      "Operational entities like tool calls, JSON schema fields, and response objects used to assemble the page content pipeline. ()"
+    ],
+    "requiredNgrams": [
+      "commercial",
+      "service",
+      "pages",
+      "commercial service",
+      "service pages",
+      "commercial service pages",
+      "automation",
+      "agency",
+      "landing",
+      "page",
+      "content",
+      "for",
+      "offering.",
+      "automation agency",
+      "agency landing",
+      "landing page",
+      "page content",
+      "content for"
+    ],
+    "sectionIntents": {
+      "meta_hero": "Name the page promise and the real workflow around AI and Commercial Service Pages.",
+      "problem": "Explain the workflow pain in concrete terms without raw research fragments.",
+      "replacement": "Describe owned workflow control in plain English with practical implementation pieces.",
+      "flow": "Write before and after as plain-English operational scenarios, not arrows.",
+      "trust": "Explain human-in-the-loop review, fallback rules, and staff control.",
+      "builder": "Clarify GetForked's service: scoped brief, approved builder match, owned workflow, handover-ready implementation.",
+      "seo_body": "Add depth not already covered: workflow examples, risks, scope details, handover, and what to include in the brief."
+    },
+    "toneRules": [
+      "Write like a practical operator, not a generic SaaS marketer.",
+      "Translate research into plain English instead of pasting source fragments.",
+      "Keep GetForked positioned as scoped brief plus approved builder matching.",
+      "Do not attack Zapier or existing SaaS; explain when it remains good enough."
+    ]
   }
 }

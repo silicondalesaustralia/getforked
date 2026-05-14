@@ -16,6 +16,7 @@ export async function createDailyVideoBatch() {
     .where(and(gte(topicVideos.createdAt, dayStart), inArray(topicVideos.status, reviewableStates)));
 
   if (existing.length >= batchSize) {
+    await refreshLegacyVideos(existing.slice(0, batchSize));
     return { ok: true as const, created: 0, items: existing.slice(0, batchSize), reused: true };
   }
 
@@ -50,6 +51,7 @@ export async function createDailyVideoBatch() {
   }
 
   const items = [...existing, ...created];
+  await refreshLegacyVideos(existing);
   return { ok: true as const, created: created.length, items, reused: existing.length > 0 };
 }
 
@@ -67,4 +69,18 @@ function acstDayStartUtc() {
   const acst = new Date(now.getTime() + acstOffsetMs);
   const startAcst = new Date(Date.UTC(acst.getUTCFullYear(), acst.getUTCMonth(), acst.getUTCDate()));
   return new Date(startAcst.getTime() - acstOffsetMs);
+}
+
+async function refreshLegacyVideos(videos: Array<typeof topicVideos.$inferSelect>) {
+  const legacy = videos.filter((video) => promptDuration(video.promptJson) !== 15);
+  for (const video of legacy) {
+    await queueTopicVideoJob({ topicVideoId: video.id, jobKind: "regenerate" });
+  }
+}
+
+function promptDuration(value: unknown) {
+  if (typeof value !== "object" || value === null || !("voiceover" in value)) return null;
+  const voiceover = value.voiceover;
+  if (typeof voiceover !== "object" || voiceover === null || !("durationSeconds" in voiceover)) return null;
+  return typeof voiceover.durationSeconds === "number" ? voiceover.durationSeconds : null;
 }

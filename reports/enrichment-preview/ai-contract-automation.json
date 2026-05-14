@@ -180,13 +180,13 @@
     "pageType": "ai_automation_leaf",
     "status": "published",
     "priority": 2,
-    "pageTitle": "AI Contract Automation for Businesses | GetForked",
-    "h1Heading": "AI Contract Automation for Business Operations",
-    "metaDescription": "Optimize AI contract automation for administrative tasks, sales, support, reporting, and compliance through tailored systems matched to organizational needs.",
+    "pageTitle": "AI Contract Automation for Admin Docs Data | GetForked",
+    "h1Heading": "AI Contract Automation for Admin Docs Data",
+    "metaDescription": "Use AI contract automation to read uploaded admin docs, contract templates, and SOPs, then return structured JSON for approval routing, review queues, and admin system updates.",
     "canonicalUrl": "https://getforked.dev/ai-automation/ai-contract-automation/",
     "centralEntity": "AI automation",
     "attribute": "ai contract automation",
-    "entityAttributePair": "AI Contract Automation",
+    "entityAttributePair": "AI contract automation",
     "macroContext": "Show how AI can reduce internal admin, document handling, data entry and compliance follow-up.",
     "microContexts": "Admin, Docs & Data; workflow automation; AI agents; builder matching; custom systems",
     "centralSearchIntent": "Finding AI automation builders",
@@ -199,12 +199,12 @@
     "integrationDirection": "Admin, Docs & Data workflow automation",
     "triggerEvent": "ai contract automation brief or workflow need",
     "destinationAction": "Matched AI automation builder brief",
-    "introSummary": "AI Contract Automation streamlines repetitive administrative tasks, improves document handling, and enhances connectivity among tools through bespoke workflows.\n\nSuccess is achieved when AI outputs are embedded within real-time data, include review steps, adhere to approval protocols, and integrate seamlessly with existing systems.",
-    "heroSummary": "AI Contract Automation streamlines repetitive administrative tasks, improves document handling, and enhances connectivity among tools through bespoke workflows.\n\nSuccess is achieved when AI outputs are embedded within real-time data, include review steps, adhere to approval protocols, and integrate seamlessly with existing systems.",
-    "problemSummary": "The failure pattern for Ai and admin-docs-data is predictable: mapping mismatches, then duplicate actions, then delayed fixes. By the time new event is reviewed, records and messages are already out of sync.",
-    "replacementSummary": "A custom implementation can harden Ai and admin-docs-data by combining schema enforcement for records, incident-safe processing for status change, and explicit validation and retries across messages.",
+    "introSummary": "AI contract automation works best when the model reads uploaded admin manuals, SOPs, and contract templates before producing a contract summary, approval note, exception list, or routing decision.\n\nGetForked helps scope the workflow and match you with an approved builder who can connect file search, function calling, vector store setup, strict JSON validation, and review controls around your admin docs data.",
+    "heroSummary": "AI contract automation works best when the model reads uploaded admin manuals, SOPs, and contract templates before producing a contract summary, approval note, exception list, or routing decision.\n\nGetForked helps scope the workflow and match you with an approved builder who can connect file search, function calling, vector store setup, strict JSON validation, and review controls around your admin docs data.",
+    "problemSummary": "Contract and admin work depends on Admin Docs Data spread across uploaded files, policy docs, SOPs, templates, and internal guidance. A legal-ops or operations team may ask AI to review a draft agreement and return an approval note, exception list, or routing decision, but the polished answer can hide a broken retrieval step. The model may produce a plausible contract/admin response even though file search pulled the wrong template version, missed the needed clause, or never consulted the uploaded admin docs at all.",
+    "replacementSummary": "A dependable AI contract automation setup starts with uploaded admin manuals, SOPs, or contract templates stored in a vector store for file search. The workflow should let the model decide whether it needs file search or a custom function such as document_lookup, clause_extractor, or approval_router connected through function calling, then feed the retrieved passages back into the same run before any recommendation is finalized. In Responses API workflows, tool calls and their outputs are distinct items correlated by call ID, which makes it easier to audit which clause or policy text informed the result.",
     "uniqueContentAngle": "Show how AI can reduce internal admin, document handling, data entry and compliance follow-up.",
-    "bodyHtml": "<h2>Key Challenges in AI Contract Automation</h2>\n<p>AI Contract Automation carries risks when outputs are not linked to business systems, lack visibility to staff, or operate without contingency protocols.</p>\n<h2>Components of a Custom AI Workflow</h2>\n<p>A well-defined AI automation solution integrates classification, summarization, drafting, monitoring dashboards, and approval stages without compromising human judgment.</p>\n<h2>How GetForked Facilitates Custom Builds</h2>\n<p>GetForked connects businesses with qualified builders who specialize in creating tailored AI automation systems that meet specific needs.</p>",
+    "bodyHtml": "<h2>What AI contract automation looks like in day-to-day admin docs work</h2>\n<p>The practical use case is not replacing legal judgment. It is reducing repetitive admin work around contract intake, template checks, docs data extraction, approval notes, exception handling, and compliance follow-up.</p>\n<p>A common trigger starts when a draft agreement, renewal, or supplier contract is uploaded from email, a form, or a shared folder. The system reads the contract, checks uploaded admin manuals, SOPs, or contract templates stored in a vector store for file search, and prepares a structured result that the next step can consume.</p>\n<p>That result may be a contract summary, exception list, clause checklist, or routing recommendation. The useful change is that the workflow reads admin docs data first and then emits a decision, classification, or action payload that can actually be used.</p>\n<h3>Example: contract intake screening</h3>\n<p>A first-pass workflow can compare an incoming agreement against approved templates, extract counterparty name, renewal date, notice period, governing law, and missing clauses, then place the case into a contract-review queue with a machine-readable checklist.</p>\n<h3>Example: policy-based approval notes</h3>\n<p>If procurement or legal policy lives in admin docs, the model can use file search to retrieve the relevant SOP section and produce an approval note that ties each exception to the exact internal guidance it found.</p>\n<h3>Example: admin system updates</h3>\n<p>After review, the same workflow can send validated JSON to a CRM/admin system update, create follow-up tasks for missing paperwork, or log compliance actions without requiring staff to retype the contract findings.</p>\n<h2>Where these workflows break when retrieval or schema control is weak</h2>\n<p>The biggest operational failure is a convincing answer that never used the right document context. A model can sound certain while citing an outdated clause, skipping a required exception, or answering from prior training instead of the uploaded docs.</p>\n<p>Another failure appears after retrieval succeeds. The result may read fine to a person but still fail the next step because the response object is missing required fields, uses unsupported enum values, or does not match the expected schema.</p>\n<p>These are normal risks in admin docs data workflows. You are moving from uploaded files and internal policy text into routing, validation, and system actions, so both retrieval quality and output shape need explicit control.</p>\n<h3>Retrieval quality risk</h3>\n<p>If chunking, ranking, or file preparation is weak, the needed clause may never be surfaced from the vector store. QA should test whether file search can reliably find the exact language across old and current template versions.</p>\n<h3>Tool-selection risk</h3>\n<p>The model must choose correctly between tool use and direct generation. When the contract is ambiguous or incomplete, the safe path is retrieval plus review, not a direct answer that hides missing context.</p>\n<h3>Schema and model-support risk</h3>\n<p>Structured Outputs help when the workflow needs machine-readable payloads, but response_format with json_schema is supported only on certain model snapshots and strict mode accepts only a subset of JSON Schema. That means schema design and model choice have to be tested together.</p>\n<h2>What to put in the brief before matching the work</h2>\n<p>A strong brief explains the actual contract workflow instead of just asking for an AI assistant. The implementation team needs to know what documents exist, where they live, which ones are authoritative, and what action the final payload should trigger.</p>\n<p>List the contract types, uploaded admin docs, templates, SOPs, and target systems. Include the expected JSON shape, required keys, enum values, review states, and any route that should always require human approval.</p>\n<p>It also helps to define failure handling in advance. Say what should happen when file search returns weak matches, when policy docs conflict, when the model truncates output, or when a clause cannot be located with enough confidence.</p>\n<h3>Documents and data to provide</h3>\n<p>Share sample contracts, uploaded admin manuals, SOPs, approved templates, exception policies, and examples of edge cases. Make clear which files belong in the vector store and which should be accessed through custom functions.</p>\n<h3>Workflow rules to define</h3>\n<p>Spell out who reviews exceptions, what fields must be extracted, when approval_router should run, what counts as a sufficient clause match, and which actions must never be automated without review.</p>\n<h3>Scope details that change effort</h3>\n<p>Volume, document variety, number of systems, review requirements, retention rules, and audit needs all change the build. One intake path for one contract type is far simpler than a multi-team process with several template families and downstream updates.</p>\n<h2>What handover should include once the workflow is live</h2>\n<p>The finished system should be understandable to the team operating it. Staff should know which uploaded docs are used, how retrieval works, what the schema expects, and why the workflow sends a case to review.</p>\n<p>Handover should include the vector store setup, file search configuration, function definitions, prompt logic, schema rules, validation checks, fallback paths, and examples of both failed and successful outputs.</p>\n<p>You should also receive plain-English runbooks for monitoring, updating templates, replacing docs, and testing retrieval after policy changes so the workflow stays usable as contract and admin requirements change.</p>\n<h3>Operational documentation</h3>\n<p>Ask for a simple map of each step from contract upload through retrieval, clause extraction, JSON validation, review handling, and final update so operations staff do not have to reverse-engineer the process.</p>\n<h3>QA coverage</h3>\n<p>Testing should include missing clauses, conflicting SOPs, weak retrieval, unsupported schema patterns, and cases where the model must decide whether file search or function calling is required before producing the final payload.</p>\n<h3>Ownership after launch</h3>\n<p>The goal is a handover-ready system with admin access, editable rules, and clear maintenance steps. That gives your team control as contract templates, policy docs, and approval rules change.</p>",
     "supplementaryBridge": "Related AI automation pages for adjacent use cases.",
     "mainContentFormat": "problem-solution",
     "primaryCta": "Get Matched With an AI Automation Builder",
@@ -214,20 +214,20 @@
     "buyerPainPoint": "Teams searching for ai contract automation are usually trying to remove manual steps, reduce context switching, or make a process more reliable. The work becomes risky when data lives across tools, approvals are handled in chat, or staff need to copy information between systems.",
     "projectType": "AI automation build",
     "sourceParam": "ai-automation-ai-contract-automation",
-    "zapierCostContext": "Most Ai and admin-docs-data spend is hidden in exception handling. mapping mismatches and duplicate actions force manual intervention, while growing records traffic increases reconciliation work on messages. Teams usually invest in custom implementation when new event must meet strict response windows and auditability requirements from www.ibm.com.",
+    "zapierCostContext": "Cost depends on how much contract and admin docs data control the workflow needs. A smaller implementation might cover one contract type, one vector store, hosted file search, one strict JSON schema, and one review queue. A broader scope can include multiple template families, custom clause_extractor and approval_router functions, retrieval QA, exception handling for ambiguous documents, downstream CRM/admin updates, audit logging, and handover documentation so the team can maintain the workflow after launch.",
     "estimatedTaskVolume": "US search volume signal: 150; global volume: 250.",
     "customBuildContext": "A custom ai contract automation build can combine workflow logic, AI-assisted decisions, integrations, dashboards, alerts, and review steps into a system your team owns.",
     "costComparisonHtml": "<table><thead><tr><th>Cost factor</th><th>Generic tool</th><th>Custom build</th></tr></thead><tbody><tr><td>Fit</td><td>Limited to standard features.</td><td>Scoped around the ai contract automation workflow.</td></tr><tr><td>Integrations</td><td>Depends on app connectors.</td><td>Can connect APIs, documents, CRM, forms, and internal data.</td></tr><tr><td>Review</td><td>Often outside the workflow.</td><td>Can include approvals, audit trails, and alerts.</td></tr></tbody></table>",
     "builderSkillProfile": "AI workflow design, integrations, data handling, dashboards, prompt evaluation, and human-in-the-loop automation.",
-    "builderMatchFactors": "Builder matching prioritizes teams with proven Ai and admin-docs-data delivery history: they need production experience in records, downstream messages integrity, and recovery paths for duplicate actions.",
-    "requiredBuilderBadges": "AI Automation, Workflow Optimization, API Integrations",
+    "builderMatchFactors": "GetForked turns this into a scoped brief and builder match for an owned implementation. We help define the contract types, uploaded document sources, vector store structure, file search behavior, function-calling needs, approval and exception rules, downstream systems, QA coverage, and handover requirements. Then we match you with an approved builder who can implement the workflow, document how it works, and leave your team with a system it can run and update after launch.",
+    "requiredBuilderBadges": "Responses API, file search, and vector stores, Function calling for document lookup and approval routing, Strict JSON schema validation and review workflows",
     "trustProofElements": "Approved builders only. Scoped before build. No open bid spam.",
     "groundednessSignals": "Uses source keyword demand and concrete workflow constraints, not unsupported best-in-market claims.",
     "temporalFreshness": "Ahrefs source last updated 2026-05-12. Refresh keyword and capability references quarterly.",
     "lastVerifiedNote": "Last verified 12 May 2026.",
     "primaryKeyword": "ai contract automation",
     "secondaryKeywords": "",
-    "semanticTerms": "AI Contract Automation, AI Workflow Automation, Contract Administration Solutions, Staff transferring information between systems, Disconnection of AI outputs from primary systems, Role of AI classification in workflow management",
+    "semanticTerms": "AI contract automation, Admin Docs Data, Contract review workflow, ai contract automation, AI automation, Workflow automation, Custom integration, Business process automation, uploaded admin manuals, SOPs, or contract templates stored in a vector store., document_lookup, clause_extractor, and approval_router connected through., structured JSON for a contract-review queue or CRM/admin system update, staff copying information between tools, AI output not connected to systems, AI classification, Workflow automation, Custom integration, Business process automation",
     "rootLink": "/ai-automation/",
     "seedLinks": "/ai-automation/",
     "nodeLinks": "/ai-automation/ai-compliance-automation/, /ai-automation/ai-email-automation/, /ai-automation/ai-document-automation/, /ai-automation/legal-document-automation-ai/, /ai-automation/ai-document-processing-automation/",
@@ -236,114 +236,200 @@
     "relatedPageIds": "ai-compliance-automation, ai-email-automation, ai-document-automation, legal-document-automation-ai, ai-document-processing-automation",
     "imageAltPrimary": "AI Contract Automation custom workflow landing page",
     "imageUrlSlug": "ai-contract-automation",
-    "workflowBeforeLabel": "ai and admin-docs-data new event -> Zapier steps -> mapping mismatches and manual fixes across records",
-    "workflowAfterLabel": "Ai and admin-docs-data new event -> normalized records payload -> policy gates + rollback checkpoint -> signed write to messages with queueing with replay controls",
+    "workflowBeforeLabel": "A legal-ops specialist receives a supplier contract, opens uploaded admin manuals, SOPs, and contract templates stored in a vector store for file search, manually compares the liability and notice clauses against the latest policy docs, writes an exception list in a spreadsheet, and then copies.",
+    "workflowAfterLabel": "When a draft agreement is uploaded, the workflow runs file search against the vector store, calls clause_extractor for the required sections, returns those tool results as distinct items correlated by call ID, and only then has the model emit a strict JSON checklist with clause status, exception.",
     "schemaType": "Service",
-    "updatedAt": "2026-05-13T05:25:55.089Z",
-    "enrichmentStatus": "needs_review",
+    "updatedAt": "2026-05-14T06:38:50.635Z",
+    "enrichmentStatus": "needs_manual_enrichment",
     "enrichmentVersion": 1,
     "nuancedContent": {
-      "seo_title": "AI Contract Automation for Businesses | GetForked",
-      "h1": "AI Contract Automation for Business Operations",
-      "meta_description": "Optimize AI contract automation for administrative tasks, sales, support, reporting, and compliance through tailored systems matched to organizational needs.",
+      "seo_title": "AI Contract Automation for Admin Docs Data | GetForked",
+      "h1": "AI Contract Automation for Admin Docs Data",
+      "meta_description": "Use AI contract automation to read uploaded admin docs, contract templates, and SOPs, then return structured JSON for approval routing, review queues, and admin system updates.",
       "hero_intro": [
-        "AI Contract Automation streamlines repetitive administrative tasks, improves document handling, and enhances connectivity among tools through bespoke workflows.",
-        "Success is achieved when AI outputs are embedded within real-time data, include review steps, adhere to approval protocols, and integrate seamlessly with existing systems."
+        "AI contract automation works best when the model reads uploaded admin manuals, SOPs, and contract templates before producing a contract summary, approval note, exception list, or routing decision.",
+        "GetForked helps scope the workflow and match you with an approved builder who can connect file search, function calling, vector store setup, strict JSON validation, and review controls around your admin docs data."
       ],
-      "problem_heading": "Key Challenges in AI Contract Automation",
-      "problem_summary": "The failure pattern for Ai and admin-docs-data is predictable: mapping mismatches, then duplicate actions, then delayed fixes. By the time new event is reviewed, records and messages are already out of sync.",
+      "problem_heading": "The real risk is acting on a contract answer that was never grounded in the right admin docs",
+      "problem_summary": "Contract and admin work depends on Admin Docs Data spread across uploaded files, policy docs, SOPs, templates, and internal guidance. A legal-ops or operations team may ask AI to review a draft agreement and return an approval note, exception list, or routing decision, but the polished answer can hide a broken retrieval step. The model may produce a plausible contract/admin response even though file search pulled the wrong template version, missed the needed clause, or never consulted the uploaded admin docs at all.",
       "failure_modes": [
-        "Manual information transfer between systems",
-        "Disconnected AI outputs from operational systems",
-        "Absence of review states leading to unchecked outputs",
-        "Decisions lost in email or task clutter"
+        "A contract summary cites an outdated indemnity clause because retrieval surfaced the wrong template from the vector.",
+        "The model answers from general knowledge instead of using uploaded admin docs returned through file search or.",
+        "The response reads well to a reviewer but fails downstream because required keys, enum values, or status fields do not.",
+        "The retrieval result is incomplete or irrelevant because the vector store content, ranking, or chunking does not."
       ],
-      "replacement_heading": "Components of a Custom AI Workflow",
-      "replacement_summary": "A custom implementation can harden Ai and admin-docs-data by combining schema enforcement for records, incident-safe processing for status change, and explicit validation and retries across messages.",
+      "replacement_heading": "Build the workflow so document retrieval and routing control come before any contract decision",
+      "replacement_summary": "A dependable AI contract automation setup starts with uploaded admin manuals, SOPs, or contract templates stored in a vector store for file search. The workflow should let the model decide whether it needs file search or a custom function such as document_lookup, clause_extractor, or approval_router connected through function calling, then feed the retrieved passages back into the same run before any recommendation is finalized. In Responses API workflows, tool calls and their outputs are distinct items correlated by call ID, which makes it easier to audit which clause or policy text informed the result.",
       "replacement_cards": [
         {
-          "title": "AI Classification",
-          "description": "AI classification enhances data integrity by ensuring that all outputs undergo thorough staff review before final approval."
+          "title": "Retrieve the governing text first",
+          "description": "Start with uploaded admin docs, manuals, SOPs, and contract templates stored in a vector store for file search so the model works from the actual clause and policy language, not memory."
         },
         {
-          "title": "AI Summarization",
-          "description": "AI summarization improves workflow visibility while allowing for essential manual oversight."
+          "title": "Use function calling when lookup or routing is required",
+          "description": "If the task depends on clause extraction, exception logic, or approval routing, connect a custom function such as document_lookup, clause_extractor, or approval_router through function calling rather than asking for a free-form answer."
         },
         {
-          "title": "AI Drafting",
-          "description": "AI drafting facilitates content creation while incorporating mandatory review and approval stages."
+          "title": "Enforce strict JSON before the next system step",
+          "description": "If a downstream queue or admin update expects fixed fields, required keys, and enum values, validate the payload against a strict schema before any route, update, or notification runs."
         },
         {
-          "title": "Workflow Dashboard",
-          "description": "A customized workflow dashboard provides transparent oversight of contract statuses, review processes, and team contributions."
+          "title": "Escalate weak retrieval and ambiguous documents",
+          "description": "When file search returns partial passages, conflicting SOP sections, or unclear template matches, the workflow should stop for review instead of hiding uncertainty inside a polished contract summary."
         }
       ],
-      "before_flow": "ai and admin-docs-data new event -> Zapier steps -> mapping mismatches and manual fixes across records",
-      "after_flow": "Ai and admin-docs-data new event -> normalized records payload -> policy gates + rollback checkpoint -> signed write to messages with queueing with replay controls",
-      "cost_context": "Most Ai and admin-docs-data spend is hidden in exception handling. mapping mismatches and duplicate actions force manual intervention, while growing records traffic increases reconciliation work on messages. Teams usually invest in custom implementation when new event must meet strict response windows and auditability requirements from www.ibm.com.",
-      "human_in_the_loop": "AI functions best when augmenting workflow processes, rather than operating in isolation. Review states, approval checkpoints, fallback mechanisms, and comprehensive logging ensure human oversight remains central.",
-      "builder_matching_summary": "Builder matching prioritizes teams with proven Ai and admin-docs-data delivery history: they need production experience in records, downstream messages integrity, and recovery paths for duplicate actions.",
+      "before_flow": "A legal-ops specialist receives a supplier contract, opens uploaded admin manuals, SOPs, and contract templates stored in a vector store for file search, manually compares the liability and notice clauses against the latest policy docs, writes an exception list in a spreadsheet, and then copies.",
+      "after_flow": "When a draft agreement is uploaded, the workflow runs file search against the vector store, calls clause_extractor for the required sections, returns those tool results as distinct items correlated by call ID, and only then has the model emit a strict JSON checklist with clause status, exception.",
+      "cost_context": "Cost depends on how much contract and admin docs data control the workflow needs. A smaller implementation might cover one contract type, one vector store, hosted file search, one strict JSON schema, and one review queue. A broader scope can include multiple template families, custom clause_extractor and approval_router functions, retrieval QA, exception handling for ambiguous documents, downstream CRM/admin updates, audit logging, and handover documentation so the team can maintain the workflow after launch.",
+      "human_in_the_loop": "Human review matters whenever the model has to choose between tool use and direct generation, when uploaded docs conflict, when retrieval finds only a partial clause, or when the next action would trigger approval, compliance follow-up, or an admin system update. Reviewers should see the contract section, the matching admin docs passage, the tool result, and the structured payload in one place. Keep the review step simple: approve, edit fields, rerun file search, rerun function calling, change the route, or stop the case. Also keep one sentence of guidance per escalation reason so the queue is readable instead of forcing staff to decode a long system message.",
+      "builder_matching_summary": "GetForked turns this into a scoped brief and builder match for an owned implementation. We help define the contract types, uploaded document sources, vector store structure, file search behavior, function-calling needs, approval and exception rules, downstream systems, QA coverage, and handover requirements. Then we match you with an approved builder who can implement the workflow, document how it works, and leave your team with a system it can run and update after launch.",
       "builder_skill_tags": [
-        "AI Automation",
-        "Workflow Optimization",
-        "API Integrations"
+        "Responses API, file search, and vector stores",
+        "Function calling for document lookup and approval routing",
+        "Strict JSON schema validation and review workflows"
       ],
       "seo_body_sections": [
         {
-          "h2": "Key Challenges in AI Contract Automation",
+          "h2": "What AI contract automation looks like in day-to-day admin docs work",
           "paragraphs": [
-            "AI Contract Automation carries risks when outputs are not linked to business systems, lack visibility to staff, or operate without contingency protocols."
+            "The practical use case is not replacing legal judgment. It is reducing repetitive admin work around contract intake, template checks, docs data extraction, approval notes, exception handling, and compliance follow-up.",
+            "A common trigger starts when a draft agreement, renewal, or supplier contract is uploaded from email, a form, or a shared folder. The system reads the contract, checks uploaded admin manuals, SOPs, or contract templates stored in a vector store for file search, and prepares a structured result that the next step can consume.",
+            "That result may be a contract summary, exception list, clause checklist, or routing recommendation. The useful change is that the workflow reads admin docs data first and then emits a decision, classification, or action payload that can actually be used."
           ],
-          "h3_sections": []
+          "h3_sections": [
+            {
+              "h3": "Example: contract intake screening",
+              "paragraph": "A first-pass workflow can compare an incoming agreement against approved templates, extract counterparty name, renewal date, notice period, governing law, and missing clauses, then place the case into a contract-review queue with a machine-readable checklist."
+            },
+            {
+              "h3": "Example: policy-based approval notes",
+              "paragraph": "If procurement or legal policy lives in admin docs, the model can use file search to retrieve the relevant SOP section and produce an approval note that ties each exception to the exact internal guidance it found."
+            },
+            {
+              "h3": "Example: admin system updates",
+              "paragraph": "After review, the same workflow can send validated JSON to a CRM/admin system update, create follow-up tasks for missing paperwork, or log compliance actions without requiring staff to retype the contract findings."
+            }
+          ]
         },
         {
-          "h2": "Components of a Custom AI Workflow",
+          "h2": "Where these workflows break when retrieval or schema control is weak",
           "paragraphs": [
-            "A well-defined AI automation solution integrates classification, summarization, drafting, monitoring dashboards, and approval stages without compromising human judgment."
+            "The biggest operational failure is a convincing answer that never used the right document context. A model can sound certain while citing an outdated clause, skipping a required exception, or answering from prior training instead of the uploaded docs.",
+            "Another failure appears after retrieval succeeds. The result may read fine to a person but still fail the next step because the response object is missing required fields, uses unsupported enum values, or does not match the expected schema.",
+            "These are normal risks in admin docs data workflows. You are moving from uploaded files and internal policy text into routing, validation, and system actions, so both retrieval quality and output shape need explicit control."
           ],
-          "h3_sections": []
+          "h3_sections": [
+            {
+              "h3": "Retrieval quality risk",
+              "paragraph": "If chunking, ranking, or file preparation is weak, the needed clause may never be surfaced from the vector store. QA should test whether file search can reliably find the exact language across old and current template versions."
+            },
+            {
+              "h3": "Tool-selection risk",
+              "paragraph": "The model must choose correctly between tool use and direct generation. When the contract is ambiguous or incomplete, the safe path is retrieval plus review, not a direct answer that hides missing context."
+            },
+            {
+              "h3": "Schema and model-support risk",
+              "paragraph": "Structured Outputs help when the workflow needs machine-readable payloads, but response_format with json_schema is supported only on certain model snapshots and strict mode accepts only a subset of JSON Schema. That means schema design and model choice have to be tested together."
+            }
+          ]
         },
         {
-          "h2": "How GetForked Facilitates Custom Builds",
+          "h2": "What to put in the brief before matching the work",
           "paragraphs": [
-            "GetForked connects businesses with qualified builders who specialize in creating tailored AI automation systems that meet specific needs."
+            "A strong brief explains the actual contract workflow instead of just asking for an AI assistant. The implementation team needs to know what documents exist, where they live, which ones are authoritative, and what action the final payload should trigger.",
+            "List the contract types, uploaded admin docs, templates, SOPs, and target systems. Include the expected JSON shape, required keys, enum values, review states, and any route that should always require human approval.",
+            "It also helps to define failure handling in advance. Say what should happen when file search returns weak matches, when policy docs conflict, when the model truncates output, or when a clause cannot be located with enough confidence."
           ],
-          "h3_sections": []
+          "h3_sections": [
+            {
+              "h3": "Documents and data to provide",
+              "paragraph": "Share sample contracts, uploaded admin manuals, SOPs, approved templates, exception policies, and examples of edge cases. Make clear which files belong in the vector store and which should be accessed through custom functions."
+            },
+            {
+              "h3": "Workflow rules to define",
+              "paragraph": "Spell out who reviews exceptions, what fields must be extracted, when approval_router should run, what counts as a sufficient clause match, and which actions must never be automated without review."
+            },
+            {
+              "h3": "Scope details that change effort",
+              "paragraph": "Volume, document variety, number of systems, review requirements, retention rules, and audit needs all change the build. One intake path for one contract type is far simpler than a multi-team process with several template families and downstream updates."
+            }
+          ]
+        },
+        {
+          "h2": "What handover should include once the workflow is live",
+          "paragraphs": [
+            "The finished system should be understandable to the team operating it. Staff should know which uploaded docs are used, how retrieval works, what the schema expects, and why the workflow sends a case to review.",
+            "Handover should include the vector store setup, file search configuration, function definitions, prompt logic, schema rules, validation checks, fallback paths, and examples of both failed and successful outputs.",
+            "You should also receive plain-English runbooks for monitoring, updating templates, replacing docs, and testing retrieval after policy changes so the workflow stays usable as contract and admin requirements change."
+          ],
+          "h3_sections": [
+            {
+              "h3": "Operational documentation",
+              "paragraph": "Ask for a simple map of each step from contract upload through retrieval, clause extraction, JSON validation, review handling, and final update so operations staff do not have to reverse-engineer the process."
+            },
+            {
+              "h3": "QA coverage",
+              "paragraph": "Testing should include missing clauses, conflicting SOPs, weak retrieval, unsupported schema patterns, and cases where the model must decide whether file search or function calling is required before producing the final payload."
+            },
+            {
+              "h3": "Ownership after launch",
+              "paragraph": "The goal is a handover-ready system with admin access, editable rules, and clear maintenance steps. That gives your team control as contract templates, policy docs, and approval rules change."
+            }
+          ]
         }
       ],
       "faq": [
         {
-          "question": "When should a custom workflow be implemented?",
-          "answer": "The necessity for custom AI automation depends on the complexity of the workflow, the requirement for data accessibility, the depth of integration, as well as the needs for oversight and support."
+          "question": "What does AI contract automation actually automate?",
+          "answer": "Usually the repetitive admin work around reading contracts, checking policy docs, extracting fields, creating approval notes, producing exception lists, and routing the case into the right queue or system."
         },
         {
-          "question": "Does this automation replace all existing tools?",
-          "answer": "No, the objective is to retain effective tools, streamline fragile links, and manage the segments of the workflow that introduce risks or inefficiencies."
+          "question": "Why is file search important in this workflow?",
+          "answer": "Because the model should not rely on general knowledge for contract or admin decisions. File search retrieves relevant information from uploaded files in a vector store before the model produces the structured result."
+        },
+        {
+          "question": "When should the workflow use a function instead of a direct response?",
+          "answer": "Use function calling when the model needs to look up a clause, apply approval logic, or connect to an internal system through tools such as document_lookup, clause_extractor, or approval_router. Use a direct structured response when the needed context is already present and the main job is formatting the final payload."
+        },
+        {
+          "question": "What should I prepare before speaking to a builder?",
+          "answer": "Prepare sample contracts, uploaded admin docs, SOPs, templates, target systems, routing rules, review rules, and the exact JSON or field structure expected by the next workflow step."
         }
       ],
       "schema_about": [
-        "AI Contract Automation",
-        "AI Workflow Automation",
-        "Contract Administration Solutions"
+        "AI contract automation",
+        "Admin Docs Data",
+        "Contract review workflow",
+        "ai contract automation",
+        "AI automation",
+        "Workflow automation",
+        "Custom integration",
+        "Business process automation"
       ],
       "schema_mentions": [
-        "Staff transferring information between systems",
-        "Disconnection of AI outputs from primary systems",
-        "Role of AI classification in workflow management"
+        "uploaded admin manuals, SOPs, or contract templates stored in a vector store.",
+        "document_lookup, clause_extractor, and approval_router connected through.",
+        "structured JSON for a contract-review queue or CRM/admin system update",
+        "staff copying information between tools",
+        "AI output not connected to systems",
+        "AI classification",
+        "Workflow automation",
+        "Custom integration",
+        "Business process automation"
       ]
     },
     "enrichmentScores": {
       "tool_specificity": 8,
-      "workflow_specificity": 7,
+      "workflow_specificity": 8,
       "difference_from_template": 6,
       "commercial_clarity": 7,
-      "seo_alignment": 6,
+      "seo_alignment": 8,
       "repetition_risk": 5
     },
-    "lastEnrichedAt": "2026-05-13T05:25:55.089Z",
-    "enrichmentModel": "gpt-4o-mini",
+    "lastEnrichedAt": "2026-05-14T06:38:50.635Z",
+    "enrichmentModel": "gpt-5.4",
     "needsManualReview": true,
-    "enrichmentNotes": "problem_summary lacks required research-specific tokens.; replacement_summary lacks required research-specific tokens.; before_flow lacks required research-specific tokens.; after_flow lacks required research-specific tokens.; cost_context lacks required research-specific tokens.; builder_matching_summary lacks required research-specific tokens.; Template feels slightly swapped in sections, particularly in the problem and replacement headings.; General references to AI and administrative data lack specificity, leaning toward common phrases.; Missing required sections under Zapier/Ai trust.; No distinct appeal of GetForked as a builder portal in H1 or hero section.",
+    "enrichmentNotes": "Semantic entity coverage is too thin.; trust_section has an overlong sentence.; Does not use Builders in the title or H1.; A few sentences are awkward or truncated, which reduces polish and could hurt SEO/readability.",
     "researchNotes": {
       "pageType": "ai_automation_leaf",
       "businessContext": "Show how AI can reduce internal admin, document handling, data entry and compliance follow-up.",
@@ -368,33 +454,68 @@
         }
       },
       "webResearch": {
-        "summary": "Integrating AI into administrative documentation processes offers significant efficiency gains but introduces challenges such as data access delays, pipeline reliability issues, and skills constraints. Addressing these requires robust data integration strategies, quality assurance practices, and proactive risk management.",
+        "summary": "The workflow is best understood as an OpenAI-style AI-to-data integration pattern: the model is given access to external documents via file search or a custom function-call tool, then returns structured output that can be used in an admin-docs-driven automation. OpenAI’s docs emphasize that function calling is the right pattern when the model must connect to tools, functions, or data, while Structured Outputs are better for schema-constrained responses. File search is a hosted tool that retrieves relevant information from uploaded files in a vector store and is designed for Responses API workflows. These patterns imply common failure modes around retrieval quality, schema mismatch, unsupported JSON Schema features, and quota/storage limits. ([platform.openai.com](https://platform.openai.com/docs/guides/structured-outputs?utm_source=openai))",
         "trigger_examples": [
-          "Data access delays causing workflow bottlenecks",
-          "Schema changes leading to pipeline failures",
-          "Lack of specialized data engineering talent hindering AI adoption"
+          "User asks the assistant to read policy or admin docs and produce a contract summary, approval note, or exception list.",
+          "A workflow needs the model to look up fields in uploaded documents before generating the next action or recommendation.",
+          "An automation expects the model to emit strict JSON for downstream systems after consulting internal document data."
         ],
         "entity_examples": [
-          "AI data integration tools",
-          "Data engineering teams",
-          "Administrative documentation systems"
+          "Uploaded admin manuals, SOPs, or contract templates stored in a vector store for file search.",
+          "A custom function such as document_lookup, clause_extractor, or approval_router connected through function calling.",
+          "A downstream workflow step that consumes structured output, such as a contract-review queue or CRM/admin system update."
         ],
         "failure_signatures": [
-          "Data pipeline degradation due to upstream system changes",
-          "Integration fragility from evolving APIs and data sources",
-          "Data quality issues like schema drift and inconsistent formats"
+          "The model answers from general knowledge instead of retrieving the relevant document context.",
+          "The output is valid text but does not match the required schema, enum values, or required keys.",
+          "The retrieval result is incomplete or irrelevant because the vector store content, ranking, or chunking does not surface the needed passage.",
+          "The workflow fails at scale because file storage, result limits, or unsupported schema features block execution."
         ],
         "implementation_notes": [
-          "Implement data profiling, cleansing, and standardization to ensure data quality",
-          "Establish monitoring and change management processes to maintain pipeline reliability",
-          "Invest in training and development to address skills shortages in data engineering"
+          "Use function calling when the model must bridge to tools, functions, or data in your system; use Structured Outputs when you want a response to conform to a JSON schema. OpenAI explicitly recommends Structured Outputs over legacy JSON mode when possible. ([platform.openai.com](https://platform.openai.com/docs/guides/structured-outputs?utm_source=openai))",
+          "File search is a hosted tool in the Responses API; you must create a vector store and upload files before use. OpenAI notes that it retrieves from uploaded files using semantic and keyword search, and you can optionally include file search results in the API response. ([platform.openai.com](https://platform.openai.com/docs/guides/tools-file-search/?utm_source=openai))",
+          "Strict structured function schemas use `strict: true`, but OpenAI supports only a subset of JSON Schema in strict mode, and unsupported schemas will error. Also, the docs note that using JSON mode requires an explicit instruction to produce JSON. ([platform.openai.com](https://platform.openai.com/docs/assistants/tools/function-calling?utm_source=openai))"
         ],
+        "pair_specific_failures": [
+          "AI produces a plausible contract/admin answer, but the underlying document lookup failed or returned the wrong clause, creating a false sense of correctness.",
+          "Admin-docs data is present, but the final output cannot be consumed because the model violates strict schema constraints or truncates output."
+        ],
+        "pair_specific_triggers": [
+          "The page needs a before/after workflow where the model first reads internal docs, then emits a decision, classification, or action payload.",
+          "The page needs QA coverage for a model that must choose between tool use and direct generation, especially when documents are ambiguous or incomplete."
+        ],
+        "api_constraints": [
+          "Structured Outputs with `response_format: {type: \"json_schema\"}` are supported only on certain model snapshots and later, and strict mode accepts only a subset of JSON Schema. ([platform.openai.com](https://platform.openai.com/docs/guides/structured-outputs?utm_source=openai))"
+        ],
+        "real_world_scenario": "A legal-ops team uploads contract templates and admin SOPs into a vector store, then asks the model to review a draft agreement, find missing clauses, and return a structured JSON checklist for approval routing. If retrieval misses a key clause or the schema is too strict for the chosen model, the automation may route the contract incorrectly or fail downstream. ([platform.openai.com](https://platform.openai.com/docs/guides/tools-file-search/?utm_source=openai))",
+        "data_flow_description": "Documents are uploaded into a vector store or otherwise made available through a tool. The model invokes file search or a custom function to retrieve relevant admin-doc content. Retrieved passages or tool outputs are fed back into the model, which then emits a structured response for the next system step, such as routing, extraction, or validation. In Responses API workflows, tool calls and their outputs are distinct items correlated by call ID, and file search is managed as a hosted tool. ([platform.openai.com](https://platform.openai.com/docs/guides/tools-file-search/?utm_source=openai))",
         "source_urls": [
-          "https://www.ibm.com/think/topics/ai-data-integration",
-          "https://www.ibm.com/think/insights/data-integration-challenges",
-          "https://www.pedowitzgroup.com/what-data-quality-issues-affect-implementation"
+          "https://platform.openai.com/docs/guides/function-calling?api-mode=responses",
+          "https://platform.openai.com/docs/guides/tools-file-search",
+          "https://platform.openai.com/docs/guides/structured-outputs"
         ]
       },
+      "pairSpecificFailures": [
+        "AI produces a plausible contract/admin answer, but the underlying document lookup failed or returned the wrong clause, creating a false sense of correctness.",
+        "Admin-docs data is present, but the final output cannot be consumed because the model violates strict schema constraints or truncates output.",
+        "The model answers from general knowledge instead of retrieving the relevant document context.",
+        "The output is valid text but does not match the required schema, enum values, or required keys.",
+        "The retrieval result is incomplete or irrelevant because the vector store content, ranking, or chunking does not surface the needed passage.",
+        "The workflow fails at scale because file storage, result limits, or unsupported schema features block execution."
+      ],
+      "pairSpecificTriggers": [
+        "The page needs a before/after workflow where the model first reads internal docs, then emits a decision, classification, or action payload.",
+        "The page needs QA coverage for a model that must choose between tool use and direct generation, especially when documents are ambiguous or incomplete.",
+        "User asks the assistant to read policy or admin docs and produce a contract summary, approval note, or exception list.",
+        "A workflow needs the model to look up fields in uploaded documents before generating the next action or recommendation.",
+        "An automation expects the model to emit strict JSON for downstream systems after consulting internal document data."
+      ],
+      "apiConstraints": [
+        "Structured Outputs with `response_format: {type: \"json_schema\"}` are supported only on certain model snapshots and later, and strict mode accepts only a subset of JSON Schema. ([platform.openai.com](https://platform.openai.com/docs/guides/structured-outputs?utm_source=openai))"
+      ],
+      "realWorldScenario": "A legal-ops team uploads contract templates and admin SOPs into a vector store, then asks the model to review a draft agreement, find missing clauses, and return a structured JSON checklist for approval routing. If retrieval misses a key clause or the schema is too strict for the chosen model, the automation may route the contract incorrectly or fail downstream. ([platform.openai.com](https://platform.openai.com/docs/guides/tools-file-search/?utm_source=openai))",
+      "dataFlowDescription": "Documents are uploaded into a vector store or otherwise made available through a tool. The model invokes file search or a custom function to retrieve relevant admin-doc content. Retrieved passages or tool outputs are fed back into the model, which then emits a structured response for the next system step, such as routing, extraction, or validation. In Responses API workflows, tool calls and their outputs are distinct items correlated by call ID, and file search is managed as a hosted tool. ([platform.openai.com](https://platform.openai.com/docs/guides/tools-file-search/?utm_source=openai))",
+      "volumeProfile": "US search volume signal: 150; global volume: 250.",
       "constraints": [
         "Use verified facts only from provided research notes.",
         "If a claim is uncertain, use soft language (may/can/often).",
@@ -403,15 +524,122 @@
     }
   },
   "issues": [
-    "problem_summary lacks required research-specific tokens.",
-    "replacement_summary lacks required research-specific tokens.",
-    "before_flow lacks required research-specific tokens.",
-    "after_flow lacks required research-specific tokens.",
-    "cost_context lacks required research-specific tokens.",
-    "builder_matching_summary lacks required research-specific tokens.",
-    "Template feels slightly swapped in sections, particularly in the problem and replacement headings.",
-    "General references to AI and administrative data lack specificity, leaning toward common phrases.",
-    "Missing required sections under Zapier/Ai trust.",
-    "No distinct appeal of GetForked as a builder portal in H1 or hero section."
-  ]
+    "Semantic entity coverage is too thin.",
+    "trust_section has an overlong sentence.",
+    "Does not use Builders in the title or H1.",
+    "A few sentences are awkward or truncated, which reduces polish and could hurt SEO/readability."
+  ],
+  "researchQuality": {
+    "sufficient": true,
+    "score": 100,
+    "gaps": []
+  },
+  "classification": {
+    "page_type": "ai_automation",
+    "search_intent": "workflow",
+    "page_role": "leaf",
+    "buyer_stage": "solution_aware",
+    "commercial_job": "convert_to_brief",
+    "semantic_angle": "Show how AI can reduce internal admin, document handling, data entry and compliance follow-up.",
+    "primary_keyword": "ai contract automation",
+    "primary_keyword_display": "AI Contract Automation",
+    "workflow_category": "admin-docs-data",
+    "business_context": "Show how AI can reduce internal admin, document handling, data entry and compliance follow-up.",
+    "use_framing": {
+      "angle": "specific business process ownership",
+      "scenarios": [
+        "Show how AI can reduce internal admin, document handling, data entry and compliance follow-up.",
+        "Teams searching for ai contract automation are usually trying to remove manual steps, reduce context switching, or make a process more reliable. The work becomes risky when data lives across tools, approvals are handled in chat, or staff need to copy information between systems.",
+        "AI automation build"
+      ],
+      "comparison_frame": "rented automation tool vs owned workflow",
+      "buyer_profile": "business owner or operations lead"
+    }
+  },
+  "writerBrief": {
+    "centralEntity": "AI and Admin Docs Data",
+    "entityAttributes": [
+      "The page needs a before/after workflow where the model first reads internal docs, then emits a decision, classification, or action payload.",
+      "The page needs QA coverage for a model that must choose between tool use and direct generation, especially when documents are ambiguous or incomplete.",
+      "User asks the assistant to read policy or admin docs and produce a contract summary, approval note, or exception list.",
+      "A workflow needs the model to look up fields in uploaded documents before generating the next action or recommendation.",
+      "An automation expects the model to emit strict JSON for downstream systems after consulting internal document data.",
+      "AI produces a plausible contract/admin answer, but the underlying document lookup failed or returned the wrong clause, creating a false sense of correctness.",
+      "Admin-docs data is present, but the final output cannot be consumed because the model violates strict schema constraints or truncates output.",
+      "The model answers from general knowledge instead of retrieving the relevant document context.",
+      "The output is valid text but does not match the required schema, enum values, or required keys.",
+      "The retrieval result is incomplete or irrelevant because the vector store content, ranking, or chunking does not surface the needed passage."
+    ],
+    "contextualDomain": "admin-docs-data",
+    "sourceContext": "GetForked matches businesses with approved builders for custom AI automation systems.",
+    "macroContext": "Show how AI can reduce internal admin, document handling, data entry and compliance follow-up.",
+    "microContexts": [
+      "Admin, Docs & Data",
+      "workflow automation",
+      "AI agents",
+      "builder matching",
+      "custom systems"
+    ],
+    "queryIntent": "workflow",
+    "likelySearcher": "An operator trying to replace manual work with an owned AI-assisted workflow.",
+    "pageMustAnswer": [
+      "What concrete workflow sits behind \"ai contract automation\"?",
+      "Where does manual review or data control matter?",
+      "What should the owned workflow do differently from generic AI tooling?",
+      "What should GetForked match for in the builder brief?"
+    ],
+    "avoidRepeating": [
+      "The problem is usually not whether AI can produce an answer. The problem is whether workflow process automation can trust that answer enough to act on it. In a customer support email flow, missing order or account context can force the model to guess and send the case to the wrong queue. In a CRM lead or contact record workflow, the AI may identify the right details but a bad field mapping can push the wrong data shape into the downstream app. In an uploaded PDF or invoice document process, the summary may look fine while the actual payload is invalid, incomplete, or unusable for the next step.",
+      "A reliable setup treats AI as one checked step inside workflow process automation. The pattern should follow: trigger event enters the automation platform, the AI model interprets or extracts information, returns structured arguments or a structured response, the workflow validates the output, then executes one or more downstream actions in connected systems. If validation fails or confidence is insufficient, the flow branches to retry, fallback, or human review. Where schema match matters, Structured Outputs with function calling guarantee schema match only when `strict: true` is used, so the implementation needs validation and sequencing designed around that constraint.",
+      "A refund request lands in the support inbox, an agent reads the customer support email, checks the order in the helpdesk and CRM by hand, copies details into Slack for clarification, and later has to fix the case because a trigger payload is missing context and the request was routed with too.",
+      "A support inbox receives a refund request and the workflow triggers an AI classifier, which extracts order number, customer sentiment, and requested action, then the workflow engine validates the structured output, creates a refund task in the helpdesk, and posts a summary to the operations.",
+      "Teams looking for an AI automation agency often already know a model can draft readable text. The harder part is producing commercial service pages that fit the actual offer, include the right service page entities, and pass QA without manual repair. A common failure pattern is this: a marketing or operations team submits a thin brief, the system generates agency-style page content that sounds acceptable, but the landing page is missing service name, audience, benefits, CTA blocks, or metadata required by the CMS. In commercial service pages, the issue is not just wording quality.",
+      "A reliable AI automation agency setup for commercial service pages should start with a page brief or CMS request and end with a validated page object that your application can trust. In a practical build, the workflow accepts structured inputs for the commercial service, decides whether it needs enrichment, and then either uses tool calls to fetch approved business details or emits a strict page payload directly. Use function calling when the model must connect to external systems or invoke business logic; use Structured Outputs when the model should emit a page payload in a strict schema. This matters because the system is not just writing copy.",
+      "A marketing lead receives a request for a new landing page for a niche service, pastes partial notes from a form and an internal doc into a model, gets generic agency copy back, and then manually rebuilds service page entities such as service name, audience, benefits, and CTA blocks so the CMS can.",
+      "When a form submission or CMS update requests a new commercial service page variant, the application assembles the brief, uses Structured Outputs to return a schema-based page object, validates the response object against required fields and publish rules, and only then creates the staging entry."
+    ],
+    "informationGain": "This page should frame ai contract automation by buyer situation, workflow control, and implementation scope.",
+    "requiredEntities": [
+      "AI",
+      "Admin Docs Data",
+      "Uploaded admin manuals, SOPs, or contract templates stored in a vector store for file search.",
+      "A custom function such as document_lookup, clause_extractor, or approval_router connected through function calling.",
+      "A downstream workflow step that consumes structured output, such as a contract-review queue or CRM/admin system update."
+    ],
+    "requiredNgrams": [
+      "admin",
+      "docs",
+      "data",
+      "admin docs",
+      "docs data",
+      "admin docs data",
+      "uploaded",
+      "manuals,",
+      "sops,",
+      "contract",
+      "templates",
+      "stored",
+      "vector",
+      "store",
+      "for",
+      "file",
+      "search.",
+      "uploaded admin"
+    ],
+    "sectionIntents": {
+      "meta_hero": "Name the page promise and the real workflow around AI and Admin Docs Data.",
+      "problem": "Explain the workflow pain in concrete terms without raw research fragments.",
+      "replacement": "Describe owned workflow control in plain English with practical implementation pieces.",
+      "flow": "Write before and after as plain-English operational scenarios, not arrows.",
+      "trust": "Explain human-in-the-loop review, fallback rules, and staff control.",
+      "builder": "Clarify GetForked's service: scoped brief, approved builder match, owned workflow, handover-ready implementation.",
+      "seo_body": "Add depth not already covered: workflow examples, risks, scope details, handover, and what to include in the brief."
+    },
+    "toneRules": [
+      "Write like a practical operator, not a generic SaaS marketer.",
+      "Translate research into plain English instead of pasting source fragments.",
+      "Keep GetForked positioned as scoped brief plus approved builder matching.",
+      "Do not attack Zapier or existing SaaS; explain when it remains good enough."
+    ]
+  }
 }

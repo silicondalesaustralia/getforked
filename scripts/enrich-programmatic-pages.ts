@@ -492,17 +492,18 @@ function normalizeBySilo(value: unknown, page: ProgrammaticPage) {
 function normalizeLengths(value: unknown, page?: ProgrammaticPage) {
   if (!value || typeof value !== "object") return value;
   const record = { ...(value as Record<string, unknown>) };
-  record.seo_title = clampText(String(record.seo_title || ""), 80);
-  record.h1 = clampText(String(record.h1 || ""), 100);
-  record.meta_description = clampText(String(record.meta_description || ""), 180);
-  record.before_flow = clampText(String(record.before_flow || ""), 300);
-  record.after_flow = clampText(String(record.after_flow || ""), 300);
-  record.cost_context = clampText(String(record.cost_context || ""), 700);
-  record.problem_heading = clampText(String(record.problem_heading || ""), 120);
-  record.replacement_heading = clampText(String(record.replacement_heading || ""), 120);
-  record.problem_summary = clampText(String(record.problem_summary || ""), 700);
-  record.replacement_summary = clampText(String(record.replacement_summary || ""), 700);
-  record.builder_matching_summary = clampText(String(record.builder_matching_summary || ""), 700);
+  const localFallback = page ? generateLocalEnrichment(page) : undefined;
+  record.seo_title = normalizeRequiredText(record.seo_title, [page?.pageTitle, localFallback?.seo_title], 20, 80);
+  record.h1 = normalizeRequiredText(record.h1, [page?.h1Heading, localFallback?.h1, page?.pageTitle], 20, 100);
+  record.meta_description = normalizeRequiredText(record.meta_description, [page?.metaDescription, localFallback?.meta_description], 80, 180);
+  record.before_flow = normalizeRequiredText(record.before_flow, [page?.workflowBeforeLabel, localFallback?.before_flow], 40, 300);
+  record.after_flow = normalizeRequiredText(record.after_flow, [page?.workflowAfterLabel, localFallback?.after_flow], 40, 300);
+  record.cost_context = normalizeRequiredText(record.cost_context, [page?.zapierCostContext, localFallback?.cost_context], 80, 700);
+  record.problem_heading = normalizeRequiredText(record.problem_heading, [localFallback?.problem_heading], 10, 120);
+  record.replacement_heading = normalizeRequiredText(record.replacement_heading, [localFallback?.replacement_heading], 10, 120);
+  record.problem_summary = normalizeRequiredText(record.problem_summary, [page?.problemSummary, localFallback?.problem_summary], 80, 700);
+  record.replacement_summary = normalizeRequiredText(record.replacement_summary, [page?.replacementSummary, localFallback?.replacement_summary], 80, 700);
+  record.builder_matching_summary = normalizeRequiredText(record.builder_matching_summary, [page?.builderMatchFactors, localFallback?.builder_matching_summary], 80, 700);
   if (record.when_zapier_is_still_right != null) {
     record.when_zapier_is_still_right = clampText(String(record.when_zapier_is_still_right || ""), 700);
   }
@@ -560,7 +561,6 @@ function normalizeLengths(value: unknown, page?: ProgrammaticPage) {
       };
     });
   }
-  const localFallback = page ? generateLocalEnrichment(page) : undefined;
   record.schema_about = normalizeSchemaTerms(record.schema_about, localFallback?.schema_about, 8);
   record.schema_mentions = normalizeSchemaTerms(record.schema_mentions, localFallback?.schema_mentions, 10);
   return record;
@@ -618,6 +618,17 @@ function normalizeSchemaTerms(value: unknown, fallback: unknown, maxItems: numbe
     .map((item) => clampText(item.trim(), 80))
     .filter((item) => item.length >= 3);
   return [...new Set(terms)].slice(0, maxItems);
+}
+
+function normalizeRequiredText(value: unknown, fallbacks: unknown[], minLength: number, maxLength: number) {
+  const candidates = [value, ...fallbacks]
+    .map((item) => String(item || "").trim())
+    .filter((item) => item.length >= minLength);
+  const genericFallback =
+    minLength >= 80
+      ? "Custom workflow automation with clear scoping, validation, review steps, and ownership for the business process."
+      : "Custom workflow automation";
+  return clampText(candidates[0] || genericFallback, maxLength);
 }
 
 async function compareAgainstSiblings(page: ProgrammaticPage, siblings: ProgrammaticPage[]) {

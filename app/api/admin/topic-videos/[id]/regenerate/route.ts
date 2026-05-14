@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
 import { queueExistingTopicVideoJob } from "@/lib/video/service";
 
@@ -13,14 +14,10 @@ export async function POST(_request: Request, context: Params) {
       return NextResponse.json({ error: result.error }, { status: 404 });
     }
 
-    return NextResponse.json({
-      ok: true,
-      topicVideoId: id,
-      status: result.queued.status,
-      mode: result.queued.mode,
-    });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Failed to enqueue regenerate job.";
     return NextResponse.json({ error: message }, { status: 500 });
   }
+
+  redirect("/admin/videos");
 }

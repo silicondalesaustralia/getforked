@@ -2,7 +2,7 @@ import { eq, sql } from "drizzle-orm";
 import { getDb } from "@/lib/db/client";
 import { topicVideoJobs } from "@/lib/db/schema";
 import { renderTopicVideo } from "@/lib/video/render-pipeline";
-import { markTopicVideoRenderFailed } from "@/lib/video/service";
+import { markTopicVideoRenderFailed } from "@/lib/video/status";
 
 type ClaimedTopicVideoJob = {
   id: string;

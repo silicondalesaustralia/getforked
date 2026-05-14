@@ -15,8 +15,8 @@ export function AiAutomationPage({ page, relatedPages, allPages = [] }: Props) {
   const leaves = allPages.filter((item) => item.pageType === "ai_automation_leaf").slice(0, 18);
 
   return (
-    <main className="min-h-screen bg-[#050708] text-[#F4F7F5]">
-      <section className="container pb-16 pt-16 md:pt-24">
+    <div className="min-h-screen bg-[#050708] text-[#F4F7F5]">
+      <section className="container pb-12 pt-10 md:pt-14">
         <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(380px,0.8fr)]">
           <div>
             <nav className="mb-8 text-sm text-[#7E8A86]">
@@ -57,7 +57,7 @@ export function AiAutomationPage({ page, relatedPages, allPages = [] }: Props) {
       {allPages.length > 0 ? <PageGrid title="Popular AI automation pages" pages={leaves} /> : null}
       <PageGrid title="Related AI automation pages" pages={relatedPages} />
       <FinalCta page={page} />
-    </main>
+    </div>
   );
 }
 
@@ -88,17 +88,30 @@ function TrustBar() {
 }
 
 function SplitSection({ eyebrow, title, body }: { eyebrow: string; title: string; body: string }) {
+  const paragraphs = splitParagraphs(body);
+
   return (
-    <section className="container grid gap-6 py-16 lg:grid-cols-[0.9fr_1.1fr]">
-      <div><p className="mb-3 text-sm font-semibold uppercase tracking-[0.22em] text-[#18E38A]">{eyebrow}</p><h2 className="text-3xl font-bold md:text-4xl">{title}</h2></div>
-      <div className="rounded-[18px] border border-[#243034] bg-[#0F1517] p-6 text-lg leading-8 text-[#B8C2BE]">{body}</div>
+    <section className="container py-10 md:py-12">
+      <div className="grid gap-8 lg:grid-cols-[minmax(260px,0.72fr)_minmax(0,1.28fr)] lg:items-start">
+        <div className="lg:sticky lg:top-28">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.22em] text-[#18E38A]">{eyebrow}</p>
+          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">{title}</h2>
+        </div>
+        <div className="rounded-[18px] border border-[#243034] bg-[#0F1517]/80 p-5 md:p-6">
+          <div className="max-w-3xl space-y-4 text-[17px] leading-8 text-[#B8C2BE]">
+            {paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
 
 function Workflow({ page }: { page: ProgrammaticPage }) {
   return (
-    <section id="what-this-build-replaces" className="container grid gap-6 py-16 md:grid-cols-2">
+    <section id="what-this-build-replaces" className="container grid gap-4 py-10 md:grid-cols-2 md:py-12">
       <Card label="Before" title="Manual or generic-tool workflow" body={page.workflowBeforeLabel} accent="#F97316" />
       <Card label="After" title="Custom AI automation" body={page.workflowAfterLabel} accent="#18E38A" />
     </section>
@@ -106,24 +119,25 @@ function Workflow({ page }: { page: ProgrammaticPage }) {
 }
 
 function Card({ label, title, body, accent }: { label: string; title: string; body: string; accent: string }) {
-  return <div className="rounded-[18px] border border-[#243034] border-l-4 bg-[#0F1517] p-6" style={{ borderLeftColor: accent }}><p className="mb-2 text-sm font-semibold" style={{ color: accent }}>{label}</p><h2 className="mb-3 text-2xl font-bold">{title}</h2><p className="leading-7 text-[#B8C2BE]">{body}</p></div>;
+  const paragraphs = splitParagraphs(body, 1);
+  return <div className="rounded-[18px] border border-[#243034] border-l-4 bg-[#0F1517]/80 p-5 md:p-6" style={{ borderLeftColor: accent }}><p className="mb-2 text-sm font-semibold" style={{ color: accent }}>{label}</p><h2 className="mb-3 text-2xl font-bold">{title}</h2><div className="space-y-3 leading-7 text-[#B8C2BE]">{paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div></div>;
 }
 
 function Cost({ page }: { page: ProgrammaticPage }) {
-  return <section className="container py-16"><h2 className="text-3xl font-bold">Cost and scoping context</h2><p className="mt-4 max-w-3xl text-[#B8C2BE]">{page.zapierCostContext}</p><div className="zapier-table mt-6 rounded-[18px] border border-[#243034] bg-[#0F1517] p-6" dangerouslySetInnerHTML={{ __html: page.costComparisonHtml }} /></section>;
+  return <section className="container py-10 md:py-12"><h2 className="text-3xl font-bold">Cost and scoping context</h2><div className="mt-4 max-w-3xl space-y-4 text-[#B8C2BE]">{splitParagraphs(page.zapierCostContext).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div><div className="zapier-table mt-6 rounded-[18px] border border-[#243034] bg-[#0F1517]/80 p-5 md:p-6" dangerouslySetInnerHTML={{ __html: page.costComparisonHtml }} /></section>;
 }
 
 function BuilderMatch({ page }: { page: ProgrammaticPage }) {
-  return <section className="container py-16"><div className="rounded-[22px] border border-[#243034] bg-[#0B1012] p-8"><h2 className="text-3xl font-bold">How GetForked matches the right builder</h2><p className="mt-5 text-lg leading-8 text-[#B8C2BE]">{page.builderMatchFactors}</p></div></section>;
+  return <section className="container py-10 md:py-12"><div className="border-y border-[rgba(24,227,138,0.18)] py-10"><div className="grid gap-8 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-start"><h2 className="text-3xl font-bold tracking-tight md:text-4xl">How GetForked matches the right builder</h2><div className="space-y-4 text-[17px] leading-8 text-[#B8C2BE]">{splitParagraphs(page.builderMatchFactors).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div></div></div></section>;
 }
 
 function SeoBody({ page }: { page: ProgrammaticPage }) {
-  return <section className="container py-16"><div className="zapier-prose max-w-3xl text-[#B8C2BE]" dangerouslySetInnerHTML={{ __html: page.bodyHtml }} /></section>;
+  return <section className="container py-10 md:py-12"><div className="zapier-prose max-w-3xl text-[#B8C2BE]" dangerouslySetInnerHTML={{ __html: page.bodyHtml }} /></section>;
 }
 
 function PageGrid({ title, pages }: { title: string; pages: ProgrammaticPage[] }) {
   if (pages.length === 0) return null;
-  return <section className="container py-16"><h2 className="text-3xl font-bold">{title}</h2><div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{pages.map((page) => <Link key={page.id} href={page.fullUrl} className="rounded-2xl border border-[#243034] bg-[#0F1517] p-5"><span className="block font-semibold">{outcomeLedTitle(page.h1Heading)}</span><span className="mt-3 block text-sm leading-6 text-[#B8C2BE]">{page.metaDescription}</span></Link>)}</div></section>;
+  return <section className="container py-10 md:py-12"><h2 className="text-3xl font-bold">{title}</h2><div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{pages.map((page) => <Link key={page.id} href={page.fullUrl} className="rounded-2xl border border-[#243034] bg-[#0F1517]/75 p-5"><span className="block font-semibold">{outcomeLedTitle(page.h1Heading)}</span><span className="mt-3 block text-sm leading-6 text-[#B8C2BE]">{page.metaDescription}</span></Link>)}</div></section>;
 }
 
 function FinalCta({ page }: { page: ProgrammaticPage }) {
@@ -137,4 +151,24 @@ function breadcrumbLabel(page: ProgrammaticPage) {
 
 function outcomeLedTitle(title: string) {
   return title.replace(/\s*Builders\??$/i, "").trim();
+}
+
+function splitParagraphs(text: string, maxSentences = 2) {
+  const explicit = text
+    .split(/\n{2,}/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+  if (explicit.length > 1) return explicit;
+
+  const sentences = text
+    .split(/(?<=[.!?])\s+/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+  if (sentences.length <= maxSentences) return [text];
+
+  const paragraphs: string[] = [];
+  for (let index = 0; index < sentences.length; index += maxSentences) {
+    paragraphs.push(sentences.slice(index, index + maxSentences).join(" "));
+  }
+  return paragraphs;
 }

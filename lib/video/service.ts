@@ -131,24 +131,3 @@ export async function rejectTopicVideo(topicVideoId: string, reason?: string) {
   return { ok: true as const };
 }
 
-export async function markTopicVideoReadyForReview(topicVideoId: string) {
-  await getDb()
-    .update(topicVideos)
-    .set({
-      status: "ready_for_review",
-      errorMessage: null,
-      updatedAt: sql`now()`,
-    })
-    .where(eq(topicVideos.id, topicVideoId));
-}
-
-export async function markTopicVideoRenderFailed(topicVideoId: string, errorMessage: string) {
-  await getDb()
-    .update(topicVideos)
-    .set({
-      status: "render_failed",
-      errorMessage,
-      updatedAt: sql`now()`,
-    })
-    .where(eq(topicVideos.id, topicVideoId));
-}

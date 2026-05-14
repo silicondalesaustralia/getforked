@@ -1,4 +1,5 @@
 import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
 import { authOptions } from "@/lib/auth/config";
 import { approveTopicVideo } from "@/lib/video/service";
@@ -21,9 +22,10 @@ export async function POST(_request: Request, context: Params) {
       return NextResponse.json({ error: result.error }, { status: 400 });
     }
 
-    return NextResponse.json({ ok: true, status: "approved" });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Failed to approve topic video.";
     return NextResponse.json({ error: message }, { status: 500 });
   }
+
+  redirect("/admin/videos");
 }

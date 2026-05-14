@@ -180,13 +180,13 @@
     "pageType": "ai_automation_leaf",
     "status": "published",
     "priority": 1,
-    "pageTitle": "Customized AI Automation Solutions for Enhanced Workflow | GetForked",
-    "h1Heading": "Tailored AI Automation Tools for Streamlined Business Operations",
-    "metaDescription": "Transform your administrative, sales, support, and reporting processes with customized AI automation solutions crafted by approved builders tailored to your needs.",
+    "pageTitle": "AI Automation Tools for Controlled Tool Calling Workflows | GetForked",
+    "h1Heading": "AI Automation Tools for Controlled Tool Calling Workflows",
+    "metaDescription": "Scope a custom AI-assisted workflow that selects the right tool, executes calls app-side, returns structured output, and keeps approvals and data checks where they matter.",
     "canonicalUrl": "https://getforked.dev/ai-automation/ai-automation-tools/",
     "centralEntity": "AI automation",
     "attribute": "ai automation tools",
-    "entityAttributePair": "Customized AI Automation Solutions",
+    "entityAttributePair": "AI automation tools workflow design",
     "macroContext": "Intercept tool/software searches and position GetForked as a way to get a custom build scoped by an approved builder.",
     "microContexts": "Tools & Alternatives; workflow automation; AI agents; builder matching; custom systems",
     "centralSearchIntent": "Informational,Commercial,Non-branded,Non-local",
@@ -199,12 +199,12 @@
     "integrationDirection": "Tools & Alternatives workflow automation",
     "triggerEvent": "ai automation tools brief or workflow need",
     "destinationAction": "Matched AI automation builder brief",
-    "introSummary": "Tailored AI Automation Tools empower teams to minimize repetitive tasks, streamline work distribution, summarize data, and integrate existing systems through a controlled architecture.\n\nOptimal performance arises when AI outcomes are closely linked to real-time data, reviewed comprehensively, and built on your team's familiar platforms.",
-    "heroSummary": "Tailored AI Automation Tools empower teams to minimize repetitive tasks, streamline work distribution, summarize data, and integrate existing systems through a controlled architecture.\n\nOptimal performance arises when AI outcomes are closely linked to real-time data, reviewed comprehensively, and built on your team's familiar platforms.",
-    "problemSummary": "Ai and tools-alternatives reliability falls when mapping mismatches is treated as an edge case. When duplicate actions appears, new event events force manual cross-checks between records and messages.",
-    "replacementSummary": "A scoped replacement for Ai and tools-alternatives can model records and messages directly, add controls for new event, and implement explicit validation and retries so operations are observable and owned.",
+    "introSummary": "People searching for AI automation tools are usually trying to control a live workflow where a model must use current data, account lookup, search, or an external action instead of guessing from memory.\n\nGetForked helps define that workflow, then matches you with an approved builder who can implement built-in tools, custom functions, Remote MCP servers, approvals, and application-side execution in a system your team can run.",
+    "heroSummary": "People searching for AI automation tools are usually trying to control a live workflow where a model must use current data, account lookup, search, or an external action instead of guessing from memory.\n\nGetForked helps define that workflow, then matches you with an approved builder who can implement built-in tools, custom functions, Remote MCP servers, approvals, and application-side execution in a system your team can run.",
+    "problemSummary": "AI automation tools become difficult when one request can reach several tools alternatives and only some of them should be available for that turn. A support team may expose built-in tools such as web search or file search, a company lookup function, and a fallback through a Remote MCP server or third-party service. If the active subset is not controlled, the model can choose the wrong path, answer from memory when external data is required, or emit a function call that the app never executes. The result is not just a weak answer. It is an incomplete operation, a missing lookup, or a final reply that ignores the tool result because the output was never reattached into the conversation state.",
+    "replacementSummary": "A workable implementation treats AI automation tools as an application flow, not a chat trick. The core pattern is the official five-step loop: request model with tools, receive tool call, execute code app-side, send tool output back, then receive final response or more tool calls. In a multi-tool setup, that loop should also control the currently permitted subset with allowed_tools under tool_choice so the model only sees the approved path for that step.",
     "uniqueContentAngle": "Intercept tool/software searches and position GetForked as a way to get a custom build scoped by an approved builder.",
-    "bodyHtml": "<h2>Challenges in AI Automation Tools Implementation</h2>\n<p>The risks associated with AI Automation Tools intensify when AI outputs remain unexamined, detached from vital business systems, or lack necessary fallback procedures.</p>\n<h2>Capabilities of a Customized AI Workflow</h2>\n<p>An expertly designed AI automation can seamlessly blend classification, summarization, drafting capabilities, dashboards, and approval processes while preserving crucial human insight.</p>\n<h2>How GetForked Scopes the Build</h2>\n<p>GetForked expertly aligns businesses with authorized builders specializing in custom AI automation architectures.</p>",
+    "bodyHtml": "<h2>What workflow usually sits behind an AI automation tools search</h2>\n<p>The underlying job is usually not &#039;add AI&#039; in the abstract. It is &#039;receive a request, decide whether external data or action is needed, call the right tool, and complete the response using the returned result.&#039; That makes tools alternatives a workflow-control problem.</p>\n<p>A common example is a support assistant answering questions about account status. The available options may include a company lookup function, built-in tools such as web search or file search, and a backup route through a Remote MCP server or third-party service. The system has to know which option is available now, which one is permitted now, and what happens if the first path fails.</p>\n<p>This is why entity coverage matters on this page. A real implementation may combine AI, Tools Alternatives, a custom function such as `get_horoscope(sign)` exposed to the model through a JSON-schema-defined function tool, built-in tools, and remote services that all need controlled selection.</p>\n<h3>Support answer with an approved fallback</h3>\n<p>A support assistant needs to answer a customer question using a company lookup function, but if that function is unavailable it should use an approved alternative tool path. The model selects the function, the app executes it, and the result is returned to the model for the final answer.</p>\n<h3>Requests that should never be answered from memory</h3>\n<p>If the user asks for current status, search, or account-specific lookup, the workflow should force a tool path. The model should not improvise when the answer depends on external data.</p>\n<h2>Where these implementations usually break</h2>\n<p>The first failure point is tool choice. In a broad multi-tool environment, the model can select an unintended path because the currently permitted subset was never narrowed for the active turn.</p>\n<p>The second failure point is execution. The model may return a tool call, but the application never runs it, never passes the result back, or swallows the failure in a way the model cannot use. That leaves the conversation incomplete.</p>\n<p>The third failure point is argument quality. A prompt may map cleanly to a defined function schema, yet the emitted arguments can still be malformed and should be checked before any external system call is allowed to proceed.</p>\n<h3>Why allowed tool subsets matter</h3>\n<p>For GPT-5.2 workflows, allowed_tools under tool_choice separates the full toolkit from the currently permitted subset. That reduces unintended usage and is more reliable than trying to control selection through prompt wording alone.</p>\n<h3>Why app-side execution is mandatory</h3>\n<p>OpenAI describes tool calling as a five-step loop: request model with tools, receive tool call, execute code app-side, send tool output back, then receive final response or more tool calls. If the app skips the execution or return step, the run does not actually finish.</p>\n<h2>What an owned implementation should include</h2>\n<p>A usable system needs a declared tool inventory, active permissions by step, a schema for every custom function, execution rules, retries, fallback behavior, and review points. That is the difference between a live workflow and a prompt experiment.</p>\n<p>The implementation should also report failures in a structured way. If a tool returns an error, non-zero exit code, or incomplete output, the application should pass that information back in a form the model can interpret rather than hiding it behind a generic message.</p>\n<p>When done correctly, the workflow can continue after a successful tool result, branch to an approved alternative, or pause for a person without losing state or dropping context.</p>\n<h3>Tool definitions and schema discipline</h3>\n<p>Define each function with a valid name, a clear description, and parameters in JSON Schema. Where exact match matters, use strict validation and reject malformed arguments before any external action is executed.</p>\n<h3>Fallbacks people can actually trust</h3>\n<p>If the first lookup path fails, the workflow should know whether to try a built-in tool, route to a third-party service, or stop for approval. That logic should be visible in documentation and in the operating interface.</p>\n<h2>What to put in the brief before GetForked matches the build</h2>\n<p>The brief should specify the trigger, the business action to complete, the systems involved, and the points where the model is allowed to choose between tools and alternatives. If only one subset should be available for the current turn, state that directly.</p>\n<p>Include the function inventory and sample inputs and outputs. If you already know the event names, payload shape, or one custom function that matters, include those details so the build can be designed around real operations instead of guesses.</p>\n<p>You should also define review thresholds, fallback rules, logging requirements, and what handover needs to cover for the team that will operate the workflow after launch.</p>\n<h3>Useful brief details</h3>\n<p>Document the trigger source, the current systems, the built-in tools, the custom function list, any Remote MCP services, the present failure points, the approval points, and the exact output the workflow must produce.</p>\n<h3>What success should look like</h3>\n<p>Success means the right tool is selected for the step, the result is returned to the model, the final response reflects that result, exceptions are routed clearly, and your team can operate the workflow without rebuilding it.</p>",
     "supplementaryBridge": "Related AI automation pages for adjacent use cases.",
     "mainContentFormat": "problem-solution",
     "primaryCta": "Get Matched With an AI Automation Builder",
@@ -214,20 +214,20 @@
     "buyerPainPoint": "Teams searching for ai automation tools are usually trying to remove manual steps, reduce context switching, or make a process more reliable. The work becomes risky when data lives across tools, approvals are handled in chat, or staff need to copy information between systems.",
     "projectType": "AI automation build",
     "sourceParam": "ai-automation-ai-automation-tools",
-    "zapierCostContext": "Budget impact on Ai and tools-alternatives workflows comes from repeated reruns, escalation time, and post-incident cleanup. When mapping mismatches appears alongside duplicate actions, operations teams absorb the cost through delayed downstream updates in messages. A custom build is generally justified once status change drives customer-facing outcomes and ownership of controls cannot stay in middleware. Primary source: https://failurefirst.org/research/failure-modes/.",
+    "zapierCostContext": "Cost depends on how much workflow control is required around tool selection, schema validation, execution, fallback handling, and approval points. A smaller build may cover one support lookup route with one approved alternative and one review rule. A broader implementation may include built-in tools such as web search or file search, custom function tools, Remote MCP access, failure reporting the model can interpret, operator dashboards, logs, and handover material for the team running the system.",
     "estimatedTaskVolume": "US search volume signal: 3300; global volume: 8800.",
     "customBuildContext": "A custom ai automation tools build can combine workflow logic, AI-assisted decisions, integrations, dashboards, alerts, and review steps into a system your team owns.",
     "costComparisonHtml": "<table><thead><tr><th>Cost factor</th><th>Generic tool</th><th>Custom build</th></tr></thead><tbody><tr><td>Fit</td><td>Limited to standard features.</td><td>Scoped around the ai automation tools workflow.</td></tr><tr><td>Integrations</td><td>Depends on app connectors.</td><td>Can connect APIs, documents, CRM, forms, and internal data.</td></tr><tr><td>Review</td><td>Often outside the workflow.</td><td>Can include approvals, audit trails, and alerts.</td></tr></tbody></table>",
     "builderSkillProfile": "AI workflow design, integrations, data handling, dashboards, prompt evaluation, and human-in-the-loop automation.",
-    "builderMatchFactors": "For Ai and tools-alternatives briefs, GetForked selects builders who can design explicit validation and retries, troubleshoot mapping mismatches, and operate reliable new event processing at scale.",
-    "requiredBuilderBadges": "AI Automation Excellence, Workflow Management Solutions, API Integration Specialists",
+    "builderMatchFactors": "GetForked starts by scoping the exact workflow behind the search: the trigger, the systems involved, the built-in tools and custom functions in play, the approved alternatives for each step, the schema rules for each function, the app-side execution path, the approval points, and the handover requirements. We then match you with an approved builder who has experience with tool-calling loops, JSON Schema function definitions, system integration work, and builder-ready delivery so your team owns the implementation after launch.",
+    "requiredBuilderBadges": "Multi-tool workflow design, Function calling and JSON Schema, Application-side execution, Allowed tool subset control, Fallback and exception handling, Handover documentation",
     "trustProofElements": "Approved builders only. Scoped before build. No open bid spam.",
     "groundednessSignals": "Uses source keyword demand and concrete workflow constraints, not unsupported best-in-market claims.",
     "temporalFreshness": "Ahrefs source last updated 2026-05-07 18:22:59. Refresh keyword and capability references quarterly.",
     "lastVerifiedNote": "Last verified 12 May 2026.",
     "primaryKeyword": "ai automation tools",
     "secondaryKeywords": "ai automation tools",
-    "semanticTerms": "Customized AI Automation Solutions, AI Automation Strategies, Workflow Optimization, Manual data entry discrepancies, Disconnection of AI outputs from operational systems, Intelligent classification systems",
+    "semanticTerms": "AI automation tools workflow design, Function calling and tool execution control, Custom workflow scoping and builder matching, ai automation tools, AI automation, Workflow automation, Custom integration, Business process automation, Tools Alternatives, built-in tools such as web search or file search, custom function such as `get_horoscope(sign)` exposed to the model through a., Remote MCP servers, allowed_tools under tool_choice, application-side execution, tool output returned into the same conversation, staff copying information between tools, AI output not connected to systems, AI classification",
     "rootLink": "/ai-automation/",
     "seedLinks": "/ai-automation/",
     "nodeLinks": "/ai-automation/ai-automation-solutions/, /ai-automation/ai-automation-software/, /ai-automation/ai-tools-for-business-automation/, /ai-automation/ai-automation-platform/",
@@ -236,114 +236,192 @@
     "relatedPageIds": "ai-automation-solutions, ai-automation-software, ai-tools-for-business-automation, ai-automation-platform",
     "imageAltPrimary": "AI Automation Tools custom workflow landing page",
     "imageUrlSlug": "ai-automation-tools",
-    "workflowBeforeLabel": "ai and tools-alternatives new event -> Zapier steps -> mapping mismatches and manual fixes across records",
-    "workflowAfterLabel": "Ai and tools-alternatives status change -> schema contract check for records -> review queue for edge cases -> deterministic publish to messages via queueing with replay controls",
+    "workflowBeforeLabel": "In a customer support workflow, an operator pastes a billing question into an assistant, sees it answer without the company lookup function even though the request needs account-specific lookup, then manually opens the internal tool, checks whether an approved alternative is allowed for this turn,.",
+    "workflowAfterLabel": "When that billing question arrives, user input enters the model with a declared tool set, the app restricts the active options with allowed_tools under tool_choice, the model emits the company lookup call, the application executes it app-side, sends the structured result back into the same.",
     "schemaType": "Service",
-    "updatedAt": "2026-05-13T05:20:32.213Z",
-    "enrichmentStatus": "needs_review",
+    "updatedAt": "2026-05-14T06:17:56.523Z",
+    "enrichmentStatus": "needs_manual_enrichment",
     "enrichmentVersion": 1,
     "nuancedContent": {
-      "seo_title": "Customized AI Automation Solutions for Enhanced Workflow | GetForked",
-      "h1": "Tailored AI Automation Tools for Streamlined Business Operations",
-      "meta_description": "Transform your administrative, sales, support, and reporting processes with customized AI automation solutions crafted by approved builders tailored to your needs.",
+      "seo_title": "AI Automation Tools for Controlled Tool Calling Workflows | GetForked",
+      "h1": "AI Automation Tools for Controlled Tool Calling Workflows",
+      "meta_description": "Scope a custom AI-assisted workflow that selects the right tool, executes calls app-side, returns structured output, and keeps approvals and data checks where they matter.",
       "hero_intro": [
-        "Tailored AI Automation Tools empower teams to minimize repetitive tasks, streamline work distribution, summarize data, and integrate existing systems through a controlled architecture.",
-        "Optimal performance arises when AI outcomes are closely linked to real-time data, reviewed comprehensively, and built on your team's familiar platforms."
+        "People searching for AI automation tools are usually trying to control a live workflow where a model must use current data, account lookup, search, or an external action instead of guessing from memory.",
+        "GetForked helps define that workflow, then matches you with an approved builder who can implement built-in tools, custom functions, Remote MCP servers, approvals, and application-side execution in a system your team can run."
       ],
-      "problem_heading": "Challenges in AI Automation Tools Implementation",
-      "problem_summary": "Ai and tools-alternatives reliability falls when mapping mismatches is treated as an edge case. When duplicate actions appears, new event events force manual cross-checks between records and messages.",
+      "problem_heading": "Tool selection fails when the workflow has real constraints",
+      "problem_summary": "AI automation tools become difficult when one request can reach several tools alternatives and only some of them should be available for that turn. A support team may expose built-in tools such as web search or file search, a company lookup function, and a fallback through a Remote MCP server or third-party service. If the active subset is not controlled, the model can choose the wrong path, answer from memory when external data is required, or emit a function call that the app never executes. The result is not just a weak answer. It is an incomplete operation, a missing lookup, or a final reply that ignores the tool result because the output was never reattached into the conversation state.",
       "failure_modes": [
-        "Manual data entry between disparate systems",
-        "Disconnection of AI outputs from core business processes",
-        "Absence of review states for decisions",
-        "Critical messages lost in email overload"
+        "The model picks the wrong option because the tool set is too broad and the current step was not limited to the.",
+        "A custom function call arrives with malformed arguments or schema drift because the function definition was loose or.",
+        "The application receives a tool call from the model but does not execute it, or executes it and never sends the tool.",
+        "A tool returns useful data or a failure state, but the downstream response ignores it because the output is missing,."
       ],
-      "replacement_heading": "Capabilities of a Customized AI Workflow",
-      "replacement_summary": "A scoped replacement for Ai and tools-alternatives can model records and messages directly, add controls for new event, and implement explicit validation and retries so operations are observable and owned.",
+      "replacement_heading": "Own the tool-calling loop instead of relying on prompt luck",
+      "replacement_summary": "A workable implementation treats AI automation tools as an application flow, not a chat trick. The core pattern is the official five-step loop: request model with tools, receive tool call, execute code app-side, send tool output back, then receive final response or more tool calls. In a multi-tool setup, that loop should also control the currently permitted subset with allowed_tools under tool_choice so the model only sees the approved path for that step.",
       "replacement_cards": [
         {
-          "title": "Intelligent Classification",
-          "description": "Empowers workflows by facilitating staff review, maintaining approval channels, and providing exception handling mechanisms."
+          "title": "Constrain the active alternatives",
+          "description": "Keep the full inventory in the system, but expose only the currently permitted tools for the present step. That is the practical use of allowed_tools under tool_choice when several built-in tools, custom function tools, and Remote MCP services exist."
         },
         {
-          "title": "Advanced Summarization",
-          "description": "Enables concise information recall while ensuring oversight through staff review and active exception handling."
+          "title": "Define function tools like real interfaces",
+          "description": "Each custom function should have a valid name, description, and JSON Schema parameters. Function names must use letters, numbers, underscores, or dashes, and be no more than 64 characters long."
         },
         {
-          "title": "Dynamic Drafting",
-          "description": "Supports the drafting process by promoting visibility and facilitating review and approval, ensuring oversight."
+          "title": "Run the call and return the result",
+          "description": "If the model emits a tool call, the application has to execute it app-side, capture success or failure, and send structured tool output back so the model can continue the same run correctly."
         },
         {
-          "title": "Interactive Workflow Dashboard",
-          "description": "Enhances operational visibility and tracking while integrating staff review and approval processes for quality assurance."
+          "title": "Route only the risky cases to review",
+          "description": "Pause for approval when fallback behavior changes a customer-facing answer, when the first tool path fails, or when invalid arguments would trigger the wrong external action."
         }
       ],
-      "before_flow": "ai and tools-alternatives new event -> Zapier steps -> mapping mismatches and manual fixes across records",
-      "after_flow": "Ai and tools-alternatives status change -> schema contract check for records -> review queue for edge cases -> deterministic publish to messages via queueing with replay controls",
-      "cost_context": "Budget impact on Ai and tools-alternatives workflows comes from repeated reruns, escalation time, and post-incident cleanup. When mapping mismatches appears alongside duplicate actions, operations teams absorb the cost through delayed downstream updates in messages. A custom build is generally justified once status change drives customer-facing outcomes and ownership of controls cannot stay in middleware. Primary source: https://failurefirst.org/research/failure-modes/.",
-      "human_in_the_loop": "AI should augment workflows rather than operate autonomously. Implementing review phases, approval workflows, fallback procedures, and comprehensive logging keeps team members actively involved.",
-      "builder_matching_summary": "For Ai and tools-alternatives briefs, GetForked selects builders who can design explicit validation and retries, troubleshoot mapping mismatches, and operate reliable new event processing at scale.",
+      "before_flow": "In a customer support workflow, an operator pastes a billing question into an assistant, sees it answer without the company lookup function even though the request needs account-specific lookup, then manually opens the internal tool, checks whether an approved alternative is allowed for this turn,.",
+      "after_flow": "When that billing question arrives, user input enters the model with a declared tool set, the app restricts the active options with allowed_tools under tool_choice, the model emits the company lookup call, the application executes it app-side, sends the structured result back into the same.",
+      "cost_context": "Cost depends on how much workflow control is required around tool selection, schema validation, execution, fallback handling, and approval points. A smaller build may cover one support lookup route with one approved alternative and one review rule. A broader implementation may include built-in tools such as web search or file search, custom function tools, Remote MCP access, failure reporting the model can interpret, operator dashboards, logs, and handover material for the team running the system.",
+      "human_in_the_loop": "Review matters at the points where the model could use the wrong alternative, where a failed tool call would change the answer sent to a customer, or where an external action should not continue without confirmation. The goal is not to place a person in every run. The goal is to stop the workflow where tool access, missing output, invalid arguments, or fallback choice creates operational risk.",
+      "builder_matching_summary": "GetForked starts by scoping the exact workflow behind the search: the trigger, the systems involved, the built-in tools and custom functions in play, the approved alternatives for each step, the schema rules for each function, the app-side execution path, the approval points, and the handover requirements. We then match you with an approved builder who has experience with tool-calling loops, JSON Schema function definitions, system integration work, and builder-ready delivery so your team owns the implementation after launch.",
       "builder_skill_tags": [
-        "AI Automation Excellence",
-        "Workflow Management Solutions",
-        "API Integration Specialists"
+        "Multi-tool workflow design",
+        "Function calling and JSON Schema",
+        "Application-side execution",
+        "Allowed tool subset control",
+        "Fallback and exception handling",
+        "Handover documentation"
       ],
       "seo_body_sections": [
         {
-          "h2": "Challenges in AI Automation Tools Implementation",
+          "h2": "What workflow usually sits behind an AI automation tools search",
           "paragraphs": [
-            "The risks associated with AI Automation Tools intensify when AI outputs remain unexamined, detached from vital business systems, or lack necessary fallback procedures."
+            "The underlying job is usually not 'add AI' in the abstract. It is 'receive a request, decide whether external data or action is needed, call the right tool, and complete the response using the returned result.' That makes tools alternatives a workflow-control problem.",
+            "A common example is a support assistant answering questions about account status. The available options may include a company lookup function, built-in tools such as web search or file search, and a backup route through a Remote MCP server or third-party service. The system has to know which option is available now, which one is permitted now, and what happens if the first path fails.",
+            "This is why entity coverage matters on this page. A real implementation may combine AI, Tools Alternatives, a custom function such as `get_horoscope(sign)` exposed to the model through a JSON-schema-defined function tool, built-in tools, and remote services that all need controlled selection."
           ],
-          "h3_sections": []
+          "h3_sections": [
+            {
+              "h3": "Support answer with an approved fallback",
+              "paragraph": "A support assistant needs to answer a customer question using a company lookup function, but if that function is unavailable it should use an approved alternative tool path. The model selects the function, the app executes it, and the result is returned to the model for the final answer."
+            },
+            {
+              "h3": "Requests that should never be answered from memory",
+              "paragraph": "If the user asks for current status, search, or account-specific lookup, the workflow should force a tool path. The model should not improvise when the answer depends on external data."
+            }
+          ]
         },
         {
-          "h2": "Capabilities of a Customized AI Workflow",
+          "h2": "Where these implementations usually break",
           "paragraphs": [
-            "An expertly designed AI automation can seamlessly blend classification, summarization, drafting capabilities, dashboards, and approval processes while preserving crucial human insight."
+            "The first failure point is tool choice. In a broad multi-tool environment, the model can select an unintended path because the currently permitted subset was never narrowed for the active turn.",
+            "The second failure point is execution. The model may return a tool call, but the application never runs it, never passes the result back, or swallows the failure in a way the model cannot use. That leaves the conversation incomplete.",
+            "The third failure point is argument quality. A prompt may map cleanly to a defined function schema, yet the emitted arguments can still be malformed and should be checked before any external system call is allowed to proceed."
           ],
-          "h3_sections": []
+          "h3_sections": [
+            {
+              "h3": "Why allowed tool subsets matter",
+              "paragraph": "For GPT-5.2 workflows, allowed_tools under tool_choice separates the full toolkit from the currently permitted subset. That reduces unintended usage and is more reliable than trying to control selection through prompt wording alone."
+            },
+            {
+              "h3": "Why app-side execution is mandatory",
+              "paragraph": "OpenAI describes tool calling as a five-step loop: request model with tools, receive tool call, execute code app-side, send tool output back, then receive final response or more tool calls. If the app skips the execution or return step, the run does not actually finish."
+            }
+          ]
         },
         {
-          "h2": "How GetForked Scopes the Build",
+          "h2": "What an owned implementation should include",
           "paragraphs": [
-            "GetForked expertly aligns businesses with authorized builders specializing in custom AI automation architectures."
+            "A usable system needs a declared tool inventory, active permissions by step, a schema for every custom function, execution rules, retries, fallback behavior, and review points. That is the difference between a live workflow and a prompt experiment.",
+            "The implementation should also report failures in a structured way. If a tool returns an error, non-zero exit code, or incomplete output, the application should pass that information back in a form the model can interpret rather than hiding it behind a generic message.",
+            "When done correctly, the workflow can continue after a successful tool result, branch to an approved alternative, or pause for a person without losing state or dropping context."
           ],
-          "h3_sections": []
+          "h3_sections": [
+            {
+              "h3": "Tool definitions and schema discipline",
+              "paragraph": "Define each function with a valid name, a clear description, and parameters in JSON Schema. Where exact match matters, use strict validation and reject malformed arguments before any external action is executed."
+            },
+            {
+              "h3": "Fallbacks people can actually trust",
+              "paragraph": "If the first lookup path fails, the workflow should know whether to try a built-in tool, route to a third-party service, or stop for approval. That logic should be visible in documentation and in the operating interface."
+            }
+          ]
+        },
+        {
+          "h2": "What to put in the brief before GetForked matches the build",
+          "paragraphs": [
+            "The brief should specify the trigger, the business action to complete, the systems involved, and the points where the model is allowed to choose between tools and alternatives. If only one subset should be available for the current turn, state that directly.",
+            "Include the function inventory and sample inputs and outputs. If you already know the event names, payload shape, or one custom function that matters, include those details so the build can be designed around real operations instead of guesses.",
+            "You should also define review thresholds, fallback rules, logging requirements, and what handover needs to cover for the team that will operate the workflow after launch."
+          ],
+          "h3_sections": [
+            {
+              "h3": "Useful brief details",
+              "paragraph": "Document the trigger source, the current systems, the built-in tools, the custom function list, any Remote MCP services, the present failure points, the approval points, and the exact output the workflow must produce."
+            },
+            {
+              "h3": "What success should look like",
+              "paragraph": "Success means the right tool is selected for the step, the result is returned to the model, the final response reflects that result, exceptions are routed clearly, and your team can operate the workflow without rebuilding it."
+            }
+          ]
         }
       ],
       "faq": [
         {
-          "question": "What scenarios warrant a custom-built workflow?",
-          "answer": "The necessity for AI automation varies based on workflow complexity, data accessibility, integration thoroughness, review requirements, and anticipated support."
+          "question": "What does this page mean by tools alternatives?",
+          "answer": "It refers to workflows where the model may need to choose between multiple tools or substitute one approved path for another, especially when only a limited subset should be available for the current step."
         },
         {
-          "question": "Is it necessary to replace every tool in my tech stack?",
-          "answer": "No. The objective is to retain effective tools, replace weak links, and manage the workflow aspects that could introduce risks or inefficiencies."
+          "question": "When should the model call a tool instead of answering directly?",
+          "answer": "When the request depends on external data or action, such as current status, search, account-specific lookup, or a write to another system, the workflow should invoke a tool rather than rely on memory."
+        },
+        {
+          "question": "What is a custom function in this setup?",
+          "answer": "A custom function is an application-defined tool with a name, description, and JSON Schema parameters that the model can call with structured arguments. One example from the research is `get_horoscope(sign)` exposed to the model through a JSON-schema-defined function tool."
+        },
+        {
+          "question": "Why is application-side execution so important?",
+          "answer": "Because the model can request a tool, but your application still has to execute the call, capture the result or failure, and send that output back into the conversation so the model can complete the response correctly."
+        },
+        {
+          "question": "Can off-the-shelf automation still be enough?",
+          "answer": "Yes. If the process is fixed, the fields are stable, and there is little ambiguity about tool choice or fallback behavior, off-the-shelf automation can still be the right fit. More complex multi-tool control usually needs a custom implementation."
         }
       ],
       "schema_about": [
-        "Customized AI Automation Solutions",
-        "AI Automation Strategies",
-        "Workflow Optimization"
+        "AI automation tools workflow design",
+        "Function calling and tool execution control",
+        "Custom workflow scoping and builder matching",
+        "ai automation tools",
+        "AI automation",
+        "Workflow automation",
+        "Custom integration",
+        "Business process automation"
       ],
       "schema_mentions": [
-        "Manual data entry discrepancies",
-        "Disconnection of AI outputs from operational systems",
-        "Intelligent classification systems"
+        "Tools Alternatives",
+        "built-in tools such as web search or file search",
+        "custom function such as `get_horoscope(sign)` exposed to the model through a.",
+        "Remote MCP servers",
+        "allowed_tools under tool_choice",
+        "application-side execution",
+        "tool output returned into the same conversation",
+        "staff copying information between tools",
+        "AI output not connected to systems",
+        "AI classification"
       ]
     },
     "enrichmentScores": {
-      "tool_specificity": 5,
-      "workflow_specificity": 6,
-      "difference_from_template": 4,
+      "tool_specificity": 9,
+      "workflow_specificity": 9,
+      "difference_from_template": 7,
       "commercial_clarity": 7,
       "seo_alignment": 8,
-      "repetition_risk": 3
+      "repetition_risk": 6
     },
-    "lastEnrichedAt": "2026-05-13T05:20:32.213Z",
-    "enrichmentModel": "gpt-4o-mini",
+    "lastEnrichedAt": "2026-05-14T06:17:56.523Z",
+    "enrichmentModel": "gpt-5.4",
     "needsManualReview": true,
-    "enrichmentNotes": "Template-swapped appearance; Generic title without specific product casing; Missing required sections for Zapier/AI trust; Limited differentiation in phrasing and content",
+    "enrichmentNotes": "Semantic entity coverage is too thin.; Builder matching summary lacks commercial clarity around scoped brief and approved matching.; Several sentences are long and somewhat redundant, which increases repetition risk and could make the page feel mechanically generated.",
     "researchNotes": {
       "pageType": "ai_automation_leaf",
       "businessContext": "Intercept tool/software searches and position GetForked as a way to get a custom build scoped by an approved builder.",
@@ -368,45 +446,68 @@
         }
       },
       "webResearch": {
-        "summary": "Integrating AI tools with alternative platforms can enhance workflow efficiency but presents specific challenges. Understanding potential failure modes, implementation nuances, and quality assurance risks is crucial for successful integration.",
+        "summary": "This workflow is best understood as an AI-to-tools integration pattern: the model can decide when to call external tools or custom functions, the application executes those calls, then feeds results back for a final model response. OpenAI’s official docs describe this as a multi-step tool-calling flow, with built-in tools, custom function tools, and remote MCP servers available in the platform. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
         "trigger_examples": [
-          "Integrating AI tools with alternative platforms to enhance workflow efficiency",
-          "Understanding potential failure modes in AI tool integration",
-          "Addressing implementation nuances in AI tool integration"
+          "User asks for information or actions that require external data, such as current status, search, or account-specific lookup, so the model should invoke a tool rather than answer from memory. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
+          "A prompt includes a request that maps to a defined function schema, and the model emits a tool call with structured arguments that the app must execute. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
+          "In realtime or agentic flows, the session or response is configured with available tools, and the model selects one when it determines a function is needed. ([platform.openai.com](https://platform.openai.com/docs/guides/realtime-model-capabilities?utm_source=openai))"
         ],
         "entity_examples": [
-          "AI tools",
-          "Alternative platforms",
-          "Workflow efficiency"
+          "A custom function such as `get_horoscope(sign)` exposed to the model through a JSON-schema-defined function tool. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
+          "Built-in tools such as web search or file search, which can extend the model with external information sources. ([platform.openai.com](https://platform.openai.com/docs/guides/tools?api-mode=chat&utm_source=openai))",
+          "Remote MCP servers or third-party services that the model can access via OpenAI’s tools interface. ([platform.openai.com](https://platform.openai.com/docs/guides/tools?api-mode=chat&utm_source=openai))"
         ],
         "failure_signatures": [
-          "Silent hallucinations",
-          "Context corruption in retrieval systems",
-          "Pipeline brittleness under changing inputs",
-          "Reasoning failures in AI agents",
-          "Tool use errors in AI agents",
-          "Context overflow in AI agents",
-          "Infinite loops in AI agents",
-          "Goal drift in AI agents",
-          "Prompt injection in AI agents",
-          "Hallucination in AI agents",
-          "Cost runaway in AI agents"
+          "The model returns a tool call, but the application never executes it or fails to send the tool output back, leaving the conversation incomplete. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
+          "Tool arguments are malformed or do not match the declared schema, especially when strict schema adherence is not enabled. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
+          "The wrong tool is selected because the tool set is too broad or poorly constrained, which OpenAI flags as a case where `allowed_tools` can reduce unintended usage. ([platform.openai.com](https://platform.openai.com/docs/guides/latest-model?utm_source=openai))",
+          "A tool returns an error, non-zero exit code, or incomplete output, but the app does not pass that failure information back in a form the model can interpret. ([platform.openai.com](https://platform.openai.com/docs/guides/tools-shell?utm_source=openai))"
         ],
         "implementation_notes": [
-          "Ensure data quality to prevent AI model inaccuracies",
-          "Address scalability issues to maintain performance across different platforms",
-          "Provide adequate training for employees to effectively use AI tools",
-          "Implement robust exception handling to manage AI system failures",
-          "Monitor AI agent behavior to detect and mitigate failure modes"
+          "OpenAI describes tool calling as a five-step loop: request model with tools, receive tool call, execute code app-side, send tool output back, then receive final response or more tool calls. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
+          "Function tools are defined with a name, description, JSON Schema parameters, and optional `strict: true`, which enforces exact schema adherence for supported schemas. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
+          "For GPT-5.2 workflows, OpenAI recommends `allowed_tools` under `tool_choice` to separate the full toolkit from the currently permitted subset, improving predictability and reducing brittle prompt engineering. ([platform.openai.com](https://platform.openai.com/docs/guides/latest-model?utm_source=openai))"
         ],
+        "pair_specific_failures": [
+          "AI chooses a tool but the 'Tools Alternatives' side is not constrained tightly enough, causing the wrong alternative or an unintended fallback path to be used. ([platform.openai.com](https://platform.openai.com/docs/guides/latest-model?utm_source=openai))",
+          "Tool output is produced, but the downstream AI response does not incorporate it correctly because the tool-call output is missing, truncated, or not reattached into the conversation state. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))"
+        ],
+        "pair_specific_triggers": [
+          "A user request requires comparing or substituting between available tool alternatives, especially when a subset should be temporarily allowed for the current turn. ([platform.openai.com](https://platform.openai.com/docs/guides/latest-model?utm_source=openai))",
+          "The model is operating in a multi-tool environment with both built-in tools and custom functions, increasing the chance of selecting a suboptimal alternative without explicit constraints. ([platform.openai.com](https://platform.openai.com/docs/guides/tools?api-mode=chat&utm_source=openai))"
+        ],
+        "api_constraints": [
+          "Function names must use letters, numbers, underscores, or dashes, and be at most 64 characters long. ([platform.openai.com](https://platform.openai.com/docs/api-reference/assistants/docs/guides/function-calling?utm_source=openai))"
+        ],
+        "real_world_scenario": "A support assistant needs to answer a customer’s question using a company lookup function, but if that function is unavailable it should use an approved alternative tool path. The model selects the function, the app executes it, and the result is returned to the model for a final answer. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
+        "data_flow_description": "User input enters the model with a declared tool set. The model emits a tool call when external data or action is needed. The application runs the tool or function, then sends the structured tool output back into the conversation. The model then produces the final response, or issues more tool calls if necessary. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
         "source_urls": [
-          "https://failurefirst.org/research/failure-modes/",
-          "https://casmi.northwestern.edu/news/articles/2024/why-ai-projects-fail-without-proper-integration-and-focus.html",
-          "https://agentwiki.org/common_agent_failure_modes",
-          "https://aicompetence.org/ai-exception-handling-for-production-systems/",
-          "https://warpedvisions.org/blog/2025/why-your-ai-assistant-keeps-failing/"
+          "https://platform.openai.com/docs/guides/function-calling?api-mode=chat",
+          "https://platform.openai.com/docs/guides/tools?api-mode=chat",
+          "https://platform.openai.com/docs/guides/realtime-model-capabilities"
         ]
       },
+      "pairSpecificFailures": [
+        "AI chooses a tool but the 'Tools Alternatives' side is not constrained tightly enough, causing the wrong alternative or an unintended fallback path to be used. ([platform.openai.com](https://platform.openai.com/docs/guides/latest-model?utm_source=openai))",
+        "Tool output is produced, but the downstream AI response does not incorporate it correctly because the tool-call output is missing, truncated, or not reattached into the conversation state. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
+        "The model returns a tool call, but the application never executes it or fails to send the tool output back, leaving the conversation incomplete. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
+        "Tool arguments are malformed or do not match the declared schema, especially when strict schema adherence is not enabled. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
+        "The wrong tool is selected because the tool set is too broad or poorly constrained, which OpenAI flags as a case where `allowed_tools` can reduce unintended usage. ([platform.openai.com](https://platform.openai.com/docs/guides/latest-model?utm_source=openai))",
+        "A tool returns an error, non-zero exit code, or incomplete output, but the app does not pass that failure information back in a form the model can interpret. ([platform.openai.com](https://platform.openai.com/docs/guides/tools-shell?utm_source=openai))"
+      ],
+      "pairSpecificTriggers": [
+        "A user request requires comparing or substituting between available tool alternatives, especially when a subset should be temporarily allowed for the current turn. ([platform.openai.com](https://platform.openai.com/docs/guides/latest-model?utm_source=openai))",
+        "The model is operating in a multi-tool environment with both built-in tools and custom functions, increasing the chance of selecting a suboptimal alternative without explicit constraints. ([platform.openai.com](https://platform.openai.com/docs/guides/tools?api-mode=chat&utm_source=openai))",
+        "User asks for information or actions that require external data, such as current status, search, or account-specific lookup, so the model should invoke a tool rather than answer from memory. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
+        "A prompt includes a request that maps to a defined function schema, and the model emits a tool call with structured arguments that the app must execute. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
+        "In realtime or agentic flows, the session or response is configured with available tools, and the model selects one when it determines a function is needed. ([platform.openai.com](https://platform.openai.com/docs/guides/realtime-model-capabilities?utm_source=openai))"
+      ],
+      "apiConstraints": [
+        "Function names must use letters, numbers, underscores, or dashes, and be at most 64 characters long. ([platform.openai.com](https://platform.openai.com/docs/api-reference/assistants/docs/guides/function-calling?utm_source=openai))"
+      ],
+      "realWorldScenario": "A support assistant needs to answer a customer’s question using a company lookup function, but if that function is unavailable it should use an approved alternative tool path. The model selects the function, the app executes it, and the result is returned to the model for a final answer. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
+      "dataFlowDescription": "User input enters the model with a declared tool set. The model emits a tool call when external data or action is needed. The application runs the tool or function, then sends the structured tool output back into the conversation. The model then produces the final response, or issues more tool calls if necessary. ([platform.openai.com](https://platform.openai.com/docs/guides/function-calling?api-mode=chat&utm_source=openai))",
+      "volumeProfile": "US search volume signal: 3300; global volume: 8800.",
       "constraints": [
         "Use verified facts only from provided research notes.",
         "If a claim is uncertain, use soft language (may/can/often).",
@@ -415,9 +516,121 @@
     }
   },
   "issues": [
-    "Template-swapped appearance",
-    "Generic title without specific product casing",
-    "Missing required sections for Zapier/AI trust",
-    "Limited differentiation in phrasing and content"
-  ]
+    "Semantic entity coverage is too thin.",
+    "Builder matching summary lacks commercial clarity around scoped brief and approved matching.",
+    "Several sentences are long and somewhat redundant, which increases repetition risk and could make the page feel mechanically generated."
+  ],
+  "researchQuality": {
+    "sufficient": true,
+    "score": 100,
+    "gaps": []
+  },
+  "classification": {
+    "page_type": "ai_automation",
+    "search_intent": "workflow",
+    "page_role": "leaf",
+    "buyer_stage": "solution_aware",
+    "commercial_job": "convert_to_brief",
+    "semantic_angle": "Intercept tool/software searches and position GetForked as a way to get a custom build scoped by an approved builder.",
+    "primary_keyword": "ai automation tools",
+    "primary_keyword_display": "AI Automation Tools",
+    "workflow_category": "tools-alternatives",
+    "business_context": "Intercept tool/software searches and position GetForked as a way to get a custom build scoped by an approved builder.",
+    "use_framing": {
+      "angle": "individual tool capabilities and selection",
+      "scenarios": [
+        "support ticket classification",
+        "meeting-note summarization",
+        "invoice data extraction"
+      ],
+      "comparison_frame": "point tool vs composed custom workflow",
+      "buyer_profile": "technical lead comparing components"
+    }
+  },
+  "writerBrief": {
+    "centralEntity": "AI and Tools Alternatives",
+    "entityAttributes": [
+      "A user request requires comparing or substituting between available tool alternatives, especially when a subset should be temporarily allowed for the current turn. ()",
+      "The model is operating in a multi-tool environment with both built-in tools and custom functions, increasing the chance of selecting a suboptimal alternative without explicit constraints. ()",
+      "User asks for information or actions that require external data, such as current status, search, or account-specific lookup, so the model should invoke a tool rather than answer from memory. ()",
+      "A prompt includes a request that maps to a defined function schema, and the model emits a tool call with structured arguments that the app must execute. ()",
+      "In realtime or agentic flows, the session or response is configured with available tools, and the model selects one when it determines a function is needed. ()",
+      "AI chooses a tool but the 'Tools Alternatives' side is not constrained tightly enough, causing the wrong alternative or an unintended fallback path to be used. ()",
+      "Tool output is produced, but the downstream AI response does not incorporate it correctly because the tool-call output is missing, truncated, or not reattached into the conversation state. ()",
+      "The model returns a tool call, but the application never executes it or fails to send the tool output back, leaving the conversation incomplete. ()",
+      "Tool arguments are malformed or do not match the declared schema, especially when strict schema adherence is not enabled. ()",
+      "The wrong tool is selected because the tool set is too broad or poorly constrained, which OpenAI flags as a case where `allowed_tools` can reduce unintended usage. ()"
+    ],
+    "contextualDomain": "tools-alternatives",
+    "sourceContext": "GetForked matches businesses with approved builders for custom AI automation systems.",
+    "macroContext": "Intercept tool/software searches and position GetForked as a way to get a custom build scoped by an approved builder.",
+    "microContexts": [
+      "Tools & Alternatives",
+      "workflow automation",
+      "AI agents",
+      "builder matching",
+      "custom systems"
+    ],
+    "queryIntent": "workflow",
+    "likelySearcher": "An operator trying to replace manual work with an owned AI-assisted workflow.",
+    "pageMustAnswer": [
+      "What concrete workflow sits behind \"ai automation tools\"?",
+      "Where does manual review or data control matter?",
+      "What should the owned workflow do differently from generic AI tooling?",
+      "What should GetForked match for in the builder brief?"
+    ],
+    "avoidRepeating": [
+      "The problem is usually not whether AI can produce an answer. The problem is whether workflow process automation can trust that answer enough to act on it. In a customer support email flow, missing order or account context can force the model to guess and send the case to the wrong queue. In a CRM lead or contact record workflow, the AI may identify the right details but a bad field mapping can push the wrong data shape into the downstream app. In an uploaded PDF or invoice document process, the summary may look fine while the actual payload is invalid, incomplete, or unusable for the next step.",
+      "A reliable setup treats AI as one checked step inside workflow process automation. The pattern should follow: trigger event enters the automation platform, the AI model interprets or extracts information, returns structured arguments or a structured response, the workflow validates the output, then executes one or more downstream actions in connected systems. If validation fails or confidence is insufficient, the flow branches to retry, fallback, or human review. Where schema match matters, Structured Outputs with function calling guarantee schema match only when `strict: true` is used, so the implementation needs validation and sequencing designed around that constraint.",
+      "A refund request lands in the support inbox, an agent reads the customer support email, checks the order in the helpdesk and CRM by hand, copies details into Slack for clarification, and later has to fix the case because a trigger payload is missing context and the request was routed with too.",
+      "A support inbox receives a refund request and the workflow triggers an AI classifier, which extracts order number, customer sentiment, and requested action, then the workflow engine validates the structured output, creates a refund task in the helpdesk, and posts a summary to the operations.",
+      "Teams looking for an AI automation agency often already know a model can draft readable text. The harder part is producing commercial service pages that fit the actual offer, include the right service page entities, and pass QA without manual repair. A common failure pattern is this: a marketing or operations team submits a thin brief, the system generates agency-style page content that sounds acceptable, but the landing page is missing service name, audience, benefits, CTA blocks, or metadata required by the CMS. In commercial service pages, the issue is not just wording quality.",
+      "A reliable AI automation agency setup for commercial service pages should start with a page brief or CMS request and end with a validated page object that your application can trust. In a practical build, the workflow accepts structured inputs for the commercial service, decides whether it needs enrichment, and then either uses tool calls to fetch approved business details or emits a strict page payload directly. Use function calling when the model must connect to external systems or invoke business logic; use Structured Outputs when the model should emit a page payload in a strict schema. This matters because the system is not just writing copy.",
+      "A marketing lead receives a request for a new landing page for a niche service, pastes partial notes from a form and an internal doc into a model, gets generic agency copy back, and then manually rebuilds service page entities such as service name, audience, benefits, and CTA blocks so the CMS can.",
+      "When a form submission or CMS update requests a new commercial service page variant, the application assembles the brief, uses Structured Outputs to return a schema-based page object, validates the response object against required fields and publish rules, and only then creates the staging entry."
+    ],
+    "informationGain": "This page should frame ai automation tools by buyer situation, workflow control, and implementation scope.",
+    "requiredEntities": [
+      "AI",
+      "Tools Alternatives",
+      "A custom function such as `get_horoscope(sign)` exposed to the model through a JSON-schema-defined function tool. ()",
+      "Built-in tools such as web search or file search, which can extend the model with external information sources. ()",
+      "Remote MCP servers or third-party services that the model can access via OpenAI’s tools interface. ()"
+    ],
+    "requiredNgrams": [
+      "tools",
+      "alternatives",
+      "tools alternatives",
+      "custom",
+      "function",
+      "such",
+      "`get_horoscope(sign)`",
+      "exposed",
+      "the",
+      "model",
+      "through",
+      "json-schema-defined",
+      "tool.",
+      "custom function",
+      "function such",
+      "such `get_horoscope(sign)`",
+      "`get_horoscope(sign)` exposed",
+      "exposed the"
+    ],
+    "sectionIntents": {
+      "meta_hero": "Name the page promise and the real workflow around AI and Tools Alternatives.",
+      "problem": "Explain the workflow pain in concrete terms without raw research fragments.",
+      "replacement": "Describe owned workflow control in plain English with practical implementation pieces.",
+      "flow": "Write before and after as plain-English operational scenarios, not arrows.",
+      "trust": "Explain human-in-the-loop review, fallback rules, and staff control.",
+      "builder": "Clarify GetForked's service: scoped brief, approved builder match, owned workflow, handover-ready implementation.",
+      "seo_body": "Add depth not already covered: workflow examples, risks, scope details, handover, and what to include in the brief."
+    },
+    "toneRules": [
+      "Write like a practical operator, not a generic SaaS marketer.",
+      "Translate research into plain English instead of pasting source fragments.",
+      "Keep GetForked positioned as scoped brief plus approved builder matching.",
+      "Do not attack Zapier or existing SaaS; explain when it remains good enough."
+    ]
+  }
 }
