@@ -36,6 +36,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local media assets (managed outside git)
+/assets/music/*
+!/assets/music/.gitkeep
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

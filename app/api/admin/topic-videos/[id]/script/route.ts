@@ -12,12 +12,13 @@ export async function POST(request: Request, context: Params) {
     const formData = await request.formData();
     const rawPrompt = String(formData.get("promptJson") ?? "").trim();
     const voiceId = String(formData.get("voiceId") ?? "").trim();
+    const musicTrackId = String(formData.get("musicTrackId") ?? "").trim();
     if (!rawPrompt) {
       return NextResponse.json({ error: "Prompt JSON is required." }, { status: 400 });
     }
 
     const promptJson = parsePromptJson(rawPrompt);
-    const result = await updateTopicVideoPrompt(id, promptJson, voiceId);
+    const result = await updateTopicVideoPrompt(id, promptJson, voiceId, musicTrackId);
     if (!result.ok) {
       return NextResponse.json({ error: result.error }, { status: 404 });
     }

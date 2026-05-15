@@ -1,20 +1,33 @@
 import { spawn } from "node:child_process";
 
-export async function capturePageScreenshot(input: { pageUrl: string; outputPath: string }) {
+export type ScreenshotOrientation = "landscape" | "vertical";
+
+export async function capturePageScreenshot(input: {
+  pageUrl: string;
+  outputPath: string;
+  orientation?: ScreenshotOrientation;
+}) {
   const chrome = chromePath();
   if (!chrome) return null;
 
   const url = localPreviewUrl(input.pageUrl);
+  const dimensions = viewportFor(input.orientation ?? "landscape");
   await runProcess(chrome, [
     "--headless=new",
     "--hide-scrollbars",
     "--disable-gpu",
     "--no-sandbox",
-    "--window-size=1600,900",
+    `--window-size=${dimensions.width},${dimensions.height}`,
+    "--force-device-scale-factor=2",
     `--screenshot=${input.outputPath}`,
     url,
   ]);
   return input.outputPath;
+}
+
+function viewportFor(orientation: ScreenshotOrientation) {
+  if (orientation === "vertical") return { width: 540, height: 1600 };
+  return { width: 1920, height: 1200 };
 }
 
 function localPreviewUrl(pageUrl: string) {

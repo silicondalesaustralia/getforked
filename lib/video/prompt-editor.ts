@@ -3,13 +3,20 @@ import { getDb } from "@/lib/db/client";
 import { topicVideos } from "@/lib/db/schema";
 import { getTopicVideoById } from "@/lib/video/service";
 import { getElevenLabsVoiceById } from "@/lib/video/voices";
+import { getMusicTrackById } from "@/lib/video/music-tracks";
 
-export async function updateTopicVideoPrompt(topicVideoId: string, promptJson: Record<string, unknown>, voiceId: string) {
+export async function updateTopicVideoPrompt(
+  topicVideoId: string,
+  promptJson: Record<string, unknown>,
+  voiceId: string,
+  musicTrackId?: string,
+) {
   const existing = await getTopicVideoById(topicVideoId);
   if (!existing) {
     return { ok: false as const, error: "Topic video not found." };
   }
-  const savedPrompt = mergeVoice(promptJson, voiceId);
+  const withVoice = mergeVoice(promptJson, voiceId);
+  const savedPrompt = mergeMusic(withVoice, musicTrackId);
 
   await getDb()
     .update(topicVideos)
@@ -46,5 +53,20 @@ function mergeVoice(promptJson: Record<string, unknown>, voiceId: string) {
       voiceId: voice.id,
       voiceLabel: voice.label,
     },
+  };
+}
+
+function mergeMusic(promptJson: Record<string, unknown>, musicTrackId: string | undefined) {
+  if (musicTrackId === undefined) return promptJson;
+  const trimmed = musicTrackId.trim();
+  if (trimmed.length === 0) {
+    const { music: _ignored, ...rest } = promptJson;
+    return rest;
+  }
+  const track = getMusicTrackById(trimmed);
+  if (!track) return promptJson;
+  return {
+    ...promptJson,
+    music: { trackId: track.id, label: track.label },
   };
 }

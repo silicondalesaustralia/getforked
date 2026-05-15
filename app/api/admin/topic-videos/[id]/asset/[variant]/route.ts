@@ -20,11 +20,12 @@ export async function GET(_request: Request, context: Params) {
       variant,
     });
 
-    return new NextResponse(buffer, {
+    return new NextResponse(new Uint8Array(buffer), {
       headers: {
         "Content-Disposition": `inline; filename="${variant}"`,
         "Content-Length": String(buffer.byteLength),
         "Content-Type": "video/mp4",
+        "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
       },
     });
   } catch (error) {

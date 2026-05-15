@@ -13,7 +13,7 @@ type OverlayInput = {
 
 export async function applySlideOverlay(input: OverlayInput) {
   if (input.kind === "middle") {
-    return overlayMiddleScreenshot(input);
+    return input.basePath;
   }
   return overlayLogo(input);
 }
@@ -24,7 +24,7 @@ async function overlayLogo(input: OverlayInput) {
 
   const logoPng = path.join(input.cacheDir, "logo.png");
   await runProcess("sips", ["-s", "format", "png", logoSvg, "--out", logoPng]);
-  const logoWidth = Math.floor(input.width * (input.width < input.height ? 0.66 : 0.34));
+  const logoWidth = Math.floor(input.width * (input.width < input.height ? 0.78 : 0.55));
   await runProcess(ffmpegPath(), [
     "-y",
     "-i",
@@ -32,29 +32,7 @@ async function overlayLogo(input: OverlayInput) {
     "-i",
     logoPng,
     "-filter_complex",
-    `[1:v]scale=${logoWidth}:-1[logo];[0:v][logo]overlay=(W-w)/2:H*0.38-h/2`,
-    "-frames:v",
-    "1",
-    input.outputPath,
-  ]);
-  return input.outputPath;
-}
-
-async function overlayMiddleScreenshot(input: OverlayInput) {
-  const screenshot = input.middleImagePath || process.env.VIDEO_MID_SLIDE_IMAGE_PATH;
-  if (!screenshot) return input.basePath;
-
-  const margin = input.width < input.height ? 58 : 92;
-  const targetWidth = input.width - margin * 2;
-  const targetHeight = Math.floor(input.height * 0.62);
-  await runProcess(ffmpegPath(), [
-    "-y",
-    "-i",
-    input.basePath,
-    "-i",
-    screenshot,
-    "-filter_complex",
-    `[1:v]scale=${targetWidth}:${targetHeight}:force_original_aspect_ratio=decrease,pad=${targetWidth}:${targetHeight}:(ow-iw)/2:(oh-ih)/2:color=0x050708[shot];[0:v][shot]overlay=${margin}:${margin}`,
+    `[1:v]scale=${logoWidth}:-1[logo];[0:v][logo]overlay=(W-w)/2:(H-h)/2`,
     "-frames:v",
     "1",
     input.outputPath,

@@ -6,7 +6,8 @@ export async function buildVoicePreview(input: { topicVideoId: string; voiceId: 
   if (!video?.promptJson) throw new Error("Video script not found.");
 
   const script = readScript(video.promptJson);
-  return buildElevenLabsAudio({ script, voiceId: input.voiceId });
+  const result = await buildElevenLabsAudio({ script, voiceId: input.voiceId });
+  return result.audio;
 }
 
 function readScript(value: unknown) {
