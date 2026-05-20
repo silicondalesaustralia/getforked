@@ -36,6 +36,9 @@ export function projectTypeFromPrefill(prefill: BriefPrefill) {
   if (prefill.category === "ai-automation" || prefill.silo === "ai-automation") {
     return "AI automation build";
   }
+  if (prefill.category === "replace-shopify-app" || prefill.silo === "shopify") {
+    return "Shopify app replacement workflow";
+  }
 
   return prefill.category ?? "";
 }

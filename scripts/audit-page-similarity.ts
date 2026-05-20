@@ -5,7 +5,12 @@ import type { ProgrammaticPage } from "@/lib/programmatic-pages";
 
 const root = process.cwd();
 const silo = process.argv.find((arg) => arg.startsWith("--silo="))?.split("=")[1] || "ai-automation";
-const file = join(root, `content/generated/${silo === "zapier" ? "zapier-pages" : "ai-automation-pages"}.json`);
+const fileBySilo: Record<string, string> = {
+  zapier: "zapier-pages",
+  "ai-automation": "ai-automation-pages",
+  shopify: "shopify-pages",
+};
+const file = join(root, `content/generated/${fileBySilo[silo] || "ai-automation-pages"}.json`);
 const pages = (JSON.parse(readFileSync(file, "utf8")) as ProgrammaticPage[]).filter((page) => page.status === "published");
 const rows = ["page_a,page_b,embedding_similarity,skeleton_similarity,jaccard_similarity,worst_section,recommendation"];
 

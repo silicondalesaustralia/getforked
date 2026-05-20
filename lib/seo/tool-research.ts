@@ -77,7 +77,9 @@ export async function buildResearchNotes(page: ProgrammaticPage) {
 async function fetchWebResearch(page: ProgrammaticPage, primary: string, secondary: string | null) {
   const queryBase = secondary
     ? `${displayName(primary)} ${displayName(secondary)} integration`
-    : `${displayName(primary)} automation`;
+    : page.siloSlug === "shopify"
+      ? `${displayName(primary)} Shopify app`
+      : `${displayName(primary)} automation`;
   const prompt = [
     "Research this workflow on the public web and return JSON only.",
     "Focus on official docs and trustworthy sources.",
@@ -115,7 +117,7 @@ async function fetchWebResearch(page: ProgrammaticPage, primary: string, seconda
   ].join("\n\n");
 
   try {
-    return await runWebResearchPrompt(prompt);
+    return await withTimeout(runWebResearchPrompt(prompt), Number(process.env.ENRICHMENT_TIMEOUT_MS || 90000));
   } catch (error) {
     return {
       summary: "Live web research failed; using local research profiles.",
@@ -127,6 +129,13 @@ async function fetchWebResearch(page: ProgrammaticPage, primary: string, seconda
       error: error instanceof Error ? error.message : String(error),
     };
   }
+}
+
+function withTimeout<T>(promise: Promise<T>, ms: number) {
+  return Promise.race([
+    promise,
+    new Promise<never>((_, reject) => setTimeout(() => reject(new Error(`Web research timed out after ${ms}ms`)), ms)),
+  ]);
 }
 
 function expandResearch(

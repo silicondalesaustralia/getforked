@@ -1,5 +1,6 @@
 import zapierPagesData from "@/content/generated/zapier-pages.json";
 import aiAutomationPagesData from "@/content/generated/ai-automation-pages.json";
+import shopifyPagesData from "@/content/generated/shopify-pages.json";
 import { isConsolidatedAlias } from "@/lib/programmatic-consolidation";
 
 export type ProgrammaticPage = {
@@ -14,7 +15,10 @@ export type ProgrammaticPage = {
     | "ai_automation_index"
     | "ai_automation_hub"
     | "ai_automation_sub_hub"
-    | "ai_automation_leaf";
+    | "ai_automation_leaf"
+    | "shopify_index"
+    | "shopify_hub"
+    | "shopify_app";
   status: "draft" | "review" | "published" | "archived";
   priority: number;
   pageTitle: string;
@@ -91,7 +95,8 @@ export type ProgrammaticPageStatus = ProgrammaticPage["status"];
 
 const zapierPages = zapierPagesData as ProgrammaticPage[];
 const aiAutomationPages = aiAutomationPagesData as ProgrammaticPage[];
-const allPages = [...zapierPages, ...aiAutomationPages];
+const shopifyPages = shopifyPagesData as ProgrammaticPage[];
+const allPages = [...zapierPages, ...aiAutomationPages, ...shopifyPages];
 
 export function getProgrammaticPageByUrl(fullUrl: string) {
   return allPages.find((page) => page.fullUrl === fullUrl && page.status === "published" && isCanonicalPage(page)) ?? null;
@@ -133,6 +138,22 @@ export function getPublishedAiAutomationPages(
 
 export function getAiAutomationSiloIndexPage() {
   return aiAutomationPages.find((page) => page.pageType === "ai_automation_index" && page.status === "published" && isCanonicalPage(page)) ?? null;
+}
+
+export function getPublishedShopifyPageBySlug(pageSlug: string) {
+  return shopifyPages.find((page) => page.pageSlug === pageSlug && page.status === "published" && isCanonicalPage(page)) ?? null;
+}
+
+export function getPublishedShopifyPages(pageTypes: string[] = ["shopify_hub", "shopify_app"]) {
+  return shopifyPages
+    .filter(
+      (page) => page.siloSlug === "shopify" && page.status === "published" && pageTypes.includes(page.pageType) && isCanonicalPage(page),
+    )
+    .sort((a, b) => a.priority - b.priority || a.pageTitle.localeCompare(b.pageTitle));
+}
+
+export function getShopifySiloIndexPage() {
+  return shopifyPages.find((page) => page.pageType === "shopify_index" && page.status === "published" && isCanonicalPage(page)) ?? null;
 }
 
 export function searchProgrammaticPages(query: string, limit = 24) {
@@ -209,7 +230,7 @@ function extractPageSlugs(value: string | null) {
   return value
     .split(/[,;\s]+/)
     .map((item) => {
-      const match = item.match(/\/(?:zapier|ai-automation)\/([^/]+)\//);
+      const match = item.match(/\/(?:zapier|ai-automation|shopify)\/([^/]+)\//);
       if (match?.[1]) return match[1];
       return item.replace(/^\/+|\/+$/g, "");
     })

@@ -1,4 +1,4 @@
-type Focus = "homepage" | "ai" | "zapier";
+type Focus = "homepage" | "ai" | "zapier" | "shopify";
 
 type Props = {
   focus: Focus;
@@ -24,6 +24,8 @@ export function MarketContextSection({ focus, className = "" }: Props) {
   const close =
     focus === "zapier"
       ? "For Zapier-heavy stacks, this usually means replacing brittle point workflows first, not rebuilding everything."
+      : focus === "shopify"
+        ? "For Shopify stacks, this usually means replacing high-friction app dependencies first, then expanding owned store workflows."
       : focus === "ai"
         ? "For AI automation, this usually means scoping one workflow at a time where ownership and review controls matter."
         : "The practical strategy is replacing fragile, high-friction workflows first, then expanding what you own.";

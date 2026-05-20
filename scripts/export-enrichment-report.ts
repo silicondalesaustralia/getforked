@@ -3,7 +3,7 @@ import { join } from "node:path";
 
 type Page = { fullUrl: string; enrichmentStatus?: string; needsManualReview?: boolean; enrichmentNotes?: string };
 const root = process.cwd();
-const files = ["content/generated/zapier-pages.json", "content/generated/ai-automation-pages.json"];
+const files = ["content/generated/zapier-pages.json", "content/generated/ai-automation-pages.json", "content/generated/shopify-pages.json"];
 const rows = ["url,enrichment_status,needs_manual_review,notes"];
 
 for (const file of files) {

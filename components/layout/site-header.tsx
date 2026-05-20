@@ -40,6 +40,12 @@ export function SiteHeader() {
                     Replace Zapier workflows with approved automation builders.
                   </span>
                 </Link>
+                <Link href="/shopify/" className="block rounded-xl p-3 transition hover:bg-surface">
+                  <span className="block text-sm font-semibold text-zinc-100">Shopify</span>
+                  <span className="mt-1 block text-xs leading-5 text-zinc-400">
+                    Replace Shopify app dependencies with owned custom workflows.
+                  </span>
+                </Link>
                 <Link href="/sitemap/" className="mt-3 block rounded-lg px-3 py-2 text-sm text-accent transition hover:bg-surface">
                   View all pages
                 </Link>

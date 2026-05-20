@@ -120,6 +120,28 @@ export function classifyPage(page: ProgrammaticPage): SemanticPageClassification
     };
   }
 
+  if (page.siloSlug === "shopify") {
+    const primary = page.appPrimaryShort || page.appPrimary || page.pageSlug;
+    const secondary = page.appSecondaryShort || page.appSecondary;
+    const pair = Boolean(secondary);
+    return {
+      page_type: page.pageType,
+      search_intent: pair ? "tool_pair" : "replacement",
+      page_role: pair ? "tool_pair_page" : "tool_page",
+      buyer_stage: "solution_aware",
+      commercial_job: "convert_to_brief",
+      semantic_angle:
+        page.uniqueContentAngle ||
+        `Replace ${displayName(primary)} app dependencies with an owned Shopify workflow the business controls.`,
+      primary_tool: primary,
+      primary_tool_display: displayName(primary),
+      secondary_tool: secondary,
+      secondary_tool_display: secondary ? displayName(secondary) : undefined,
+      workflow_category: categoryForTool(primary),
+      business_context: page.uniqueContentAngle || page.macroContext,
+    };
+  }
+
   return {
     page_type: "ai_automation",
     search_intent: page.pageSlug.includes("agency") || page.pageSlug.includes("service") || page.pageSlug.includes("consult")

@@ -4,7 +4,9 @@ import { displayName } from "@/lib/seo/display-names";
 import { knowledgeForTool } from "@/lib/seo/tool-knowledge";
 
 export function generateLocalEnrichment(page: ProgrammaticPage): EnrichedPageContent {
-  return page.siloSlug === "zapier" ? zapierContent(page) : aiContent(page);
+  if (page.siloSlug === "zapier") return zapierContent(page);
+  if (page.siloSlug === "shopify") return shopifyContent(page);
+  return aiContent(page);
 }
 
 export function localQa(): EnrichmentQa {
@@ -87,6 +89,33 @@ function aiContent(page: ProgrammaticPage): EnrichedPageContent {
     after_flow: "Business workflow -> custom AI automation -> review states, dashboards and connected handoff",
     cost_context: "AI automation cost depends on workflow complexity, data access, integration depth, review needs and support expectations.",
     human_in_the_loop: "AI should assist the workflow, not silently run the business. Review states, approval steps, fallback rules and logs keep staff in control.",
+  });
+}
+
+function shopifyContent(page: ProgrammaticPage): EnrichedPageContent {
+  const appName = displayName(page.appPrimaryShort || page.appPrimary || page.pageSlug);
+  const workflow = page.uniqueContentAngle || page.primaryKeyword || `${appName} app workflow`;
+  return base(page, {
+    seo_title: `Replace ${appName} App with a Custom Shopify Build | GetForked`,
+    h1: `Replace ${appName} App Dependency with an Owned Shopify Workflow`,
+    meta_description: `Scope a custom Shopify replacement for ${appName.toLowerCase()} workflows with clearer control, lower app sprawl, and handover-ready implementation.`,
+    hero_intro: [
+      `Many Shopify stores rely on ${appName} app logic for ${workflow.toLowerCase()}, but the workflow can become expensive and hard to adapt.`,
+      "A custom build can keep the same business outcome while giving your team direct ownership over logic, data handling, and change control.",
+    ],
+    problem_heading: `Where ${appName} app workflows become fragile`,
+    problem_summary: `As order volume and operational edge cases grow, ${appName} app workflows can create hidden manual checks, brittle rules, and limited control over how the store runs.`,
+    replacement_heading: `What an owned Shopify replacement can do`,
+    replacement_summary: "A scoped custom app can preserve the workflow outcome while adding store-specific rules, clearer review states, and direct control of changes.",
+    failure_modes: ["rule conflicts during edge cases", "manual reconciliation after exceptions", "limited control over app behavior", "subscription creep across overlapping apps"],
+    replacement_cards: ["Store-specific rule engine", "Exception review queue", "Owned data model", "Workflow dashboard"].map((title) => ({
+      title,
+      description: `${title} keeps the Shopify workflow controlled by the business instead of hidden in third-party app defaults.`,
+    })),
+    before_flow: `${appName} app handles workflow logic with limited store-specific control and manual intervention during exceptions.`,
+    after_flow: `Owned Shopify app workflow runs with explicit rules, exception handling, and documented handover for the store team.`,
+    cost_context: "A third-party Shopify app can still fit lightweight needs. A custom build becomes worthwhile when app sprawl, edge cases, or operational risk make ownership more practical.",
+    when_zapier_is_still_right: "A Shopify app may still be the right choice for simple, low-risk workflows with limited custom requirements and stable store operations.",
   });
 }
 

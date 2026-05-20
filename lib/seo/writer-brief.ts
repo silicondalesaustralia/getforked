@@ -74,17 +74,24 @@ export function buildWriterBrief(
 
 function likelySearcher(page: ProgrammaticPage, classification: SemanticPageClassification) {
   if (page.siloSlug === "zapier") return "A business owner or operations lead already using Zapier and looking for a sturdier workflow.";
+  if (page.siloSlug === "shopify") return "A Shopify store owner or operator replacing paid app logic with an owned custom workflow.";
   if (classification.buyer_stage === "provider_aware") return "A business owner comparing AI automation providers and needing implementation clarity.";
   return "An operator trying to replace manual work with an owned AI-assisted workflow.";
 }
 
 function mustAnswer(page: ProgrammaticPage, classification: SemanticPageClassification, pair: string) {
-  if (page.siloSlug === "zapier") {
+  if (page.siloSlug === "zapier" || page.siloSlug === "shopify") {
+    const workflowPrompt = page.siloSlug === "shopify"
+      ? `What ${pair} workflow is currently handled by a Shopify app dependency?`
+      : `What ${pair} workflow is probably running through Zapier?`;
+    const trustPrompt = page.siloSlug === "shopify"
+      ? "When is the Shopify app still good enough versus a custom build?"
+      : "When is Zapier still the right lightweight answer?";
     return [
-      `What ${pair} workflow is probably running through Zapier?`,
+      workflowPrompt,
       "What specifically breaks or becomes hard to trust?",
       "What would owned workflow logic control differently?",
-      "When is Zapier still the right lightweight answer?",
+      trustPrompt,
       "What should GetForked match for in the builder brief?",
     ];
   }
@@ -100,13 +107,18 @@ function informationGain(page: ProgrammaticPage, classification: SemanticPageCla
   if (page.siloSlug === "zapier") {
     return `This page should explain the operational failure pattern and replacement scope for ${pair}, not a generic Zapier alternative.`;
   }
+  if (page.siloSlug === "shopify") {
+    return `This page should explain the Shopify app replacement pattern for ${pair}, not a generic ecommerce automation page.`;
+  }
   return `This page should frame ${page.primaryKeyword} by buyer situation, workflow control, and implementation scope.`;
 }
 
 function sectionIntents(page: ProgrammaticPage, classification: SemanticPageClassification, pair: string) {
   const trust = page.siloSlug === "zapier"
     ? "Explain when Zapier remains good enough and when owned logic becomes worth considering."
-    : "Explain human-in-the-loop review, fallback rules, and staff control.";
+    : page.siloSlug === "shopify"
+      ? "Explain when a Shopify app is still good enough and when owning the workflow becomes worth scoping."
+      : "Explain human-in-the-loop review, fallback rules, and staff control.";
   return {
     meta_hero: `Name the page promise and the real workflow around ${pair}.`,
     problem: `Explain the workflow pain in concrete terms without raw research fragments.`,

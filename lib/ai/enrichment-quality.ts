@@ -13,6 +13,9 @@ export function hardFailChecks(content: EnrichedPageContent, pageType: string) {
   if (pageType.startsWith("zapier") && !content.when_zapier_is_still_right) {
     issues.push("Zapier page is missing when_zapier_is_still_right.");
   }
+  if (pageType.startsWith("shopify") && !content.when_zapier_is_still_right) {
+    issues.push("Shopify page is missing trust positioning in when_zapier_is_still_right.");
+  }
   if (pageType.startsWith("ai_automation") && !content.human_in_the_loop) {
     issues.push("AI page is missing human_in_the_loop.");
   }
@@ -425,6 +428,8 @@ function wordCount(value: string) {
 function sentenceLimitForSection(section: string) {
   if (section === "seo_body_sections") return 58;
   if (section === "builder_matching_summary") return 52;
+  if (section === "trust_section") return 58;
+  if (section === "faq") return 58;
   if (section === "problem_summary" || section === "replacement_summary" || section === "cost_context") return 58;
   if (section === "before_flow" || section === "after_flow") return 58;
   return 38;

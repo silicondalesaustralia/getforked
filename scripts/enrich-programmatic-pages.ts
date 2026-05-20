@@ -292,7 +292,12 @@ async function main() {
 }
 
 function loadStore(silo: string): Store {
-  const file = join(root, `content/generated/${silo === "ai-automation" ? "ai-automation-pages" : "zapier-pages"}.json`);
+  const fileBySilo: Record<string, string> = {
+    "ai-automation": "ai-automation-pages",
+    zapier: "zapier-pages",
+    shopify: "shopify-pages",
+  };
+  const file = join(root, `content/generated/${fileBySilo[silo] || "zapier-pages"}.json`);
   return { file, pages: JSON.parse(readFileSync(file, "utf8")) };
 }
 
@@ -456,7 +461,8 @@ async function revalidate(pages: ProgrammaticPage[]) {
   const site = process.env.NEXT_PUBLIC_SITE_URL;
   const token = process.env.REVALIDATE_TOKEN;
   if (!site || !token) return;
-  for (const path of [...pages.map((page) => page.fullUrl), "/sitemap.xml", "/zapier/", "/ai-automation/"]) {
+  const siloRoots = ["/zapier/", "/ai-automation/", "/shopify/"];
+  for (const path of [...pages.map((page) => page.fullUrl), "/sitemap.xml", ...siloRoots]) {
     const response = await fetch(`${site}/api/revalidate`, {
       method: "POST",
       headers: { "content-type": "application/json", "x-revalidate-token": token },
@@ -486,6 +492,7 @@ function normalizeBySilo(value: unknown, page: ProgrammaticPage) {
   const record = { ...(value as Record<string, unknown>) };
   if (page.siloSlug === "zapier") delete record.human_in_the_loop;
   if (page.siloSlug === "ai-automation") delete record.when_zapier_is_still_right;
+  if (page.siloSlug === "shopify") delete record.human_in_the_loop;
   return record;
 }
 
@@ -505,13 +512,21 @@ function normalizeLengths(value: unknown, page?: ProgrammaticPage) {
   record.replacement_summary = normalizeRequiredText(record.replacement_summary, [page?.replacementSummary, localFallback?.replacement_summary], 80, 700);
   record.builder_matching_summary = normalizeRequiredText(record.builder_matching_summary, [page?.builderMatchFactors, localFallback?.builder_matching_summary], 80, 700);
   if (record.when_zapier_is_still_right != null) {
-    record.when_zapier_is_still_right = clampText(String(record.when_zapier_is_still_right || ""), 700);
+    record.when_zapier_is_still_right = normalizeRequiredText(
+      record.when_zapier_is_still_right,
+      [localFallback?.when_zapier_is_still_right],
+      80,
+      700,
+    );
   }
   if (record.human_in_the_loop != null) {
-    record.human_in_the_loop = clampText(String(record.human_in_the_loop || ""), 700);
+    record.human_in_the_loop = normalizeRequiredText(record.human_in_the_loop, [localFallback?.human_in_the_loop], 80, 700);
   }
   record.hero_intro = toStringArray(record.hero_intro).slice(0, 3).map((item) => clampText(item, 500));
-  record.failure_modes = toStringArray(record.failure_modes).slice(0, 6).map((item) => clampText(item, 120));
+  const failureModeFallbacks = toStringArray(localFallback?.failure_modes);
+  record.failure_modes = toStringArray(record.failure_modes)
+    .slice(0, 6)
+    .map((item, index) => normalizeFailureMode(item, failureModeFallbacks[index]));
   record.builder_skill_tags = toStringArray(record.builder_skill_tags).slice(0, 8).map((item) => clampText(item, 60));
   if (Array.isArray(record.replacement_cards)) {
     record.replacement_cards = record.replacement_cards.slice(0, 6).map((card) => {
@@ -703,6 +718,22 @@ function clampText(value: string, max: number) {
   const sliced = value.slice(0, max - 1);
   const boundary = sliced.lastIndexOf(" ");
   return `${(boundary > 40 ? sliced.slice(0, boundary) : sliced).trim()}.`;
+}
+
+function normalizeFailureMode(value: string, fallback?: string) {
+  let next = clampText(value, 120)
+    .replace(/[;:,]+$/g, "")
+    .trim();
+  const trimmedTail = next.replace(/\b(or|and|because|with|to|the|a|an)\.?$/i, "").trim();
+  if (trimmedTail.length >= 10) next = trimmedTail;
+  if (
+    next.length < 10 ||
+    /\b(do|does|did|is|are|was|were|can|will|should|must|has|have|had|the|a|an)\.?$/i.test(next)
+  ) {
+    next = fallback && fallback.trim().length > 10 ? fallback.trim() : "Workflow error requires manual intervention.";
+  }
+  if (!/[.!?]$/.test(next)) next = `${next}.`;
+  return next;
 }
 
 function logStage(stage: string, message: string) {

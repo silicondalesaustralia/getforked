@@ -37,7 +37,7 @@ const enrichmentShape = {
   before_flow: "string",
   after_flow: "string",
   cost_context: "string",
-  when_zapier_is_still_right: "string for Zapier pages only",
+  when_zapier_is_still_right: "string for Zapier and Shopify replacement pages",
   human_in_the_loop: "string for AI pages only",
   builder_matching_summary: "string",
   builder_skill_tags: ["string", "string", "string"],
@@ -72,7 +72,7 @@ const sectionShapes: Record<EnrichmentSectionName, Record<string, unknown>> = {
     cost_context: "string",
   },
   trust: {
-    when_zapier_is_still_right: "string for Zapier pages only",
+    when_zapier_is_still_right: "string for Zapier and Shopify replacement pages",
     human_in_the_loop: "string for AI pages only",
   },
   builder: {
@@ -89,8 +89,14 @@ const sectionShapes: Record<EnrichmentSectionName, Record<string, unknown>> = {
 
 export function buildEnrichmentPrompt({ page, classification, knowledge, research, writerBrief, siblings = [] }: Context) {
   const isZapier = page.siloSlug === "zapier";
+  const isShopify = page.siloSlug === "shopify";
+  const isAi = page.siloSlug === "ai-automation";
   return [
-    isZapier ? "You are enriching a GetForked Zapier replacement landing page." : "You are enriching a GetForked AI automation landing page.",
+    isZapier
+      ? "You are enriching a GetForked Zapier replacement landing page."
+      : isShopify
+        ? "You are enriching a GetForked Shopify app replacement landing page."
+        : "You are enriching a GetForked AI automation landing page.",
     "The URL, layout, CTA mechanics, styling, and internal-link architecture already exist. Replace generic boilerplate with useful page-specific copy.",
     "Use outcome-led SEO titles and H1s. Use builder language only in CTA or matching sections.",
     "Title/H1 format rules: seo_title must end with '| GetForked'; h1 must not end with 'Builders' or include a suffix pattern; never write ' |.' or malformed suffixes.",
@@ -107,8 +113,11 @@ export function buildEnrichmentPrompt({ page, classification, knowledge, researc
     "Sibling pages are negative examples. Do not reuse their openings, sentence skeletons, flow patterns, or repeated claims.",
     isZapier
       ? "For Zapier pair pages, explain the actual data movement between the two tools and the specific failure pattern a custom build would remove."
+      : isShopify
+        ? "For Shopify pages, explain the specific app workflow and the exact operational gap a custom build removes for the store owner."
       : aiPageRules(page, classification, research),
-    isZapier ? "" : aiAutomationRules(),
+    isShopify ? shopifyRules(page, classification, research) : "",
+    isAi ? aiAutomationRules() : "",
     siblingBlock(siblings),
     "Use this input context to generate new copy:",
     JSON.stringify({ current_page: compactPageContext(page), classification, knowledge, writer_brief: writerBrief, research_context: compactResearchContext(research) }, null, 2),
@@ -143,7 +152,7 @@ export function buildSectionPrompt({
     "before_flow and after_flow must be single plain-English sentences under 55 words.",
     "Keep each sentence under 35 words. For builder_matching_summary, use 2-3 short sentences instead of one long sentence.",
     "Failure-mode bullets must be complete phrases under 90 characters. Skill tags must be 2-5 words. Do not end bullets or tags with 'or', 'and', commas, periods after abbreviations, or unfinished fragments.",
-    "For Zapier pages, include a trust-building view of when Zapier is still right. For AI pages, include human-in-the-loop controls.",
+    "For Zapier and Shopify replacement pages, always include when_zapier_is_still_right with practical trust positioning on when the current app/tool is still right. For AI pages, include human-in-the-loop controls.",
     JSON.stringify(
       {
         page: compactPageContext(page),
@@ -170,6 +179,22 @@ function aiAutomationRules() {
     "- builder_matching_summary must mention the page scenario, data access, integration constraints, and review risk.",
     "- Avoid phrases like 'enhance efficiency', 'optimize operations', 'tailored solutions', 'seamless integration', and 'essential human touch'.",
     "- AI agency/service pages should frame GetForked as builder matching, not as an agency selling a generic automation package.",
+  ].join("\n");
+}
+
+function shopifyRules(page: ProgrammaticPage, classification: SemanticPageClassification, research: Record<string, unknown>) {
+  return [
+    "SHOPIFY DIFFERENTIATION RULES:",
+    "- Frame this as replacing a Shopify app dependency with an owned workflow, not generic ecommerce advice.",
+    "- problem_summary must name a concrete store operation (orders, subscriptions, fulfillment, inventory, feed sync, etc.) and the exact control gap.",
+    "- replacement_summary must explain how the owned build handles rules, exceptions, and change control in plain English.",
+    "- failure_modes must be complete, specific fragments that can stand alone; never end with unfinished tails like 'because the', 'so checkout', or dangling connectors.",
+    "- before_flow and after_flow must reference real store events and operational handoffs, not abstract statements.",
+    "- when_zapier_is_still_right must explicitly explain both: (1) when the current Shopify app is still fine, and (2) when replacement becomes worth scoping.",
+    "- builder_matching_summary must mention scope clarity, app overlap, integration constraints, and handover expectations.",
+    "- Use at least one phrase from research_context in each of: problem_summary, before_flow, after_flow, and builder_matching_summary.",
+    `- Keep the angle aligned with this page: ${page.uniqueContentAngle || classification.semantic_angle || page.primaryKeyword}.`,
+    `- Ground copy in this workflow context: ${String(research.realWorldScenario || page.buyerPainPoint || page.primaryKeyword)}.`,
   ].join("\n");
 }
 
@@ -261,7 +286,9 @@ export function buildCopyeditPrompt(content: unknown, page: ProgrammaticPage, cl
 export function buildQaPrompt(content: unknown, page: ProgrammaticPage) {
   const trustRule = page.siloSlug === "zapier"
     ? "Reject if it misses when_zapier_is_still_right."
-    : "Reject if it misses human_in_the_loop. Do not require Zapier-specific trust sections on AI automation pages.";
+    : page.siloSlug === "shopify"
+      ? "Reject if trust positioning is missing from the trust section."
+      : "Reject if it misses human_in_the_loop. Do not require Zapier-specific trust sections on AI automation pages.";
   return [
     "Review this generated GetForked programmatic landing-page enrichment.",
     "Score 0 to 10: tool_specificity, workflow_specificity, difference_from_template, commercial_clarity, seo_alignment, repetition_risk.",
